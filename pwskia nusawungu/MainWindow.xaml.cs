@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NETCore.Encrypt;
+using pwskia_nusawungu.ViewModels;
+using pwskia_nusawungu.Views;
 
 namespace pwskia_nusawungu
 {
@@ -23,6 +26,47 @@ namespace pwskia_nusawungu
         public MainWindow()
         {
             InitializeComponent();
+        }
+        //Get admins
+
+
+        // Login button action
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if(String.IsNullOrEmpty(txtUsername.Text) == true || String.IsNullOrEmpty(txtPassword.Password) == true)
+            {
+                MessageBox.Show("Username atau password tidak boleh kosong", "Peringatan", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                try
+                {
+                    AdminViewModel adminVM = new AdminViewModel();
+                    string name = adminVM.loginAdmin(txtUsername.Text, txtPassword.Password);
+                    if (name != null)
+                    {
+                        Base basePage = new Base();
+                        basePage.btnProfile.Content = name;
+                        this.Close();
+                        basePage.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Username atau Password salah", "Gagal masuk", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Gagal masuk", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        // Cancel button action for clearing textbox
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            txtUsername.Text = "";
+            txtPassword.Password = "";
         }
     }
 }
