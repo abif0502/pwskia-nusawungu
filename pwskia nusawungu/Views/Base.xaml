@@ -69,7 +69,7 @@
             <Button x:Name="btnLogout" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,0,0,10" Height="50" HorizontalContentAlignment="Left" Click="btnLogout_Click">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Logout" Margin="0,0,10,0" Foreground="PaleVioletRed" Height="24" Width="24"/>
-                    <TextBlock Text="Keluar" VerticalAlignment="Center" />
+                    <TextBlock Text="Keluar" Foreground="PaleVioletRed" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
 

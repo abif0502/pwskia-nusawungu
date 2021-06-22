@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace pwskia_nusawungu.Models
 {
-    class Kunjungan1Model
+    public class Kunjungan1Model
     {
-        public int idRecord { get; set; }
-        public string bulan { get; set; }
+        public int? idRecord { get; set; }
+        public string tanggal { get; set; }
         public int jumlahBulanLalu { get; set; }
         public int jumlahBulanIni { get; set; }
         public int abs { get; set; }
-        public int persentase { get; set; }
+        public double persentase { get; set; }
+        public int R { get; set; }
     }
 }

@@ -1,0 +1,59 @@
+﻿<Page x:Class="pwskia_nusawungu.Views.PWS_KIA.Kunjungan1"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pwskia_nusawungu.Views.PWS_KIA"
+      mc:Ignorable="d"
+      FontFamily="Open Sans"
+      Background="White"
+      d:DesignHeight="600" d:DesignWidth="960"
+      Title="Kunjungan1">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="70*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical">
+            <Button x:Name="btnTriggerLihatData" Height="30" Margin="10" VerticalAlignment="Top" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Click="btnTriggerLihatData_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Eye" Margin="0,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Text="Lihat Data" />
+                </StackPanel>
+            </Button>
+            <StackPanel x:Name="stackPanelLihatData" Visibility="Hidden" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Bulan" Margin="10" FontWeight="Bold"/>
+                        <TextBlock Text="Desa" Margin="10" FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <DatePicker x:Name="dpTanggalK1" materialDesign:HintAssist.Hint="Pilih Tanggal" Margin="5" FontSize="14"/>
+                        <ComboBox x:Name="comBoxDesa" Margin="5" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Name="btnSubmitLihatData" Margin="10" Content="Lihat" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnSubmitLihatData_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10" Grid.ColumnSpan="2">
+            <Separator MinHeight="5" Margin="0,0,0,10" Background="#FFB8B8B8" Foreground="#FF898989"></Separator>
+            <DataGrid x:Name="dgKunjungan1" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=idRecord}"/>
+                    <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=jumlahBulanLalu}"/>
+                    <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=jumlahBulanIni}"/>
+                    <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=abs}"/>
+                    <DataGridTextColumn Header="Persentase(%)" IsReadOnly="True" Binding="{Binding Path=persentase}"/>
+                    <DataGridTextColumn Header="R" IsReadOnly="True" Binding="{Binding Path=R}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>
