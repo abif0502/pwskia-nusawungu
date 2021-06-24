@@ -46,7 +46,7 @@ namespace pwskia_nusawungu
                     if (name != null)
                     {
                         Base basePage = new Base();
-                        basePage.btnProfile.Content = name;
+                        basePage.profileName = name;
                         this.Close();
                         basePage.Show();
                     }
@@ -65,8 +65,19 @@ namespace pwskia_nusawungu
         // Cancel button action for clearing textbox
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            txtUsername.Text = "";
-            txtPassword.Password = "";
+            var confirm = MessageBox.Show("Apakah yakin ingin keluar?", "Konfirmasi!", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if(confirm == MessageBoxResult.OK)
+            {
+                this.Close();
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
     }
 }

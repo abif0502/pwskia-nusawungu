@@ -7,13 +7,14 @@
         xmlns:local="clr-namespace:pwskia_nusawungu"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="ToolWindow"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         FontSize="14"
         FontFamily="Open Sans"
         Icon="Resources/Icon/icon.png"
         MinHeight="450"
         MinWidth="350"
-        Title="Selamat Datang - Silahkan masuk untuk melanjutkan" Height="480" Width="800">
+        Title="Selamat Datang - Silahkan masuk untuk melanjutkan" Height="480" Width="800" MouseDown="Window_MouseDown">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -23,9 +24,10 @@
         </Grid.Background>
         <!-- Parent Grid Definion -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="13*"/>
@@ -33,20 +35,39 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel MaxWidth="300" MaxHeight="400" Grid.Row="1" Grid.Column="1" Background="#FF22994D">
-            <Image Source="Resources/Icon/icon.png" Margin="0,-30,0,0" HorizontalAlignment="Center" Width="80" Height="80"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <Image Source="Resources/Icon/icon.png" Margin="10" HorizontalAlignment="Center" Width="200" Height="200"/>
+            <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Foreground="#FF95DE9A" FontSize="20" LineHeight="48" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="2"/>
+                </TextBlock.Effect>
+                PEMANTAUAN WILAYAH SETEMPAT
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap" Foreground="#FF95DE9A" FontSize="20" LineHeight="48" FontWeight="Bold" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="2"/>
+                </TextBlock.Effect>
+                PROGRAM KESEHATAN IBU
+            </TextBlock>
+            <TextBlock Margin="0,0,0,0" Foreground="White" FontSize="16" FontStyle="Italic" HorizontalAlignment="Center">
+                UPTD PUSKESMAS NUSAWUNGU II
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel MaxWidth="300" MaxHeight="400" Grid.Row="1" Grid.Column="2" Background="#FF22994D">
+            <materialDesign:PackIcon Kind="AccountCircle" Margin="0,-30,0,0" HorizontalAlignment="Center" Width="80" Height="80" Foreground="White"/>
 
             <StackPanel Margin="20,30,20,10">
                 <StackPanel Name="parentUser" Orientation="Horizontal">
-                    <materialDesign:PackIcon Width="24" Height="24" Kind="IdCardOutline" Foreground="White" VerticalAlignment="Center"/>
-                    <TextBox x:Name="txtUsername" Margin="10,0,0,0" materialDesign:HintAssist.Hint="Username" Foreground="White" BorderBrush="#89FFFFFF" FontWeight="Bold" Width="230" />
+                    <materialDesign:PackIcon Width="24" Height="24" Kind="User" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtUsername" Margin="10,0,0,0" materialDesign:HintAssist.Hint="Nama pengguna" Foreground="White" BorderBrush="#89FFFFFF" FontWeight="Bold" Width="230" />
                 </StackPanel>
                 <StackPanel Name="parentPassword" Margin="0,30,0,40" Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Key" Width="24" Height="24" Foreground="White"/>
-                    <PasswordBox x:Name="txtPassword" Margin="10,0,0,0" materialDesign:HintAssist.Hint="Password"  BorderBrush="#89FFFFFF" Foreground="White" FontWeight="Bold" Width="230"/>
+                    <PasswordBox x:Name="txtPassword" Margin="10,0,0,0" materialDesign:HintAssist.Hint="Kata sandi"  BorderBrush="#89FFFFFF" Foreground="White" FontWeight="Bold" Width="230"/>
                 </StackPanel>
-                <Button x:Name="btnLogin" Content="Masuk" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnLogin_Click"/>
-                <Button x:Name="btnCancel" Content="Batal" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7" BorderBrush="{x:Null}" Click="btnCancel_Click"/>
+                <Button x:Name="btnLogin" Height="50" Content="MASUK" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnLogin_Click"/>
+                <Button x:Name="btnCancel" Height="50" Content="BATAL" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7" BorderBrush="#FF3A3AB7" Click="btnCancel_Click"/>
             </StackPanel>
         </StackPanel>
 

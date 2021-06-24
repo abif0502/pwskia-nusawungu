@@ -19,13 +19,18 @@ namespace pwskia_nusawungu.Views
     /// </summary>
     public partial class Base : Window
     {
-        
+
+        public string profileName = "";
+
         public Base()
         {
             InitializeComponent();
             Main.Content = new Dashboard.Dashboard();
             Title = "Dashboard";
+            btnProfile.Content = this.profileName;
         }
+
+        
 
         private void btnDashboard_Click(object sender, RoutedEventArgs e)
         {
@@ -52,7 +57,7 @@ namespace pwskia_nusawungu.Views
 
         private void btnKunjungan1_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new PWS_KIA.Kunjungan1();
+            Main.Content = new PWS_KIA.Kunjungan1View();
             Title = "PWS KIA - Kunjungan 1";
         }
     }

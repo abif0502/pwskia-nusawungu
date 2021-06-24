@@ -9,7 +9,7 @@
         Icon="../Resources/Icon/icon.png"
         Background="#CDE4D3"
         WindowStartupLocation="CenterScreen"
-        Title="Base" Height="720" Width="1024">
+        Title="Base" Height="720" Width="1280">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230"/>

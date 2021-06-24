@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using pwskia_nusawungu.Models;
 using pwskia_nusawungu.ViewModels.PWSKIA;
 
@@ -20,9 +21,9 @@ namespace pwskia_nusawungu.Views.PWS_KIA
     /// <summary>
     /// Interaction logic for Kunjungan1.xaml
     /// </summary>
-    public partial class Kunjungan1 : Page
+    public partial class Kunjungan1View : Page
     {
-        public Kunjungan1()
+        public Kunjungan1View()
         {
             InitializeComponent();
 
@@ -32,36 +33,50 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         public void GetDesa()
         {
-            Desa desa = new Desa();
-            foreach(string des in desa.GetDesa())
+            DesaContext desa = new DesaContext();
+            foreach(Desa des in desa.GetDesa())
             {
-                comBoxDesa.Items.Add(des);
+                comBoxDesa.Items.Add(des.nama);
+                comBoxUbahDesa.Items.Add(des.nama);
             }
         }
 
         private void btnTriggerLihatData_Click(object sender, RoutedEventArgs e)
         {
-            stackPanelLihatData.Visibility = Visibility.Visible;
+            stackPanelLihatData.IsEnabled = true;
+            comBoxDesa.Text = "";
         }
 
         private void btnSubmitLihatData_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan1.Items.Clear();
+            
+        }
 
-            Kunjungan1ViewModel kunjungan1Context = new Kunjungan1ViewModel();
-
-            string tanggal = dpTanggalK1.Text;
-            string desa = comBoxDesa.Text;
-            try
+        private void txtJumlahBulanIni_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) & e.Key != Key.Back | e.Key == Key.Space)
             {
-                foreach (Kunjungan1Model kunjungan in kunjungan1Context.GetDataKunjunganByArgs(tanggal, desa))
-                {
-                    dgKunjungan1.Items.Add(kunjungan);
-                }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                e.Handled = true;
             }
+        }
+
+        private void btnTriggerUbahData_Click(object sender, RoutedEventArgs e)
+        {
+            stackPanelEditData.IsEnabled = true;
+        }
+
+        private void btnSimpanData_Click(object sender, RoutedEventArgs e)
+        {
+            Kunjungan1ViewModel context = new Kunjungan1ViewModel();
+            Kunjungan kunjungan = new Kunjungan();
+            Base home = new Base();
+
+            kunjungan.bulan = DateTime.Now.Month.ToString("d2");
+            kunjungan.kunjunganKe = 1;
+            kunjungan.desa = comBoxDesa.Text;
+            kunjungan.jmlBulanIni = Int32.Parse(txtJumlahBulanIni.Text);
+
+            kunjungan.penanggungJawab = home.profileName;
         }
     }
 }

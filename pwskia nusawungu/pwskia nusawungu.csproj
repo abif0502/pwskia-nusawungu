@@ -114,7 +114,8 @@
     </ApplicationDefinition>
     <Compile Include="Libs\Koneksi.cs" />
     <Compile Include="Models\Desa.cs" />
-    <Compile Include="Models\Kunjungan1Model.cs" />
+    <Compile Include="Models\Kunjungan.cs" />
+    <Compile Include="Models\Sasaran.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\Kunjungan1ViewModel.cs" />
     <Compile Include="Views\Base.xaml.cs">

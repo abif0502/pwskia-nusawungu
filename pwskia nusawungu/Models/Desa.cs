@@ -10,21 +10,36 @@ namespace pwskia_nusawungu.Models
 {
     public class Desa
     {
-        Koneksi koneksi = new Koneksi();
+        public int id { get; set; }
+        public string nama { get; set; }
+    }
 
-        public List<string> GetDesa()
+    public class DesaContext
+    {
+
+        private MySqlConnection con;
+
+        public DesaContext()
         {
-            List<string> desa = new List<string>();
+            Koneksi koneksi = new Koneksi();
+            con = koneksi.GetConnection();
+        }
+        public List<Desa> GetDesa()
+        {
+            List<Desa> desa = new List<Desa>();
 
             string query = "SELECT * FROM tbdesa";
 
-            koneksi.Open();
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.GetConnection());
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(query, con);
             MySqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                desa.Add(reader["nama"].ToString());
+                desa.Add(new Desa {
+                    id = (Int32)reader["id"],
+                    nama = reader["nama"].ToString()
+                });
             }
 
             return desa;
