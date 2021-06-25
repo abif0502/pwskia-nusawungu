@@ -33,6 +33,7 @@ namespace pwskia_nusawungu
         // Login button action
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+
             if(String.IsNullOrEmpty(txtUsername.Text) == true || String.IsNullOrEmpty(txtPassword.Password) == true)
             {
                 MessageBox.Show("Username atau password tidak boleh kosong", "Peringatan", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -46,7 +47,8 @@ namespace pwskia_nusawungu
                     if (name != null)
                     {
                         Base basePage = new Base();
-                        basePage.profileName = name;
+                        basePage.btnProfile.Content = name;
+                        basePage.adminName = name;
                         this.Close();
                         basePage.Show();
                     }

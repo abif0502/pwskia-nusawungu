@@ -34,13 +34,14 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                     kunjungans.Add(new Kunjungan
                     {
                         id = (Int32)reader["idRecord"],
-                        desa = (string)reader["desa"],
+                        kunjunganKe = (Int32)reader["kunjunganKe"],
+                        desa = new Desa {
+                            nama = (string)reader["nama"],
+                            jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
+                            jmlBulanIni = (Int32)reader["jmlBulanIni"],
+                            r = (Int32)reader["r"],
+                        },
                         bulan = (string)reader["bulan"],
-                        jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
-                        jmlBulanIni = (Int32)reader["jmlBulanIni"],
-                        r = (Int32)reader["r"],
-                        abs = (Int32)reader["abs"],
-                        persentase = (double)reader["persentase"],
                         penanggungJawab = (string)reader["penanggungJawab"]
                     });
                 }
@@ -54,32 +55,37 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return kunjungans;
         }
 
-        public string AddDataKunjunganSatu(Kunjungan k)
+        public List<Kunjungan> AddDataKunjunganSatu(Kunjungan k)
         {
             string query = $"INSERT INTO kunjungan(`desa`, `kunjunganKe`, `bulan`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `r`, `penanggungJawab`)" +
                 $"VALUES " +
                 $"('{k.desa}'," +
                 $"'{k.kunjunganKe}'," +
                 $"'{k.bulan}'," +
-                $"{k.jmlBulanLalu}," +
-                $"{k.jmlBulanIni}," +
-                $"{k.abs}," +
-                $"{k.persentase}," +
-                $"{k.r}," +
+                $"{k.desa.jmlBulanLalu}," +
+                $"{k.desa.jmlBulanIni}," +
+                $"{k.desa.abs}," +
+                $"{k.desa.persentase}," +
+                $"{k.desa.r}," +
                 $"'{k.penanggungJawab}')";
 
-            try
-            {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.ExecuteReader();
-                con.Close();
+            List<Kunjungan> kunjungans = new List<Kunjungan>() { k };
 
-                return "Berhasil menambahkan data!";
-            }catch(Exception ex)
-            {
-                return "";
-            }
+            return kunjungans;
+
+            //try
+            //{
+            //    con.Open();
+            //    MySqlCommand cmd = new MySqlCommand(query, con);
+            //    cmd.ExecuteReader();
+            //    con.Close();
+
+            //    return "Berhasil menambahkan data!";
+
+            //}catch(Exception ex)
+            //{
+            //    return "";
+            //}
         }
 
 

@@ -44,32 +44,35 @@
                     <TextBlock Grid.Row="1" Text="Desa" Margin="10" FontWeight="Bold"/>
                     <ComboBox Grid.Row="1" Grid.Column="1" x:Name="comBoxDesa" Margin="5" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
                 </Grid>
-                <Button x:Name="btnSubmitLihatData" Margin="10,25,10,10" Height="40" Content="Lihat" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnSubmitLihatData_Click"/>
+                <Button x:Name="btnSubmitLihatData" Margin="10,25,10,10" Content="LIHAT" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnSubmitLihatData_Click"/>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10" Grid.ColumnSpan="2">
-            <Separator MinHeight="5" Margin="0,0,0,10" Background="#FFB8B8B8" Foreground="#FF898989"></Separator>
-            <DataGrid x:Name="dgKunjungan1" >
+        <Grid Grid.Row="1" Margin="10" Grid.ColumnSpan="2">
+            <Separator MinHeight="5" Margin="0,-10,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
+            <DataGrid x:Name="dgKunjungan1" BorderBrush="#FF323232">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=idRecord}"/>
-                    <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=jumlahBulanLalu}"/>
-                    <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=jumlahBulanIni}"/>
-                    <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=abs}"/>
-                    <DataGridTextColumn Header="Persentase(%)" IsReadOnly="True" Binding="{Binding Path=persentase}"/>
-                    <DataGridTextColumn Header="R" IsReadOnly="True" Binding="{Binding Path=R}"/>
+                    <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
+                    <DataGridTextColumn Header="Bulan" IsReadOnly="True" Binding="{Binding Path=bulan}"/>
+                    <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=desa.nama}"/>
+                    <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanLalu}"/>
+                    <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanIni}"/>
+                    <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=desa.abs}"/>
+                    <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase}"/>
+                    <DataGridTextColumn Header="R" IsReadOnly="True" Binding="{Binding Path=desa.r}"/>
+                    <DataGridTextColumn Header="Penanggung Jawab" IsReadOnly="True" Binding="{Binding Path=penanggungJawab}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </Grid>
 
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
-                <Button x:Name="btnTriggerUbahData" Margin="10" Height="30" Background="White" BorderBrush="#FF21974C" Foreground="#FF21974C" Click="btnTriggerUbahData_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Edit" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Input Data"/>
-                    </StackPanel>
-                </Button>
-                <StackPanel x:Name="stackPanelEditData" IsEnabled="False" Orientation="Vertical">
+            <Button x:Name="btnTriggerUbahData" Margin="10" Height="30" Background="White" BorderBrush="#FF21974C" Foreground="#FF21974C" Click="btnTriggerUbahData_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Edit" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Input Data"/>
+                </StackPanel>
+            </Button>
+            <StackPanel x:Name="stackPanelEditData" IsEnabled="False" Orientation="Vertical">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40*"/>
@@ -80,26 +83,55 @@
                         <RowDefinition Height="50*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah"  FontSize="14" PreviewKeyDown="txtJumlahBulanIni_PreviewKeyDown"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah"  FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
                     <TextBlock Grid.Row="1" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
                     <ComboBox Grid.Row="1" Grid.Column="1" x:Name="comBoxUbahDesa" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="14" materialDesign:HintAssist.Hint="Pilih Desa"/>
 
                 </Grid>
-                <Button x:Name="btnSimpanData" Margin="10,25,10,10" Content="Simpan Perubahan" Background="#FF225FE2" Height="40" BorderBrush="{x:Null}" Click="btnSimpanData_Click" />
+                <Button x:Name="btnSimpanData" Margin="10,27,10,10" Content="SIMPAN PERUBAHAN" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnSimpanData_Click" />
             </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="2" Grid.Row="0">
-            
-            <Grid>
-                
+            <TextBlock Text="Sasaran" Background="#FF21974C" Foreground="White" TextAlignment="Center" FontSize="18"/>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold"/>
+
+                <ComboBox Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+
             </Grid>
+            <Button Margin="10,0,10,0" Content="SIMPAN"/>
         </StackPanel>
-        
-        <!--Graph-->
-        <StackPanel Grid.Column="2" Grid.Row="1">
-            
-        </StackPanel>
+
+        <!--Tabel Sasaran Desa-->
+        <Grid Grid.Column="2" Grid.Row="1" Margin="10">
+            <Separator MinHeight="5" Margin="0,-10,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Desa"/>
+                    <DataGridTextColumn Header="Bumil"/>
+                    <DataGridTextColumn Header="Bulin"/>
+                    <DataGridTextColumn Header="Bulin Risti"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
         <!--End of Graph-->
     </Grid>
 </Page>

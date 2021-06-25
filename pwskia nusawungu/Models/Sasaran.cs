@@ -8,7 +8,6 @@ namespace pwskia_nusawungu.Models
 {
     public class Sasaran
     {
-        public string desa { get; set; }
         public int bumil { get; set; }
         public int bulin { get; set; }
         public int bulinRisti { get; set; }

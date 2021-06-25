@@ -10,8 +10,27 @@ namespace pwskia_nusawungu.Models
 {
     public class Desa
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public string nama { get; set; }
+        public Sasaran sasaran { get; set; }
+        public int jmlBulanLalu { get; set; }
+        public int jmlBulanIni { get; set; }
+        public int r { get; set; }
+
+        private int _abs;
+        private float _persentase;
+
+        public int abs
+        {
+            set { _abs = value; }
+            get { return jmlBulanIni + jmlBulanLalu; }
+        }
+
+        public float persentase
+        {
+            set { _persentase = value; }
+            get { return (float)abs / sasaran.bumil * 100; }
+        }
     }
 
     public class DesaContext
