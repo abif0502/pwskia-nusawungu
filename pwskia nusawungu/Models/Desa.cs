@@ -33,6 +33,19 @@ namespace pwskia_nusawungu.Models
         }
     }
 
+    public enum EnumDesa
+    {
+        KARANGTAWANG,
+        KARANGPAKIS,
+        BANJARSARI,
+        JETIS,
+        BANJAREJA,
+        KARANGSEMBUNG,
+        PURWADADI,
+        NUSAWANGKAL
+
+    }
+
     public class DesaContext
     {
 
@@ -43,25 +56,117 @@ namespace pwskia_nusawungu.Models
             Koneksi koneksi = new Koneksi();
             con = koneksi.GetConnection();
         }
-        public List<Desa> GetDesa()
+
+        public string EditSasaran(Desa desa)
         {
-            List<Desa> desa = new List<Desa>();
+            string query = $"UPDATE tbdesa SET bumil={desa.sasaran.bumil}, bulin={desa.sasaran.bulin}, bumilRisti={desa.sasaran.bumilRisti} WHERE nama='{desa.nama}'";
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.ExecuteReader();
+                con.Close();
+                return "Berhasil mengubah nilai sasaran";
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
+
+        public List<Desa> GetSasaran()
+        {
+            List<Desa> dataSasaran = new List<Desa>();
 
             string query = "SELECT * FROM tbdesa";
-
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand(query, con);
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                desa.Add(new Desa {
-                    id = (Int32)reader["id"],
-                    nama = reader["nama"].ToString()
-                });
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dataSasaran.Add(new Desa
+                    {
+                        nama = (string)reader["nama"],
+                        sasaran = new Sasaran
+                        {
+                            bumil = (Int32)reader["bumil"],
+                            bulin = (Int32)reader["bulin"],
+                            bumilRisti = (Int32)reader["bumilRisti"]
+                        }
+                    });
+                }
+                con.Close();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
 
-            return desa;
+            return dataSasaran;
         }
+
+        public List<Desa> GetSasaranPerDesa(string namaDesa)
+        {
+            List<Desa> dataSasaran = new List<Desa>();
+
+            string query = $"SELECT * FROM tbdesa WHERE nama='{namaDesa}'";
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dataSasaran.Add(new Desa
+                    {
+                        id = (Int32)reader["id"],
+                        nama = (string)reader["nama"],
+                        sasaran = new Sasaran
+                        {
+                            bumil = (Int32)reader["bumil"],
+                            bulin = (Int32)reader["bulin"],
+                            bumilRisti = (Int32)reader["bumilRisti"]
+                        }
+                    });
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return dataSasaran;
+        }
+
+
+
+
+
+
+        //public List<Desa> GetDesa()
+        //{
+        //    List<Desa> desa = new List<Desa>();
+
+        //    string query = "SELECT * FROM tbdesa";
+
+        //    con.Open();
+        //    MySqlCommand cmd = new MySqlCommand(query, con);
+        //    MySqlDataReader reader = cmd.ExecuteReader();
+
+        //    while (reader.Read())
+        //    {
+        //        desa.Add(new Desa {
+        //            id = (Int32)reader["id"],
+        //            nama = reader["nama"].ToString()
+        //        });
+        //    }
+
+        //    return desa;
+        //}
     }
 }

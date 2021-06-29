@@ -9,20 +9,22 @@ using MySql.Data.MySqlClient;
 
 namespace pwskia_nusawungu.ViewModels.PWSKIA
 {
-    public class Kunjungan1ViewModel
+    public class KunjunganViewModel
     {
         private MySqlConnection con;
+        private int nums = 1;
 
-        public Kunjungan1ViewModel()
+        public KunjunganViewModel()
         {
             Koneksi koneksi = new Koneksi();
             con = koneksi.GetConnection();
         }
 
-        public List<Kunjungan> getDataKunjunganSatu()
+        public List<Kunjungan> getAllDataKunjungan(int ke)
         {
+            string query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke}";
+
             List<Kunjungan> kunjungans = new List<Kunjungan>();
-            string query = "SELECT * FROM tbKunjungan WHERE kunjunganKe=1";
 
             try
             {
@@ -33,35 +35,48 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 {
                     kunjungans.Add(new Kunjungan
                     {
-                        id = (Int32)reader["idRecord"],
+                        //id = (Int32)reader["id"],
+                        id = nums,
                         kunjunganKe = (Int32)reader["kunjunganKe"],
                         desa = new Desa {
-                            nama = (string)reader["nama"],
+                            nama = (string)reader["desa"],
+                            sasaran = new Sasaran
+                            {
+                                bumil = (Int32)reader["bumil"],
+                                bulin = (Int32)reader["bulin"],
+                                bumilRisti = (Int32)reader["bumilRisti"]
+                            },
                             jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
                             jmlBulanIni = (Int32)reader["jmlBulanIni"],
                             r = (Int32)reader["r"],
                         },
-                        bulan = (string)reader["bulan"],
+                        tanggal = (string)reader["tanggal"],
                         penanggungJawab = (string)reader["penanggungJawab"]
                     });
+
+                    nums++;
                 }
+                
                 con.Close();
             }
             catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
+            
             return kunjungans;
         }
 
-        public List<Kunjungan> AddDataKunjunganSatu(Kunjungan k)
+        public string AddDataKunjunganSatu(Kunjungan k)
         {
-            string query = $"INSERT INTO kunjungan(`desa`, `kunjunganKe`, `bulan`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `r`, `penanggungJawab`)" +
+            string query = $"INSERT INTO kunjungan(`desa`, `kunjunganKe`, `tanggal`, `bumil`, `bulin`, `bumilRisti`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `r`, `penanggungJawab`)" +
                 $"VALUES " +
-                $"('{k.desa}'," +
+                $"('{k.desa.nama}'," +
                 $"'{k.kunjunganKe}'," +
-                $"'{k.bulan}'," +
+                $"'{k.tanggal}'," +
+                $"{k.desa.sasaran.bumil}," +
+                $"{k.desa.sasaran.bulin}," +
+                $"{k.desa.sasaran.bumilRisti}," +
                 $"{k.desa.jmlBulanLalu}," +
                 $"{k.desa.jmlBulanIni}," +
                 $"{k.desa.abs}," +
@@ -69,23 +84,22 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 $"{k.desa.r}," +
                 $"'{k.penanggungJawab}')";
 
-            List<Kunjungan> kunjungans = new List<Kunjungan>() { k };
+            string message;
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.ExecuteReader();
 
-            return kunjungans;
+                message = "Berhasil memasukkan data!";
 
-            //try
-            //{
-            //    con.Open();
-            //    MySqlCommand cmd = new MySqlCommand(query, con);
-            //    cmd.ExecuteReader();
-            //    con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
-            //    return "Berhasil menambahkan data!";
-
-            //}catch(Exception ex)
-            //{
-            //    return "";
-            //}
+            return message;
         }
 
 

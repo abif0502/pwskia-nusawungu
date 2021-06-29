@@ -1,14 +1,58 @@
 ﻿<Page x:Class="pwskia_nusawungu.Views.Dashboard.Dashboard"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:pwskia_nusawungu.Views.Dashboard"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      Background="#CDE4D3"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Dashboard">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Dashboard" FontSize="46" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="10">
+            <TextBlock Text="Sasaran" Background="#FF21974C" Foreground="White" TextAlignment="Center" FontSize="18"/>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold"/>
+
+                <ComboBox x:Name="comBoxDesaSasaran" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                <TextBox x:Name="txtBumil" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                <TextBox x:Name="txtBulin" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                <TextBox x:Name="txtBumilRisti" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+
+            </Grid>
+            <Button x:Name="btnSimpanSasaran" Margin="10,0,10,0" Content="SIMPAN" Click="btnSimpanSasaran_Click" />
+
+            <Grid Margin="10">
+                <Separator MinHeight="5" Margin="0,-10,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
+                <DataGrid x:Name="dgSasaran">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
+                        <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
+                        <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>
+                        <DataGridTextColumn Header="Bumil Risti" IsReadOnly="True" Binding="{Binding Path=sasaran.bumilRisti}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Page>

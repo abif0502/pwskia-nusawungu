@@ -10,6 +10,6 @@ namespace pwskia_nusawungu.Models
     {
         public int bumil { get; set; }
         public int bulin { get; set; }
-        public int bulinRisti { get; set; }
+        public int bumilRisti { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace pwskia_nusawungu.Models
         public int? id { get; set; }
         public int? kunjunganKe { get; set; }
         public Desa desa { get; set; }
-        public string bulan { get; set; }
+        public string tanggal { get; set; }
         public string penanggungJawab { get; set; }
     }
 

@@ -12,8 +12,8 @@
         Title="Base" Height="720" Width="1280">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="230"/>
-            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="80*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Grid.RowSpan="2" Width="230" Background="#21974C" HorizontalAlignment="Left">
@@ -30,7 +30,7 @@
                 DeleteToolTip="Logout">
                 <materialDesign:Chip.Icon>
                     <Image
-                        Source="../Resources/Image/profile.jpg" />
+                        Source="../Resources/Image/profile.png" />
                 </materialDesign:Chip.Icon>
             </materialDesign:Chip>
 
@@ -74,6 +74,7 @@
             </Button>
 
         </StackPanel>
+
         <Frame x:Name="Main" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>
