@@ -10,103 +10,81 @@
       Background="#CDE4D3"
       d:DesignHeight="600" d:DesignWidth="960"
       Title="Kunjungan1">
+    <Page.Resources>
+        <Style x:Key="buttonCustom" TargetType="Button">
+            <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FF21974C"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="#FF21974C"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="33*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
         
-        <!--Form input data-->
+        <!--Menu bar-->
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="55*"/>
+                <ColumnDefinition Width="45*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-            </Grid.RowDefinitions>
-            <!--trigger input data-->
-            <Grid Grid.ColumnSpan="2">
+            
+            <!--trigger form data-->
+            <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="33*"/>
                     <ColumnDefinition Width="33*"/>
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnTriggerInputData" Grid.Row="0" Margin="10" Height="30" Background="White" BorderBrush="#FF21974C" Foreground="#FF21974C" Click="btnTriggerInputData_Click">
+
+                <Button x:Name="btnTriggerLihatData" Grid.Row="0" Grid.Column="0" Margin="10" Style="{DynamicResource ResourceKey=buttonCustom}" Click="btnTriggerLihatData_Click" >
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="DatabaseAdd" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Input Data"/>
+                        <materialDesign:PackIcon Kind="EyeCircle" Height="24" Width="24" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Lihat Data" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnTriggerLihatData" Grid.Row="0" Grid.Column="1" Margin="10" Height="30" Background="White" BorderBrush="#FF21974C" Foreground="#FF21974C" Click="btnTriggerLihatData_Click" >
+
+                <Button x:Name="btnTriggerInputData" Grid.Row="0" Grid.Column="1" Margin="10" Style="{DynamicResource ResourceKey=buttonCustom}" Click="btnTriggerInputData_Click">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="EyeCircle" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Lihat Data"/>
+                        <materialDesign:PackIcon Kind="DatabaseAdd" Height="24" Width="24" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Input Data" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnTriggerUbahData" Grid.Row="0" Grid.Column="2" Margin="10" Height="30" Background="White" BorderBrush="#FF21974C" Foreground="#FF21974C" Click="btnTriggerUbahData_Click">
+                
+                <Button x:Name="btnTriggerUbahData" Grid.Row="0" Grid.Column="2" Margin="10" Style="{DynamicResource ResourceKey=buttonCustom}" Click="btnTriggerUbahData_Click">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Edit" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Ubah Data"/>
+                        <materialDesign:PackIcon Kind="Edit" Height="24" Width="24" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Ubah Data" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </Grid>
-            <StackPanel Grid.Row="1" Grid.RowSpan="4" Orientation="Vertical">
-                <Grid Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40*"/>
-                        <ColumnDefinition Width="60*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="15*"/>
-                    </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                    <TextBlock Grid.Row="1" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="12" materialDesign:HintAssist.Hint="Pilih Desa"/>
-                    <TextBlock Grid.Row="2" Text="R" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <TextBox x:Name="txtJmlR" Grid.Column="1" Grid.Row="2" Text="0" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown" />
-
-                    <TextBlock Grid.Row="3" Text="Bulan" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox Grid.Row="3" Grid.Column="1" x:Name="comBoxBulan" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="12" materialDesign:HintAssist.Hint="Pilih Bulan"/>
-                    <TextBlock Grid.Row="4" Text="Tahun" Margin="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comBoxTahun" VerticalAlignment="Center" Margin="0,10,0,0" FontSize="12" materialDesign:HintAssist.Hint="Pilih Tahun"/>
-
-                    <TextBlock Text="Kunjungan Ke"  Margin="10" VerticalAlignment="Center" FontWeight="Bold" Grid.Row="5" Grid.Column="0"/>
-                    <ComboBox x:Name="comBoxKunjunganKe" materialDesign:HintAssist.Hint="Kunjungan ke-" Grid.Row="5" Grid.Column="1" FontSize="12">
-                        <ComboBoxItem>1</ComboBoxItem>
-                        <ComboBoxItem>4</ComboBoxItem>
-                        <ComboBoxItem>6</ComboBoxItem>
-                    </ComboBox>
-
-                </Grid>
-            </StackPanel>
-
-            <Grid Height="100" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" Background="#FF21974C">
-                <TextBlock x:Name="txtLabelAksi" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="20" FontStyle="Italic">
-                    LIHAT DATA
-                </TextBlock>
+            <Grid Grid.Column="1">
+                <TextBox Height="50" Margin="100,0,10,0" 
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                         materialDesign:HintAssist.Hint="Cari Data" 
+                         materialDesign:HintAssist.IsFloating="False">
+                </TextBox>
+                <Button
+                    Margin="0,0,10,0"
+                    Height="50"
+                    Width="50"
+                    HorizontalAlignment="Right"
+                    Background="#FF3A3AB7"
+                    Foreground="White"
+                    ToolTip="MaterialDesignFloatingActionAccentButton" BorderBrush="{x:Null}">
+                    <materialDesign:PackIcon
+                        Margin="-5"
+                        Kind="Search"
+                        Height="32"
+                        Width="32" />
+                </Button>
             </Grid>
             
-            <Button Grid.Row="4" Grid.Column="1" x:Name="btnLihatData" Visibility="Hidden" Margin="10" Content="LIHAT DATA" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnLihatData_Click"/>
-            <Button Grid.Row="4" Grid.Column="1" x:Name="btnSimpanData" Visibility="Hidden" Margin="10" Content="SIMPAN DATA BARU" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnSimpanData_Click" />
-            <Button Grid.Row="4" Grid.Column="1" x:Name="btnSimpanUbahData" Visibility="Hidden" Margin="10" Content="SIMPAN PERUBAHAN" Background="#FF225FE2" BorderBrush="{x:Null}"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10" Grid.ColumnSpan="3">
@@ -142,56 +120,7 @@
                         </DataGrid>
                     </Grid>
                 </Grid>
-                
-                <!--Kunjungan 4-->
-                <!--<Grid Grid.Column="1" Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="90*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Kunjungan 4" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
-                    <Grid Grid.Row="1">
-                        <DataGrid x:Name="dgKunjungan4" BorderBrush="#FF323232">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
-                                <DataGridTextColumn Header="Tanggal Input" IsReadOnly="True" Binding="{Binding Path=tanggal}"/>
-                                <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=desa.nama}"/>
-                                <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanLalu}"/>
-                                <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanIni}"/>
-                                <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=desa.abs}"/>
-                                <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase}"/>
-                                <DataGridTextColumn Header="R" IsReadOnly="True" Binding="{Binding Path=desa.r}"/>
-                                <DataGridTextColumn Header="Penanggung Jawab" IsReadOnly="True" Binding="{Binding Path=penanggungJawab}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-                </Grid>-->
-                
-                <!--Kunjungan 6-->
 
-                <!--<Grid Grid.Column="2" Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="90*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Kunjungan 6" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
-                    <Grid Grid.Row="1">
-                        <DataGrid x:Name="dgKunjungan6" BorderBrush="#FF323232">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
-                                <DataGridTextColumn Header="Bulan" IsReadOnly="True" Binding="{Binding Path=bulan}"/>
-                                <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=desa.nama}"/>
-                                <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanLalu}"/>
-                                <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanIni}"/>
-                                <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=desa.abs}"/>
-                                <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase}"/>
-                                <DataGridTextColumn Header="R" IsReadOnly="True" Binding="{Binding Path=desa.r}"/>
-                                <DataGridTextColumn Header="Penanggung Jawab" IsReadOnly="True" Binding="{Binding Path=penanggungJawab}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-                </Grid>-->
-                
             </Grid>
         </Grid>
 

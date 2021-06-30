@@ -127,6 +127,9 @@
     <Compile Include="Views\PersalinanNakes\PersalinanNakes.xaml.cs">
       <DependentUpon>PersalinanNakes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PWS_KIA\FormInputData.xaml.cs">
+      <DependentUpon>FormInputData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PWS_KIA\KunjunganView.xaml.cs">
       <DependentUpon>KunjunganView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PersalinanNakes\PersalinanNakes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PWS_KIA\FormInputData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

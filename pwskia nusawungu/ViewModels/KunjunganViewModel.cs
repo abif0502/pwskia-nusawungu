@@ -20,6 +20,31 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             con = koneksi.GetConnection();
         }
 
+        public int GetJumlahBulanLalu(int kunjunganKe, string namaDesa, string bulanLalu)
+        {
+            Int32 jmlBulanLalu = 0;
+            string query = $"SELECT * FROM kunjungan WHERE desa='{namaDesa}' AND kunjunganKe={kunjunganKe}  AND tanggal LIKE '%{bulanLalu}%'";
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    jmlBulanLalu = (Int32)reader["jmlBulanIni"];
+                }
+                con.Close();
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return jmlBulanLalu;
+        }
+
         public List<Kunjungan> getAllDataKunjungan(int ke)
         {
             string query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke}";
@@ -67,7 +92,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return kunjungans;
         }
 
-        public string AddDataKunjunganSatu(Kunjungan k)
+        public string AddDataKunjungan(Kunjungan k)
         {
             string query = $"INSERT INTO kunjungan(`desa`, `kunjunganKe`, `tanggal`, `bumil`, `bulin`, `bumilRisti`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `r`, `penanggungJawab`)" +
                 $"VALUES " +
