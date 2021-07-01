@@ -50,7 +50,7 @@ namespace pwskia_nusawungu.Views
             }
         }
 
-        private void btnKunjungan1_Click(object sender, RoutedEventArgs e)
+        private void btnKunjungan_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new PWS_KIA.KunjunganView(adminName);
             Title = "PWS KIA - Kunjungan 1";

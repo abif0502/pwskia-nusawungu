@@ -90,44 +90,55 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             Kunjungan kunjungan = new Kunjungan();
             DesaContext desaContext = new DesaContext();
 
-            int kunjunganKe = int.Parse(comBoxKunjunganKe.Text);
-
-            int jumlahBulanLalu = GetJumlahBulanLalu(kunjunganKe, comBoxDesa.Text);
-
-            //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
-            // Tanggal sementara
-            kunjungan.tanggal = "01 February 2017";
-            kunjungan.kunjunganKe = kunjunganKe;
-
-            foreach (Desa desa in desaContext.GetSasaranPerDesa(comBoxDesa.Text))
+            if(string.IsNullOrEmpty(txtJumlahBulanIni.Text) || string.IsNullOrEmpty(comBoxKunjunganKe.Text) || string.IsNullOrEmpty(comBoxDesa.Text) || string.IsNullOrEmpty(txtJmlR.Text))
             {
 
-                kunjungan.desa = new Desa
+            }
+            else
+            {
+                int kunjunganKe = int.Parse(comBoxKunjunganKe.Text);
+                string namaDesa = comBoxDesa.Text;
+
+                int jumlahBulanLalu = GetJumlahBulanLalu(kunjunganKe, namaDesa);
+                int jumlahBulanIni = int.Parse(txtJumlahBulanIni.Text);
+                int jumlahR = int.Parse(txtJmlR.Text);
+
+                //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
+                // Tanggal sementara
+                kunjungan.tanggal = "01 February 2017";
+                kunjungan.kunjunganKe = kunjunganKe;
+
+                foreach (Desa desa in desaContext.GetSasaranPerDesa(namaDesa))
                 {
-                    nama = comBoxDesa.Text,
-                    jmlBulanLalu = jumlahBulanLalu,
-                    jmlBulanIni = int.Parse(txtJumlahBulanIni.Text),
-                    sasaran = new Sasaran
+
+                    kunjungan.desa = new Desa
                     {
-                        bumil = desa.sasaran.bumil,
-                        bulin = desa.sasaran.bulin,
-                        bumilRisti = desa.sasaran.bumilRisti
-                    },
-                    r = int.Parse(txtJmlR.Text),
-                };
+                        nama = comBoxDesa.Text,
+                        jmlBulanLalu = jumlahBulanLalu,
+                        jmlBulanIni = jumlahBulanIni,
+                        sasaran = new Sasaran
+                        {
+                            bumil = desa.sasaran.bumil,
+                            bulin = desa.sasaran.bulin,
+                            bumilRisti = desa.sasaran.bumilRisti
+                        },
+                        r = jumlahR,
+                    };
+                }
+
+                kunjungan.penanggungJawab = penanggungJawab;
+
+                try
+                {
+                    string message = kunjunganContext.AddDataKunjungan(kunjungan);
+                    MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
 
-            kunjungan.penanggungJawab = penanggungJawab;
-
-            try
-            {
-                string message = kunjunganContext.AddDataKunjungan(kunjungan);
-                MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         // Fungsi tutup form input data

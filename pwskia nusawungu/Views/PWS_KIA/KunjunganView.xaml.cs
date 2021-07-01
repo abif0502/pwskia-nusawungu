@@ -29,7 +29,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         {
             InitializeComponent();
             penanggungJawab = adminName;
-            //GetMonthsAndYears();
+            GetMonthsAndYear();
         }
 
         //private void txtNumberFormat_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -40,34 +40,55 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         //    }
         //}
 
-        //public void GetMonthsAndYears()
-        //{
-        //    int currentYear = int.Parse(DateTime.Now.ToString("yyyy")) - 5;
-        //    for(int i=1; i<=12; i++)
-        //    {
-        //        comBoxBulan.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(i));
-        //        comBoxTahun.Items.Add(currentYear.ToString());
-        //        currentYear++;
-        //    }
-        //}
+        private void GetMonthsAndYear()
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                comBoxBulan.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(i));
+            }
+
+            KunjunganViewModel kunjunganContext = new KunjunganViewModel();
+            foreach(string tahun in kunjunganContext.GetDaftarTahun())
+            {
+                comBoxTahun.Items.Add(tahun);
+            }
+        }
 
 
-        public void GetDataKunjungan(int kunjunganKe)
+        // Fungsi untuk mengambil data kunjungan berdasarkan parameter yang diperlukan
+        // Jika parameter bulan tidak diisi, tampilkan semua data
+        // 
+        public void GetDataKunjungan(int kunjunganKe, string bulanDanTahun = "")
         {
             KunjunganViewModel kunjunganContext = new KunjunganViewModel();
-            foreach (Kunjungan kunjungan in kunjunganContext.getAllDataKunjungan(kunjunganKe)){
+
+            List<Kunjungan> dataKunjungan = new List<Kunjungan>();
+
+            if(bulanDanTahun == "")
+            {
+                // GET semua data kunjungan
+                dataKunjungan = kunjunganContext.GetAllDataKunjungan(kunjunganKe);
+            }
+            else
+            {
+                // GET data kunjungan per bulan dan tahun
+                dataKunjungan = kunjunganContext.GetAllDataKunjungan(kunjunganKe, bulanDanTahun);
+            }
+
+            foreach (Kunjungan kunjungan in dataKunjungan)
+            {
                 switch (kunjunganKe)
                 {
                     case 1:
-                        dgKunjungan1.Items.Add(kunjungan);
+                        dgKunjungan.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Kunjungan 1";
                         break;
                     case 4:
-                        dgKunjungan1.Items.Add(kunjungan);
+                        dgKunjungan.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Kunjungan 4";
                         break;
                     case 6:
-                        dgKunjungan1.Items.Add(kunjungan);
+                        dgKunjungan.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Kunjungan 6";
                         break;
                     default:
@@ -84,7 +105,14 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnTriggerLihatData_Click(object sender, RoutedEventArgs e)
         {
-            
+            if(popUpLihatData.IsOpen == true)
+            {
+                popUpLihatData.IsOpen = false;
+            }
+            else
+            {
+                popUpLihatData.IsOpen = true;
+            }
         }
 
         
@@ -94,26 +122,86 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             
         }
 
+        private void btnKunjungan1_Click(object sender, RoutedEventArgs e)
+        {
+            dgKunjungan.Items.Clear();
+            try
+            {
+                GetDataKunjungan(1);
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnKunjungan4_Click(object sender, RoutedEventArgs e)
+        {
+            dgKunjungan.Items.Clear();
+            try
+            {
+                GetDataKunjungan(4);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnKunjungan6_Click(object sender, RoutedEventArgs e)
+        {
+            dgKunjungan.Items.Clear();
+            try
+            {
+                GetDataKunjungan(6);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void comBoxKunjungan_DropDownClosed(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(comBoxKunjungan.Text) == false)
+            {
+                comBoxBulan.IsEnabled = true;
+            }
+        }
+
+        private void comBoxBulan_DropDownClosed(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(comBoxBulan.Text) == false)
+            {
+                comBoxTahun.IsEnabled = true;
+            }
+        }
+
+        // ACTION GET data kunjungan per bulan dan tahun
+        private void comBoxTahun_DropDownClosed(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(comBoxTahun.Text) == false)
+            {
+                // Get data per bulan, tahun
+                int kunjunganKe = 0;
+                if (string.IsNullOrEmpty(comBoxKunjungan.Text) == false)
+                {
+                    kunjunganKe = int.Parse(comBoxKunjungan.Text);
+
+                    string bulanDanTahun = $"{comBoxBulan.Text} {comBoxTahun.Text}";
+
+                    try
+                    {
+                        dgKunjungan.Items.Clear();
+                        GetDataKunjungan(kunjunganKe, bulanDanTahun);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
         
-        //private void btnLihatData_Click(object sender, RoutedEventArgs e)
-        //{
-        //    dgKunjungan1.Items.Clear();
-        //    int kunjunganke;
-        //    if (comBoxKunjunganKe.Text != "")
-        //    {
-        //        try
-        //        {
-        //            kunjunganke = int.Parse(comBoxKunjunganKe.Text);
-        //            GetDataKunjungan(kunjunganke);
-        //        }catch(Exception ex)
-        //        {
-        //            MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Pilih kunjungan ke-", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-        //}
     }
 }

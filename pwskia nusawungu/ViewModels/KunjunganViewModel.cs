@@ -20,6 +20,31 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             con = koneksi.GetConnection();
         }
 
+        public List<string> GetDaftarTahun()
+        {
+            List<string> tahun = new List<string>();
+            string query = "SELECT DISTINCT tanggal FROM kunjungan";
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string[] tanggal = reader["tanggal"].ToString().Split(' ');
+                    tahun.Add(tanggal[2]);
+                }
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return tahun;
+        }
+
         public int GetJumlahBulanLalu(int kunjunganKe, string namaDesa, string bulanLalu)
         {
             Int32 jmlBulanLalu = 0;
@@ -45,9 +70,17 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return jmlBulanLalu;
         }
 
-        public List<Kunjungan> getAllDataKunjungan(int ke)
+        public List<Kunjungan> GetAllDataKunjungan(int ke, string bulanDanTahun="")
         {
-            string query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke}";
+            string query;
+            if(bulanDanTahun == "")
+            {
+                query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke}";
+            }
+            else
+            {
+                query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke} AND tanggal LIKE '%{bulanDanTahun}'";
+            }
 
             List<Kunjungan> kunjungans = new List<Kunjungan>();
 

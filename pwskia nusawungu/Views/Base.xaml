@@ -51,9 +51,7 @@
                     </StackPanel>
                 </Expander.Header>
                 <StackPanel Margin="20,0,0,0">
-                    <Button x:Name="btnKunjungan1" Content="Kunjungan 1" Background="{x:Null}" BorderBrush="{x:Null}" Height="50" HorizontalContentAlignment="Left" FontWeight="Normal" Click="btnKunjungan1_Click"/>
-                    <Button x:Name="btnKunjungan4" Content="Kunjungan 4" Background="{x:Null}" BorderBrush="{x:Null}" Height="50" HorizontalContentAlignment="Left" FontWeight="Normal"/>
-                    <Button x:Name="btnKunjungan6" Content="Kunjungan 6" Background="{x:Null}" BorderBrush="{x:Null}" Height="50" HorizontalContentAlignment="Left" FontWeight="Normal"/>
+                    <Button x:Name="btnKunjungan1" Content="Kunjungan" Background="{x:Null}" BorderBrush="{x:Null}" Height="50" HorizontalContentAlignment="Left" FontWeight="Normal" Click="btnKunjungan_Click"/>
                 </StackPanel>
             </Expander>
 

@@ -10,15 +10,6 @@
       Background="#CDE4D3"
       d:DesignHeight="600" d:DesignWidth="960"
       Title="Kunjungan1">
-    <Page.Resources>
-        <Style x:Key="buttonCustom" TargetType="Button">
-            <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#FF21974C"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="BorderBrush" Value="#FF21974C"/>
-        </Style>
-    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -29,8 +20,9 @@
         <!--Menu bar-->
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="55*"/>
+                <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="45*"/>
+                <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
             
             <!--trigger form data-->
@@ -41,30 +33,58 @@
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnTriggerLihatData" Grid.Row="0" Grid.Column="0" Margin="10" Style="{DynamicResource ResourceKey=buttonCustom}" Click="btnTriggerLihatData_Click" >
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="EyeCircle" Height="24" Width="24" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Lihat Data" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <Button x:Name="btnTriggerLihatData" Grid.Row="0" ToolTip="Lihat Data" BorderBrush="#FF21974C" Background="White" Foreground="#FF21974C" Grid.Column="0" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerLihatData_Click" >
+                    <materialDesign:PackIcon Kind="EyeCircle" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
-                <Button x:Name="btnTriggerInputData" Grid.Row="0" Grid.Column="1" Margin="10" Style="{DynamicResource ResourceKey=buttonCustom}" Click="btnTriggerInputData_Click">
+                <!--Popup-->
+
+                <Popup 
+                    StaysOpen="False"
+                    x:Name="popUpLihatData"
+                    AllowsTransparency="True"
+                    Placement="Mouse">
+    
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="DatabaseAdd" Height="24" Width="24" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Input Data" VerticalAlignment="Center"/>
+                        <Button x:Name="btnKunjungan1" Foreground="White" Background="#FF21974C" ToolTip="Kunjungan 1" Content="1" Margin="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnKunjungan1_Click" BorderBrush="White" FontWeight="Bold" />
+                        <Button x:Name="btnKunjungan4" Foreground="White" Background="#FF21974C" Content="4" Margin="2" ToolTip="Kunjungan 4" Style="{StaticResource MaterialDesignFloatingActionButton}"  BorderBrush="White" FontWeight="Bold" Click="btnKunjungan4_Click"/>
+                        <Button x:Name="btnKunjungan6" Foreground="White" Background="#FF21974C" Content="6" Margin="2" ToolTip="Kunjungan 1" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKunjungan6_Click"/>
                     </StackPanel>
+                    
+                </Popup>
+
+                <Button x:Name="btnTriggerInputData" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Input Data" Grid.Row="0" Grid.Column="1" Margin="10"  Click="btnTriggerInputData_Click">
+                    <materialDesign:PackIcon Kind="DatabaseAdd" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
-                
-                <Button x:Name="btnTriggerUbahData" Grid.Row="0" Grid.Column="2" Margin="10" Style="{DynamicResource ResourceKey=buttonCustom}" Click="btnTriggerUbahData_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Edit" Height="24" Width="24" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="Ubah Data" VerticalAlignment="Center"/>
-                    </StackPanel>
+
+                <Button x:Name="btnTriggerUbahData" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Grid.Row="0" Grid.Column="2" ToolTip="Ubah Data" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerUbahData_Click">
+                    <materialDesign:PackIcon Kind="Edit" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
             </Grid>
 
-            <Grid Grid.Column="1">
-                <TextBox Height="50" Margin="100,0,10,0" 
+            <materialDesign:Card Grid.Column="1" Height="50">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Data per bulan" Margin="10" VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"/>
+                    <ComboBox x:Name="comBoxKunjungan" Grid.Column="1" Margin="5" materialDesign:HintAssist.Hint="Kunjungan" DropDownClosed="comBoxKunjungan_DropDownClosed" >
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="comBoxBulan" Grid.Column="2" Margin="5" materialDesign:HintAssist.Hint="Pilih bulan" IsEnabled="False" DropDownClosed="comBoxBulan_DropDownClosed" ></ComboBox>
+                    <ComboBox x:Name="comBoxTahun" Grid.Column="3" Margin="5" materialDesign:HintAssist.Hint="Pilih tahun" IsEnabled="False" DropDownClosed="comBoxTahun_DropDownClosed"></ComboBox>
+                </Grid>
+            </materialDesign:Card>
+
+            <Grid Grid.Column="2">
+                <TextBox Height="50" Margin="10" 
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                          materialDesign:HintAssist.Hint="Cari Data" 
                          materialDesign:HintAssist.IsFloating="False">
@@ -105,7 +125,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="titleTableKunjungan" Text="Kunjungan 1" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
                     <Grid Grid.Row="1">
-                        <DataGrid x:Name="dgKunjungan1" BorderBrush="#FF323232">
+                        <DataGrid x:Name="dgKunjungan" BorderBrush="#FF323232">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
                                 <DataGridTextColumn Header="Tanggal Input" IsReadOnly="True" Binding="{Binding Path=tanggal}"/>
