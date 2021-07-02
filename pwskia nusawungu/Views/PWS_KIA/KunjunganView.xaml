@@ -8,20 +8,20 @@
       mc:Ignorable="d"
       FontFamily="Open Sans"
       Background="#CDE4D3"
-      d:DesignHeight="600" d:DesignWidth="960"
+      MinHeight="600" MinWidth="960" MaxHeight="717" MaxWidth="1137"
       Title="Kunjungan1">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="80*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="85*"/>
         </Grid.RowDefinitions>
         
         <!--Menu bar-->
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="45*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
             
@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnTriggerLihatData" Grid.Row="0" ToolTip="Lihat Data" BorderBrush="#FF21974C" Background="White" Foreground="#FF21974C" Grid.Column="0" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerLihatData_Click" >
+                <Button x:Name="btnTriggerLihatData" Width="40" Height="40" Grid.Row="0" ToolTip="Lihat Data" BorderBrush="#FF21974C" Background="White" Foreground="#FF21974C" Grid.Column="0" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerLihatData_Click" >
                     <materialDesign:PackIcon Kind="EyeCircle" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
@@ -53,11 +53,11 @@
                     
                 </Popup>
 
-                <Button x:Name="btnTriggerInputData" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Input Data" Grid.Row="0" Grid.Column="1" Margin="10"  Click="btnTriggerInputData_Click">
+                <Button x:Name="btnTriggerInputData" Width="40" Height="40" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Input Data" Grid.Row="0" Grid.Column="1" Margin="10"  Click="btnTriggerInputData_Click">
                     <materialDesign:PackIcon Kind="DatabaseAdd" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
-                <Button x:Name="btnTriggerUbahData" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Grid.Row="0" Grid.Column="2" ToolTip="Ubah Data" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerUbahData_Click">
+                <Button x:Name="btnTriggerUbahData" Width="40" Height="40" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Grid.Row="0" Grid.Column="2" ToolTip="Ubah Data" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerUbahData_Click">
                     <materialDesign:PackIcon Kind="Edit" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
             </Grid>
@@ -84,24 +84,26 @@
             </materialDesign:Card>
 
             <Grid Grid.Column="2">
-                <TextBox Height="50" Margin="10" 
+                <materialDesign:Card Height="50" Margin="10">
+                    <TextBox 
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                          materialDesign:HintAssist.Hint="Cari Data" 
-                         materialDesign:HintAssist.IsFloating="False">
-                </TextBox>
+                         materialDesign:HintAssist.IsFloating="False" BorderBrush="{x:Null}">
+                    </TextBox>
+                </materialDesign:Card>
                 <Button
-                    Margin="0,0,10,0"
-                    Height="50"
-                    Width="50"
+                    Margin="0,0,15,0"
+                    Height="40"
+                    Width="40"
                     HorizontalAlignment="Right"
                     Background="#FF3A3AB7"
                     Foreground="White"
-                    ToolTip="MaterialDesignFloatingActionAccentButton" BorderBrush="{x:Null}">
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="MaterialDesignFloatingActionAccentButton" BorderBrush="#FFA3A3C3">
                     <materialDesign:PackIcon
-                        Margin="-5"
                         Kind="Search"
-                        Height="32"
-                        Width="32" />
+                        Height="24"
+                        Width="24" />
                 </Button>
             </Grid>
             

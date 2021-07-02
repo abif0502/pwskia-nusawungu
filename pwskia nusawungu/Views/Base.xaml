@@ -9,14 +9,14 @@
         Icon="../Resources/Icon/icon.png"
         Background="#CDE4D3"
         WindowStartupLocation="CenterScreen"
-        Title="Base" Height="720" Width="1280">
+        Title="Base" MinHeight="640" MinWidth="1210">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="80*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.RowSpan="2" Width="230" Background="#21974C" HorizontalAlignment="Left">
+        <StackPanel Grid.Column="0" Grid.RowSpan="2" Width="250" MaxWidth="274" Background="#21974C" HorizontalAlignment="Left">
 
             <materialDesign:Chip
                 Margin="10"
@@ -66,14 +66,57 @@
 
             <Button x:Name="btnLogout" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,0,0,10" Height="50" HorizontalContentAlignment="Left" Click="btnLogout_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Logout" Margin="0,0,10,0" Foreground="PaleVioletRed" Height="24" Width="24"/>
-                    <TextBlock Text="Keluar" Foreground="PaleVioletRed" VerticalAlignment="Center" />
+                    <materialDesign:PackIcon Kind="Logout" Margin="0,0,10,0" Foreground="Red" Height="24" Width="24"/>
+                    <TextBlock Text="Keluar" Foreground="Red" VerticalAlignment="Center" />
+
                 </StackPanel>
             </Button>
 
         </StackPanel>
-       
 
-        <Frame x:Name="Main" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" />
+        <Popup   
+            x:Name="popUpConfirmLogout"
+            Placement="Center"
+            StaysOpen="True"
+            AllowsTransparency="True">
+            <materialDesign:Card BorderBrush="Black" BorderThickness="10">
+                <Grid Width="250" Height="150" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#21974C">
+                        <TextBlock Foreground="White" Margin="2" FontSize="16" TextAlignment="Center" Text="Konfirmasi!" />
+                    </Grid>
+
+                    <materialDesign:PackIcon 
+                                    Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Foreground="#FF6363F1"
+                                    Height="70"
+                                    Width="70"
+                                    Kind="QuestionMarkCircle">
+
+                    </materialDesign:PackIcon>
+
+                    <Grid Background="#CDE4D3" Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnKeluar" Background="Blue" Margin="2,2,2,10" Grid.Column="1" Content="Keluar" BorderBrush="White" Click="btnKeluar_Click"/>
+                        <Button x:Name="btnbatal" Background="White" BorderBrush="Blue" Foreground="Blue" Margin="2,2,2,10" Grid.Column="2" Content="Batal" Click="btnbatal_Click"/>
+                    </Grid>
+
+                </Grid>
+            </materialDesign:Card>
+
+        </Popup>
+
+
+        <Frame x:Name="Main"  Grid.Column="1" MinHeight="600" MinWidth="960" MaxHeight="717" MaxWidth="1137" Grid.Row="1" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

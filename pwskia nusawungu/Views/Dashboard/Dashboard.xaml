@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:pwskia_nusawungu.Views.Dashboard"
       mc:Ignorable="d"
       Background="#CDE4D3"
-      d:DesignHeight="450" d:DesignWidth="800"
+      MinHeight="600" MinWidth="960" MaxHeight="717" MaxWidth="1137"
       Title="Dashboard">
 
     <Grid>
@@ -15,44 +15,156 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="10">
-            <TextBlock Text="Sasaran" Background="#FF21974C" Foreground="White" TextAlignment="Center" FontSize="18"/>
-            <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card 
+            Margin="10"
+            VerticalAlignment="Center">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40*"/>
-                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="70*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25*"/>
-                    <RowDefinition Height="25*"/>
-                    <RowDefinition Height="25*"/>
-                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
-                <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold"/>
-                <TextBlock Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold"/>
-                <TextBlock Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold"/>
+                <Grid 
+                    Grid.ColumnSpan="3"
+                    Background="#FFA7B6AB">
+                    <TextBlock 
+                        Foreground="White"
+                        FontSize="18"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center" FontWeight="Bold">
+                            Data Sasaran
+                    </TextBlock>
+                </Grid>
 
-                <ComboBox x:Name="comBoxDesaSasaran" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
-                <TextBox x:Name="txtBumil" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                <TextBox x:Name="txtBulin" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                <TextBox x:Name="txtBumilRisti" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                <Button 
+                    Grid.Column="0" 
+                    Grid.Row="1"
+                    Height="40"
+                    Width="40"
+                    Background="White"
+                    BorderBrush="#FF21974C"
+                    Foreground="#FF21974C"
+                    ToolTip="Lihat Sasaran" 
+                    Margin="2"
+                    x:Name="btnTriggerLihatSasaran" 
+                    Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                    Click="btnTriggerInputSasaran_Click">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="EyeCircle" Width="32" Height="32"/>
+                    </StackPanel>
+                </Button>
+
+                <Button 
+                    Grid.Column="1" 
+                    Background="White"
+                    Grid.Row="1"
+                    Height="40"
+                    Width="40"
+                    BorderBrush="#FF21974C"
+                    Foreground="#FF21974C"
+                    Margin="2" 
+                    ToolTip="Ubah Data Sasaran" 
+                    x:Name="btnTriggerInputSasaran" 
+                    Style="{StaticResource MaterialDesignFloatingActionButton}" 
+                    Click="btnTriggerInputSasaran_Click">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Pen" Width="32" Height="32"/>
+                    </StackPanel>
+                </Button>
+
+                <materialDesign:Card
+                    Margin="5"
+                    Grid.Row="1" 
+                    Grid.Column="2" >
+                    <StackPanel 
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock 
+                        Margin="10,0,15,0"
+                        FontSize="14"
+                        Text="Lihat per Desa" />
+
+                        <ComboBox x:Name="comBoxSasaranDesa" materialDesign:HintAssist.Hint="Pilih Nama Desa">
+
+                        </ComboBox>
+
+                    </StackPanel>
+                </materialDesign:Card>
 
             </Grid>
-            <Button x:Name="btnSimpanSasaran" Margin="10,0,10,0" Content="SIMPAN" Click="btnSimpanSasaran_Click" />
+        </materialDesign:Card>
 
-            <Grid Margin="10">
-                <Separator MinHeight="5" Margin="0,-10,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
-                <DataGrid x:Name="dgSasaran">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
-                        <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
-                        <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>
-                        <DataGridTextColumn Header="Bumil Risti" IsReadOnly="True" Binding="{Binding Path=sasaran.bumilRisti}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </StackPanel>
+        <Popup
+            Width="350"
+            Height="250"
+            x:Name="popUpFromSasaran"
+            StaysOpen="False"
+            Placement="Center">
+            <Popup.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="10"/>
+            </Popup.Effect>
+
+            <materialDesign:Card Background="#FFA7B6AB">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect BlurRadius="10"/>
+                </materialDesign:Card.Effect>
+                <StackPanel>
+                    <Grid Background="White">
+                        <TextBlock Margin="10" Text="Ubah Data Sasaran" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Foreground="White" Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Foreground="White" Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Foreground="White" Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Foreground="White" Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold"/>
+
+                        <ComboBox x:Name="comBoxDesaSasaran" Foreground="White" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                        <TextBox x:Name="txtBumil" Foreground="White" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <TextBox x:Name="txtBulin" Foreground="White" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <TextBox x:Name="txtBumilRisti" Foreground="White" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+
+                    </Grid>
+                    <Button x:Name="btnSimpanSasaran" Margin="10,20,10,0" Content="SIMPAN" Click="btnSimpanSasaran_Click" />
+
+
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Popup>
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+            <Separator MinHeight="5" Margin="0,-10,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
+            <DataGrid x:Name="dgSasaran">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nomor" IsReadOnly="True" Binding="{Binding Path=nomor}"/>
+                    <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
+                    <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
+                    <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>
+                    <DataGridTextColumn Header="Bumil Risti" IsReadOnly="True" Binding="{Binding Path=sasaran.bumilRisti}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
     </Grid>
 </Page>

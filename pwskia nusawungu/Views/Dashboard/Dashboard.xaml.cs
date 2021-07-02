@@ -88,5 +88,10 @@ namespace pwskia_nusawungu.Views.Dashboard
             txtBumil.Clear();
             txtBumilRisti.Clear();
         }
+
+        private void btnTriggerInputSasaran_Click(object sender, RoutedEventArgs e)
+        {
+            popUpFromSasaran.IsOpen = true;
+        }
     }
 }

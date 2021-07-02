@@ -41,13 +41,7 @@ namespace pwskia_nusawungu.Views
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Yakin ingin keluar?", "Konfirmasi", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
-            {
-                MainWindow login = new MainWindow();
-                this.Close();
-                login.Show();
-            }
+            popUpConfirmLogout.IsOpen = true;
         }
 
         private void btnKunjungan_Click(object sender, RoutedEventArgs e)
@@ -64,6 +58,22 @@ namespace pwskia_nusawungu.Views
         private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Maximized;
+        }
+
+        private void btnKeluar_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Yakin ingin keluar?", "Konfirmasi", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                MainWindow login = new MainWindow();
+                this.Close();
+                login.Show();
+            }
+        }
+
+        private void btnbatal_Click(object sender, RoutedEventArgs e)
+        {
+            popUpConfirmLogout.IsOpen = false;
         }
     }
 }
