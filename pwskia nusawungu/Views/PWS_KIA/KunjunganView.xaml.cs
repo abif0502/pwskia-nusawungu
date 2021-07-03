@@ -202,6 +202,26 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             }
         }
 
-        
+        private void btnCariData_Click(object sender, RoutedEventArgs e)
+        {
+            
+            
+        }
+
+        private void txtKeywordCariData_KeyUp(object sender, KeyEventArgs e)
+        {
+            KunjunganViewModel kunjunganContext = new KunjunganViewModel();
+
+            dgKunjungan.Items.Clear();
+
+            if (string.IsNullOrEmpty(txtKeywordCariData.Text) != true)
+            {
+                foreach (Kunjungan kunjungan in kunjunganContext.CariData(txtKeywordCariData.Text))
+                {
+                    dgKunjungan.Items.Add(kunjungan);
+                }
+
+            }
+        }
     }
 }

@@ -45,6 +45,55 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return tahun;
         }
 
+        public List<Kunjungan> CariData(string keyword)
+        {
+            string query = $"SELECT * FROM kunjungan WHERE desa LIKE '%{keyword}%' OR tanggal LIKE '%{keyword}%'";
+            List<Kunjungan> kunjungans = new List<Kunjungan>();
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    kunjungans.Add(new Kunjungan
+                    {
+                        //id = (Int32)reader["id"],
+                        id = nums,
+                        kunjunganKe = (Int32)reader["kunjunganKe"],
+                        desa = new Desa
+                        {
+                            nama = (string)reader["desa"],
+                            sasaran = new Sasaran
+                            {
+                                bumil = (Int32)reader["bumil"],
+                                bulin = (Int32)reader["bulin"],
+                                bumilRisti = (Int32)reader["bumilRisti"]
+                            },
+                            jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
+                            jmlBulanIni = (Int32)reader["jmlBulanIni"],
+                            r = (Int32)reader["r"],
+                        },
+                        tanggal = (string)reader["tanggal"],
+                        penanggungJawab = (string)reader["penanggungJawab"]
+                    });
+
+                    nums++;
+                }
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return kunjungans;
+        }
+
+
+
         public int GetJumlahBulanLalu(int kunjunganKe, string namaDesa, string bulanLalu)
         {
             Int32 jmlBulanLalu = 0;

@@ -29,6 +29,8 @@ namespace pwskia_nusawungu
         }
         //Get admins
 
+        // Function no action button
+
 
         // Login button action
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -65,13 +67,9 @@ namespace pwskia_nusawungu
         }
 
         // Cancel button action for clearing textbox
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            var confirm = MessageBox.Show("Apakah yakin ingin keluar?", "Konfirmasi!", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if(confirm == MessageBoxResult.OK)
-            {
-                this.Close();
-            }
+            popUpConfirmClose.IsOpen = true;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -80,6 +78,16 @@ namespace pwskia_nusawungu
             {
                 this.DragMove();
             }
+        }
+
+        private void btnbatal_Click(object sender, RoutedEventArgs e)
+        {
+            if (popUpConfirmClose.IsOpen == true) popUpConfirmClose.IsOpen = false;
+        }
+
+        private void btnKeluar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

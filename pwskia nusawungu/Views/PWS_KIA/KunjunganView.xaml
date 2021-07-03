@@ -86,25 +86,22 @@
             <Grid Grid.Column="2">
                 <materialDesign:Card Height="50" Margin="10">
                     <TextBox 
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}" 
-                         materialDesign:HintAssist.Hint="Cari Data" 
-                         materialDesign:HintAssist.IsFloating="False" BorderBrush="{x:Null}">
+                        x:Name="txtKeywordCariData"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                        materialDesign:HintAssist.Hint="Cari Data" 
+                        materialDesign:HintAssist.IsFloating="False" BorderBrush="{x:Null}" KeyUp="txtKeywordCariData_KeyUp">
                     </TextBox>
                 </materialDesign:Card>
-                <Button
+                <materialDesign:PackIcon
+                    Foreground="#FF21974C"
                     Margin="0,0,15,0"
                     Height="40"
                     Width="40"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Right"
-                    Background="#FF3A3AB7"
-                    Foreground="White"
-                    Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    ToolTip="MaterialDesignFloatingActionAccentButton" BorderBrush="#FFA3A3C3">
-                    <materialDesign:PackIcon
-                        Kind="Search"
-                        Height="24"
-                        Width="24" />
-                </Button>
+                    Kind="Search">
+                    
+                </materialDesign:PackIcon>
             </Grid>
             
         </Grid>

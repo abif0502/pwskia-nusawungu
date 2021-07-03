@@ -36,6 +36,24 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             this.penanggungJawab = penanggungJawab;
         }
 
+        private int GetValueFromRadioButton()
+        {
+            int value = 0;
+            if(rbKunjungan1.IsChecked == true)
+            {
+                value = 1;
+            }else if(rbKunjungan4.IsChecked == true)
+            {
+                value = 4;
+
+            }else if(rbKunjungan6.IsChecked == true)
+            {
+                value = 6;
+            }
+
+            return value;
+        }
+
         private void txtNumberFormat_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) & e.Key != Key.Back | e.Key == Key.Space)
@@ -90,18 +108,18 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             Kunjungan kunjungan = new Kunjungan();
             DesaContext desaContext = new DesaContext();
 
-            if(string.IsNullOrEmpty(txtJumlahBulanIni.Text) || string.IsNullOrEmpty(comBoxKunjunganKe.Text) || string.IsNullOrEmpty(comBoxDesa.Text) || string.IsNullOrEmpty(txtJmlR.Text))
+            if(string.IsNullOrEmpty(txtJumlahBulanIni.Text) || GetValueFromRadioButton() == 0 || string.IsNullOrEmpty(comBoxDesa.Text))
             {
 
             }
             else
             {
-                int kunjunganKe = int.Parse(comBoxKunjunganKe.Text);
+                int kunjunganKe = GetValueFromRadioButton();
                 string namaDesa = comBoxDesa.Text;
 
                 int jumlahBulanLalu = GetJumlahBulanLalu(kunjunganKe, namaDesa);
                 int jumlahBulanIni = int.Parse(txtJumlahBulanIni.Text);
-                int jumlahR = int.Parse(txtJmlR.Text);
+                int jumlahR = 0;
 
                 //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
                 // Tanggal sementara

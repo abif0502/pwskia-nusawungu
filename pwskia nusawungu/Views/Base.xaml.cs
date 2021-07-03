@@ -62,18 +62,23 @@ namespace pwskia_nusawungu.Views
 
         private void btnKeluar_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Yakin ingin keluar?", "Konfirmasi", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                MainWindow login = new MainWindow();
-                this.Close();
-                login.Show();
-            }
+            //var result = MessageBox.Show("Yakin ingin keluar?", "Konfirmasi", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //if (result == MessageBoxResult.Yes)
+            //{
+            //    MainWindow login = new MainWindow();
+            //    this.Close();
+            //    login.Show();
+            //}
+
+            MainWindow login = new MainWindow();
+            this.Close();
+            login.Show();
         }
 
         private void btnbatal_Click(object sender, RoutedEventArgs e)
         {
-            popUpConfirmLogout.IsOpen = false;
+
+            if(popUpConfirmLogout.IsOpen == true) popUpConfirmLogout.IsOpen = false;
         }
     }
 }

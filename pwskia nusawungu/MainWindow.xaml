@@ -67,11 +67,66 @@
                     <PasswordBox x:Name="txtPassword" Margin="10,0,0,0" materialDesign:HintAssist.Hint="Kata sandi"  BorderBrush="#89FFFFFF" Foreground="White" FontWeight="Bold" Width="230"/>
                 </StackPanel>
                 <Button x:Name="btnLogin" Height="50" Content="MASUK" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnLogin_Click"/>
-                <Button x:Name="btnCancel" Height="50" Content="BATAL" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7" BorderBrush="#FF3A3AB7" Click="btnCancel_Click"/>
+                <Button x:Name="btnClose" Height="50" Content="BATAL" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7" BorderBrush="#FF3A3AB7" Click="btnClose_Click"/>
             </StackPanel>
         </StackPanel>
 
+        <!--Popup konfirmasi-->
+        <Popup   
+            x:Name="popUpConfirmClose"
+            Placement="Center"
+            StaysOpen="False"
+            AllowsTransparency="True">
+            <materialDesign:Card BorderBrush="Black" BorderThickness="10">
+                <Grid Width="250" Height="150" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#21974C">
+                        <TextBlock Foreground="White" Margin="2" FontSize="16" TextAlignment="Center" Text="Konfirmasi!" />
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Foreground="#FF6363F1"
+                            Height="70"
+                            Width="70"
+                            Kind="QuestionMarkCircle">
+
+                        </materialDesign:PackIcon>
+
+                        <TextBlock 
+                            Margin="10,0,0,0"
+                            FontSize="16"
+                            VerticalAlignment="Center">
+                            Yakin ingin keluar?
+                        </TextBlock>
+
+                    </StackPanel>
+
+                    <Grid Background="#CDE4D3" Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnKeluar" Background="Blue" Margin="2,2,2,10" Grid.Column="1" Content="Keluar" BorderBrush="White" Click="btnKeluar_Click"/>
+                        <Button x:Name="btnbatal" Background="White" BorderBrush="Blue" Foreground="Blue" Margin="2,2,2,10" Grid.Column="2" Content="Batal" Click="btnbatal_Click"/>
+                    </Grid>
+
+                </Grid>
+            </materialDesign:Card>
+
+        </Popup>
+
     </Grid>
+    
+    
 
     
 

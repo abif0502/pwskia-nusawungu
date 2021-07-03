@@ -13,7 +13,7 @@
         BorderThickness="3"
         Background="#CDE4D3"
         WindowStartupLocation="CenterScreen"
-        Title="FormInputData" Height="400" Width="350" MouseDown="Window_MouseDown">
+        Title="FormInputData" Height="450" Width="350" MouseDown="Window_MouseDown">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -48,17 +48,89 @@
                 <TextBox Grid.Row="0" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
 
                 <TextBlock Grid.Row="1" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-                <ComboBox Grid.Row="1" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" materialDesign:HintAssist.Hint="Pilih Desa"/>
-                <TextBlock Grid.Row="2" Text="R" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-                <TextBox Grid.Row="2" x:Name="txtJmlR" Margin="10" Grid.Column="1" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown" />
+                <ComboBox Grid.Row="1" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
+                
 
-
-                <TextBlock Grid.Row="3" Text="Kunjungan Ke"  Margin="10" VerticalAlignment="Center" FontWeight="Bold" Grid.Column="0" Foreground="#FF7D8980"/>
-                <ComboBox Grid.Row="3" x:Name="comBoxKunjunganKe" Margin="10" materialDesign:HintAssist.Hint="Kunjungan ke-" Grid.Column="1" FontSize="14">
+                <!--<TextBlock Grid.Row="2" Text="Kunjungan Ke"  Margin="10" VerticalAlignment="Center" FontWeight="Bold" Grid.Column="0" Foreground="#FF7D8980"/>-->
+                <!--<ComboBox Grid.Row="2" x:Name="comBoxKunjunganKe" Margin="10" materialDesign:HintAssist.Hint="Kunjungan ke-" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="14">
                     <ComboBoxItem>1</ComboBoxItem>
                     <ComboBoxItem>4</ComboBoxItem>
                     <ComboBoxItem>6</ComboBoxItem>
-                </ComboBox>
+                </ComboBox>-->
+
+                <GroupBox 
+                    Grid.Row="2" 
+                    Header="Pilih Salah Satu"
+                    Style="{x:Null}"
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="2" BorderBrush="#FF061117" Foreground="#FF7D8980" FontWeight="Bold" >
+                    <StackPanel  Orientation="Vertical">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25*"/>
+                                <ColumnDefinition Width="25*"/>
+                                <ColumnDefinition Width="25*"/>
+                                <ColumnDefinition Width="25*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="33*"/>
+                                <RowDefinition Height="33*"/>
+                                <RowDefinition Height="33*"/>
+                            </Grid.RowDefinitions>
+                            <RadioButton 
+                                Grid.Column="0" 
+                                x:Name="rbKunjungan1" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                                K1
+                            </RadioButton>
+                            <RadioButton 
+                                Grid.Column="1" 
+                                x:Name="rbKunjungan4" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" >
+                                K4
+                            </RadioButton>
+                            <RadioButton 
+                                Grid.Column="2" 
+                                x:Name="rbKunjungan6" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                                K6
+                            </RadioButton>
+                            <RadioButton 
+                                Grid.Column="3" 
+                                x:Name="rbKF" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                                KF
+                            </RadioButton>
+
+                            <RadioButton 
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
+                                Content="Persalinan Nakes"/>
+                            <RadioButton 
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
+                                Content="Deteksi Risiko Nakes"/>
+
+                            <RadioButton 
+                                Grid.ColumnSpan="4"
+                                Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
+                                Content="Deteksi Risiko Masyarakat"/>
+
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
 
             </Grid>
         </StackPanel>
