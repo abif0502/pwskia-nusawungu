@@ -7,14 +7,15 @@ using pwskia_nusawungu.Models;
 using pwskia_nusawungu.Libs;
 using MySql.Data.MySqlClient;
 
+
 namespace pwskia_nusawungu.ViewModels.PWSKIA
 {
-    public class KunjunganViewModel
+    public class PwskiaViewModel
     {
         private MySqlConnection con;
         private int nums = 1;
 
-        public KunjunganViewModel()
+        public PwskiaViewModel()
         {
             Koneksi koneksi = new Koneksi();
             con = koneksi.GetConnection();
@@ -23,7 +24,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
         public List<string> GetDaftarTahun()
         {
             List<string> tahun = new List<string>();
-            string query = "SELECT DISTINCT tanggal FROM kunjungan";
+            string query = "SELECT DISTINCT tanggal FROM datapwskia";
 
             try
             {
@@ -45,10 +46,19 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return tahun;
         }
 
-        public List<Kunjungan> CariData(string keyword)
+        public List<Pwskia> CariData(string keyword)
         {
-            string query = $"SELECT * FROM kunjungan WHERE desa LIKE '%{keyword}%' OR tanggal LIKE '%{keyword}%'";
-            List<Kunjungan> kunjungans = new List<Kunjungan>();
+            string query = $"SELECT * FROM datapwskia " +
+                $"JOIN daftarjenis " +
+                $"ON daftarjenis.id = datapwskia.idJenis " +
+                $"WHERE " +
+                $"desa LIKE '%{keyword}%' " +
+                $"OR " +
+                $"tanggal LIKE '%{keyword}%'" +
+                $"OR " +
+                $"daftarjenis.jenis LIKE '{keyword}%'";
+
+            List<Pwskia> dataPwskia = new List<Pwskia>();
 
             try
             {
@@ -57,11 +67,13 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    kunjungans.Add(new Kunjungan
+                    dataPwskia.Add(new Pwskia
                     {
                         //id = (Int32)reader["id"],
                         id = nums,
-                        kunjunganKe = (Int32)reader["kunjunganKe"],
+
+                        // jenis = k1,k4, dst....
+                        jenis = (string)reader["jenis"],
                         desa = new Desa
                         {
                             nama = (string)reader["desa"],
@@ -73,7 +85,6 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                             },
                             jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
                             jmlBulanIni = (Int32)reader["jmlBulanIni"],
-                            r = (Int32)reader["r"],
                         },
                         tanggal = (string)reader["tanggal"],
                         penanggungJawab = (string)reader["penanggungJawab"]
@@ -89,15 +100,15 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 throw new Exception(ex.Message);
             }
 
-            return kunjungans;
+            return dataPwskia;
         }
 
 
 
-        public int GetJumlahBulanLalu(int kunjunganKe, string namaDesa, string bulanLalu)
+        public int GetJumlahBulanLalu(int idJenis, string namaDesa, string bulanLalu)
         {
             Int32 jmlBulanLalu = 0;
-            string query = $"SELECT * FROM kunjungan WHERE desa='{namaDesa}' AND kunjunganKe={kunjunganKe}  AND tanggal LIKE '%{bulanLalu}%'";
+            string query = $"SELECT * FROM datapwskia WHERE desa='{namaDesa}' AND idJenis={idJenis}  AND tanggal LIKE '%{bulanLalu}%'";
 
             try
             {
@@ -119,19 +130,25 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return jmlBulanLalu;
         }
 
-        public List<Kunjungan> GetAllDataKunjungan(int ke, string bulanDanTahun="")
+        public List<Pwskia> GetAllDataPwskia(int idJenis, string bulanDanTahun="")
         {
             string query;
             if(bulanDanTahun == "")
             {
-                query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke}";
+                query = $"SELECT DISTINCT * FROM datapwskia " +
+                    $"JOIN daftarJenis " +
+                    $"ON datapwskia.idJenis = daftarJenis.id " +
+                    $"WHERE daftarJenis.id={idJenis}";
             }
             else
             {
-                query = $"SELECT * FROM kunjungan WHERE kunjunganKe={ke} AND tanggal LIKE '%{bulanDanTahun}'";
+                query = $"SELECT DISTINCT * FROM datapwskia " +
+                    $"JOIN daftarJenis " +
+                    $"ON datapwskia.idJenis = daftarJenis.id " +
+                    $"WHERE daftarJenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%'";
             }
 
-            List<Kunjungan> kunjungans = new List<Kunjungan>();
+            List<Pwskia> dataPwskia = new List<Pwskia>();
 
             try
             {
@@ -140,11 +157,11 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    kunjungans.Add(new Kunjungan
+                    dataPwskia.Add(new Pwskia
                     {
                         //id = (Int32)reader["id"],
                         id = nums,
-                        kunjunganKe = (Int32)reader["kunjunganKe"],
+                        jenis = (string)reader["jenis"],
                         desa = new Desa {
                             nama = (string)reader["desa"],
                             sasaran = new Sasaran
@@ -155,7 +172,6 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                             },
                             jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
                             jmlBulanIni = (Int32)reader["jmlBulanIni"],
-                            r = (Int32)reader["r"],
                         },
                         tanggal = (string)reader["tanggal"],
                         penanggungJawab = (string)reader["penanggungJawab"]
@@ -171,15 +187,15 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 throw new Exception(ex.Message);
             }
             
-            return kunjungans;
+            return dataPwskia;
         }
 
-        public string AddDataKunjungan(Kunjungan k)
+        public string AddDataPwskia(Pwskia k)
         {
-            string query = $"INSERT INTO kunjungan(`desa`, `kunjunganKe`, `tanggal`, `bumil`, `bulin`, `bumilRisti`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `r`, `penanggungJawab`)" +
+            string query = $"INSERT INTO datapwskia(`desa`, `idJenis`, `tanggal`, `bumil`, `bulin`, `bumilRisti`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `penanggungJawab`)" +
                 $"VALUES " +
                 $"('{k.desa.nama}'," +
-                $"'{k.kunjunganKe}'," +
+                $"'{k.id}'," +
                 $"'{k.tanggal}'," +
                 $"{k.desa.sasaran.bumil}," +
                 $"{k.desa.sasaran.bulin}," +
@@ -188,7 +204,6 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 $"{k.desa.jmlBulanIni}," +
                 $"{k.desa.abs}," +
                 $"{k.desa.persentase}," +
-                $"{k.desa.r}," +
                 $"'{k.penanggungJawab}')";
 
             string message;

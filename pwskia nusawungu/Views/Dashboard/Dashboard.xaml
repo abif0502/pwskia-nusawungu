@@ -134,15 +134,15 @@
                             <RowDefinition Height="25*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Foreground="White" Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
-                        <TextBlock Foreground="White" Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold"/>
-                        <TextBlock Foreground="White" Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold"/>
-                        <TextBlock Foreground="White" Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold"/>
 
-                        <ComboBox x:Name="comBoxDesaSasaran" Foreground="White" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
-                        <TextBox x:Name="txtBumil" Foreground="White" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                        <TextBox x:Name="txtBulin" Foreground="White" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                        <TextBox x:Name="txtBumilRisti" Foreground="White" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <ComboBox x:Name="comBoxDesaSasaran" materialDesign:HintAssist.Foreground="White" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                        <TextBox x:Name="txtBumil" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <TextBox x:Name="txtBulin" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <TextBox x:Name="txtBumilRisti" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
 
                     </Grid>
                     <Button x:Name="btnSimpanSasaran" Margin="10,20,10,0" Content="SIMPAN" Click="btnSimpanSasaran_Click" />

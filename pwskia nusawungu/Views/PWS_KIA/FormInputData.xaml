@@ -42,15 +42,13 @@
                     <RowDefinition Height="25*"/>
                     <RowDefinition Height="25*"/>
                 </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
+                <ComboBox Grid.Row="0" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
+
+                <TextBlock Grid.Row="1" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
+                <TextBox Grid.Row="1" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
                 
-                <TextBlock Grid.Row="0" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-
-                <TextBox Grid.Row="0" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-
-                <TextBlock Grid.Row="1" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-                <ComboBox Grid.Row="1" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
-                
-
                 <!--<TextBlock Grid.Row="2" Text="Kunjungan Ke"  Margin="10" VerticalAlignment="Center" FontWeight="Bold" Grid.Column="0" Foreground="#FF7D8980"/>-->
                 <!--<ComboBox Grid.Row="2" x:Name="comBoxKunjunganKe" Margin="10" materialDesign:HintAssist.Hint="Kunjungan ke-" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="14">
                     <ComboBoxItem>1</ComboBoxItem>
@@ -107,6 +105,7 @@
                             </RadioButton>
 
                             <RadioButton 
+                                x:Name="rbPersalNakes"
                                 Grid.Column="0"
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
@@ -114,6 +113,7 @@
                                 Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
                                 Content="Persalinan Nakes"/>
                             <RadioButton 
+                                x:Name="rbDeteksiRisNakes"
                                 Grid.Column="2"
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
@@ -122,6 +122,7 @@
                                 Content="Deteksi Risiko Nakes"/>
 
                             <RadioButton 
+                                x:Name="rbDeteksiRisMasy"
                                 Grid.ColumnSpan="4"
                                 Grid.Row="2"
                                 HorizontalAlignment="Center"

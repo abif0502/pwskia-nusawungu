@@ -33,42 +33,19 @@ namespace pwskia_nusawungu.Views
             Main.Content = new Dashboard.Dashboard();
         }
 
-        private void btnPersalinanNakes_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new PersalinanNakes.PersalinanNakes();
-            Title = "Persalinan Nakes";
-        }
-
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             popUpConfirmLogout.IsOpen = true;
         }
 
-        private void btnKunjungan_Click(object sender, RoutedEventArgs e)
+        private void btnPWSKIA_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new PWS_KIA.KunjunganView(adminName);
-            Title = "PWS KIA - Kunjungan 1";
-        }
-
-        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        private void BtnMaximize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Maximized;
+            Main.Content = new PWS_KIA.DataPWSKIAView(adminName);
+            Title = "PWS KIA - Data Record";
         }
 
         private void btnKeluar_Click(object sender, RoutedEventArgs e)
         {
-            //var result = MessageBox.Show("Yakin ingin keluar?", "Konfirmasi", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            //if (result == MessageBoxResult.Yes)
-            //{
-            //    MainWindow login = new MainWindow();
-            //    this.Close();
-            //    login.Show();
-            //}
 
             MainWindow login = new MainWindow();
             this.Close();

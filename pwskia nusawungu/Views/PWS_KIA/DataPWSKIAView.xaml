@@ -1,4 +1,4 @@
-﻿<Page x:Class="pwskia_nusawungu.Views.PWS_KIA.KunjunganView"
+﻿<Page x:Class="pwskia_nusawungu.Views.PWS_KIA.DataPWSKIAView"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -37,19 +37,77 @@
                     <materialDesign:PackIcon Kind="EyeCircle" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
+
                 <!--Popup-->
 
                 <Popup 
                     StaysOpen="False"
                     x:Name="popUpLihatData"
                     AllowsTransparency="True"
-                    Placement="Mouse">
+                    Placement="Bottom">
     
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnKunjungan1" Foreground="White" Background="#FF21974C" ToolTip="Kunjungan 1" Content="1" Margin="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnKunjungan1_Click" BorderBrush="White" FontWeight="Bold" />
-                        <Button x:Name="btnKunjungan4" Foreground="White" Background="#FF21974C" Content="4" Margin="2" ToolTip="Kunjungan 4" Style="{StaticResource MaterialDesignFloatingActionButton}"  BorderBrush="White" FontWeight="Bold" Click="btnKunjungan4_Click"/>
-                        <Button x:Name="btnKunjungan6" Foreground="White" Background="#FF21974C" Content="6" Margin="2" ToolTip="Kunjungan 1" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKunjungan6_Click"/>
-                    </StackPanel>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="33*"/>
+                            <RowDefinition Height="33*"/>
+                            <RowDefinition Height="33*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Button x:Name="btnKunjungan1" Grid.Column="0" Foreground="White" Background="#FF21974C" ToolTip="Kunjungan 1" Content="K1" Margin="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnKunjungan1_Click" BorderBrush="White" FontWeight="Bold" />
+                        <Button x:Name="btnKunjungan4" Grid.Column="1" Foreground="White" Background="#FF21974C" Content="K4" Margin="2" ToolTip="Kunjungan 4" Style="{StaticResource MaterialDesignFloatingActionButton}"  BorderBrush="White" FontWeight="Bold" Click="btnKunjungan4_Click"/>
+                        <Button x:Name="btnKunjungan6" Grid.Column="2" Foreground="White" Background="#FF21974C" Content="K6" Margin="2" ToolTip="Kunjungan 1" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKunjungan6_Click"/>
+                        <Button x:Name="btnKF" Grid.Column="3" Foreground="White" Background="#FF21974C" Content="KF" Margin="2" ToolTip="KF" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKF_Click"/>
+
+                        <Button 
+                            x:Name="btnPersalNakes" 
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                            Foreground="White" 
+                            Background="#FF21974C" 
+                            Content="Persalinan Nakes" 
+                            Height="50"
+                            Margin="2" 
+                            ToolTip="Persalinan Nakes" 
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                            materialDesign:ButtonAssist.CornerRadius="25"
+                            BorderBrush="White" 
+                            FontWeight="Bold" Click="btnPersalNakes_Click" />
+
+                        <Button 
+                            x:Name="btnDeteksiRisNakes" 
+                            Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" 
+                            Foreground="White" 
+                            Background="#FF21974C" 
+                            Content="Deteksi Risiko Nakes" 
+                            Height="50"
+                            Margin="2" 
+                            ToolTip="Deteksi Risiko Nakes" 
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                            materialDesign:ButtonAssist.CornerRadius="25"
+                            BorderBrush="White" 
+                            FontWeight="Bold" Click="btnDeteksiRisNakes_Click" />
+
+                        <Button 
+                            x:Name="btnDeteksiRisMasy" 
+                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" 
+                            Foreground="White" 
+                            Background="#FF21974C" 
+                            Content="Deteksi Risiko Masyarakat" 
+                            Height="50"
+                            Margin="2" 
+                            ToolTip="Deteksi Risiko Msyarakat" 
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                            materialDesign:ButtonAssist.CornerRadius="25"
+                            BorderBrush="White" 
+                            FontWeight="Bold" Click="btnDeteksiRisMasy_Click" />
+
+
+                    </Grid>
                     
                 </Popup>
 
@@ -72,11 +130,15 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="Data per bulan" Margin="10" VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"/>
-                    <ComboBox x:Name="comBoxKunjungan" Grid.Column="1" Margin="5" materialDesign:HintAssist.Hint="Kunjungan" DropDownClosed="comBoxKunjungan_DropDownClosed" >
+                    <ComboBox x:Name="comBoxJenis" Grid.Column="1" Margin="5" materialDesign:HintAssist.Hint="Kunjungan" DropDownClosed="comBoxJenis_DropDownClosed" >
                         <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem>1</ComboBoxItem>
-                        <ComboBoxItem>4</ComboBoxItem>
-                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>Kunjungan 1</ComboBoxItem>
+                        <ComboBoxItem>Kunjungan 4</ComboBoxItem>
+                        <ComboBoxItem>Kunjungan 6</ComboBoxItem>
+                        <ComboBoxItem>KF</ComboBoxItem>
+                        <ComboBoxItem>Persalinan Nakes</ComboBoxItem>
+                        <ComboBoxItem>Deteksi Risiko Nakes</ComboBoxItem>
+                        <ComboBoxItem>Deteksi Risiko Masyarakat</ComboBoxItem>
                     </ComboBox>
                     <ComboBox x:Name="comBoxBulan" Grid.Column="2" Margin="5" materialDesign:HintAssist.Hint="Pilih bulan" IsEnabled="False" DropDownClosed="comBoxBulan_DropDownClosed" ></ComboBox>
                     <ComboBox x:Name="comBoxTahun" Grid.Column="3" Margin="5" materialDesign:HintAssist.Hint="Pilih tahun" IsEnabled="False" DropDownClosed="comBoxTahun_DropDownClosed"></ComboBox>
@@ -120,20 +182,23 @@
                 <Grid Grid.Column="0" Margin="5" Grid.ColumnSpan="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="90*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="85*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="titleTableKunjungan" Text="Kunjungan 1" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
-                    <Grid Grid.Row="1">
+                    <TextBlock x:Name="titleTableKunjungan" Grid.Row="0" Text="Kunjungan 1" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
+                    <ProgressBar x:Name="progressShowData" IsIndeterminate="False" Visibility="Hidden" VerticalAlignment="Bottom"/>
+                    <Grid Grid.Row="2">
                         <DataGrid x:Name="dgKunjungan" BorderBrush="#FF323232">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
                                 <DataGridTextColumn Header="Tanggal Input" IsReadOnly="True" Binding="{Binding Path=tanggal}"/>
+
+                                <DataGridTextColumn Header="Jenis" IsReadOnly="True" Binding="{Binding Path=jenis}"/>
                                 <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=desa.nama}"/>
                                 <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanLalu}"/>
                                 <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanIni}"/>
                                 <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=desa.abs}"/>
                                 <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase}"/>
-                                <DataGridTextColumn Header="R" IsReadOnly="True" Binding="{Binding Path=desa.r}"/>
                                 <DataGridTextColumn Header="Penanggung Jawab" IsReadOnly="True" Binding="{Binding Path=penanggungJawab}"/>
                             </DataGrid.Columns>
                         </DataGrid>

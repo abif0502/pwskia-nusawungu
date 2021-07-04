@@ -114,10 +114,10 @@
     </ApplicationDefinition>
     <Compile Include="Libs\Koneksi.cs" />
     <Compile Include="Models\Desa.cs" />
-    <Compile Include="Models\Kunjungan.cs" />
+    <Compile Include="Models\Pwskia.cs" />
     <Compile Include="Models\Sasaran.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
-    <Compile Include="ViewModels\KunjunganViewModel.cs" />
+    <Compile Include="ViewModels\PwskiaViewModel.cs" />
     <Compile Include="Views\Base.xaml.cs">
       <DependentUpon>Base.xaml</DependentUpon>
     </Compile>
@@ -130,8 +130,8 @@
     <Compile Include="Views\PWS_KIA\FormInputData.xaml.cs">
       <DependentUpon>FormInputData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PWS_KIA\KunjunganView.xaml.cs">
-      <DependentUpon>KunjunganView.xaml</DependentUpon>
+    <Compile Include="Views\PWS_KIA\DataPWSKIAView.xaml.cs">
+      <DependentUpon>DataPWSKIAView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -161,7 +161,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PWS_KIA\KunjunganView.xaml">
+    <Page Include="Views\PWS_KIA\DataPWSKIAView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

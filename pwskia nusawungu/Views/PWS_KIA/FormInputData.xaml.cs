@@ -44,11 +44,29 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 value = 1;
             }else if(rbKunjungan4.IsChecked == true)
             {
-                value = 4;
+                value = 2;
 
             }else if(rbKunjungan6.IsChecked == true)
             {
+                value = 3;
+            }
+            else if (rbKF.IsChecked == true)
+            {
+                value = 4;
+
+            }
+            else if (rbPersalNakes.IsChecked == true)
+            {
+                value = 5;
+            }
+            else if (rbDeteksiRisNakes.IsChecked == true)
+            {
                 value = 6;
+
+            }
+            else if (rbDeteksiRisMasy.IsChecked == true)
+            {
+                value = 7;
             }
 
             return value;
@@ -83,17 +101,17 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             }
         }
 
-        public int GetJumlahBulanLalu(int kunjunganKe, string namaDesa)
+        public int GetJumlahBulanLalu(int idJenis, string namaDesa)
         {
-            int jumlahBulanLalu=0;
+            //int jumlahBulanLalu=0;
             //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
 
             // Hanya bulan sementara di tahun 2017
             string namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(1);
 
-            KunjunganViewModel kunjunganContext = new KunjunganViewModel();
+            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
             
-            jumlahBulanLalu = kunjunganContext.GetJumlahBulanLalu(kunjunganKe, namaDesa, namaBulanLalu);
+            int jumlahBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
             return jumlahBulanLalu;
         }
 
@@ -104,8 +122,8 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnSimpanData_Click(object sender, RoutedEventArgs e)
         {
-            KunjunganViewModel kunjunganContext = new KunjunganViewModel();
-            Kunjungan kunjungan = new Kunjungan();
+            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
+            Pwskia pwskia = new Pwskia();
             DesaContext desaContext = new DesaContext();
 
             if(string.IsNullOrEmpty(txtJumlahBulanIni.Text) || GetValueFromRadioButton() == 0 || string.IsNullOrEmpty(comBoxDesa.Text))
@@ -114,22 +132,21 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             }
             else
             {
-                int kunjunganKe = GetValueFromRadioButton();
+                int idJenis = GetValueFromRadioButton();
                 string namaDesa = comBoxDesa.Text;
-
-                int jumlahBulanLalu = GetJumlahBulanLalu(kunjunganKe, namaDesa);
+                int jumlahBulanLalu = GetJumlahBulanLalu(idJenis, namaDesa);
                 int jumlahBulanIni = int.Parse(txtJumlahBulanIni.Text);
-                int jumlahR = 0;
 
                 //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
-                // Tanggal sementara
-                kunjungan.tanggal = "01 February 2017";
-                kunjungan.kunjunganKe = kunjunganKe;
+
+                // Tanggal sementara pake ini dulu ya
+                pwskia.tanggal = "01 January 2017";
+                pwskia.id = idJenis;
 
                 foreach (Desa desa in desaContext.GetSasaranPerDesa(namaDesa))
                 {
 
-                    kunjungan.desa = new Desa
+                    pwskia.desa = new Desa
                     {
                         nama = comBoxDesa.Text,
                         jmlBulanLalu = jumlahBulanLalu,
@@ -140,15 +157,14 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                             bulin = desa.sasaran.bulin,
                             bumilRisti = desa.sasaran.bumilRisti
                         },
-                        r = jumlahR,
                     };
                 }
 
-                kunjungan.penanggungJawab = penanggungJawab;
+                pwskia.penanggungJawab = penanggungJawab;
 
                 try
                 {
-                    string message = kunjunganContext.AddDataKunjungan(kunjungan);
+                    string message = kunjunganContext.AddDataPwskia(pwskia);
                     MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
