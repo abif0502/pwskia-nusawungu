@@ -25,38 +25,116 @@ namespace pwskia_nusawungu.Views.PWS_KIA
     public partial class DataPWSKIAView : Page
     {
         public string penanggungJawab { get; set; }
+        public int Idrecord { get; set; }
         public DataPWSKIAView(string adminName)
         {
             InitializeComponent();
             penanggungJawab = adminName;
             GetMonthsAndYear();
+            GetDesa();
         }
 
-        //private void txtNumberFormat_PreviewKeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) & e.Key != Key.Back | e.Key == Key.Space)
-        //    {
-        //        e.Handled = true;
-        //    }
-        //}
+        private void txtNumberFormat_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) & e.Key != Key.Back | e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        public void GetDesa()
+        {
+
+            foreach (EnumDesa desa in Enum.GetValues(typeof(EnumDesa)))
+            {
+                comBoxUbahDesa.Items.Add(desa.ToString());
+            }
+        }
+
+        public int GetJumlahBulanLalu(int idJenis, string namaDesa)
+        {
+            int jumlahBulanLalu = 0;
+
+            // Hanya bulan sementara di tahun 2017
+            string namaBulanLalu="";
+
+            int bulanLalu = 1; //  bulan lalu = Januari
+            //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
+
+            if (bulanLalu > 0)
+            {
+                namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(bulanLalu);
+            }
+            
+
+            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
+
+            jumlahBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+            return jumlahBulanLalu;
+        }
+
+        private int GetValueFromRadioButton()
+        {
+            int value = 0;
+            if (rbKunjungan1.IsChecked == true)
+            {
+                value = 1;
+            }
+            else if (rbKunjungan4.IsChecked == true)
+            {
+                value = 2;
+
+            }
+            else if (rbKunjungan6.IsChecked == true)
+            {
+                value = 3;
+            }
+            else if (rbKF.IsChecked == true)
+            {
+                value = 4;
+
+            }
+            else if (rbPersalNakes.IsChecked == true)
+            {
+                value = 5;
+            }
+            else if (rbDeteksiRisNakes.IsChecked == true)
+            {
+                value = 6;
+
+            }
+            else if (rbDeteksiRisMasy.IsChecked == true)
+            {
+                value = 7;
+            }
+
+            return value;
+        }
 
         private int GetIDJenis(string jenis)
         {
             switch(jenis)
             {
                 case "Kunjungan 1":
+                    rbKunjungan1.IsChecked = true;
                     return 1;
                 case "Kunjungan 4":
+                    rbKunjungan4.IsChecked = true;
                     return 2;
                 case "Kunjungan 6":
+                    rbKunjungan6.IsChecked = true;
                     return 3;
                 case "KF":
+                    rbKF.IsChecked = true;
                     return 4;
                 case "Persalinan Nakes":
+                    rbPersalNakes.IsChecked = true;
                     return 5;
                 case "Deteksi Risiko Nakes":
+                    rbDeteksiRisNakes.IsChecked = true;
                     return 6;
                 case "Deteksi Risiko Masyarakat":
+                    rbDeteksiRisMasy.IsChecked = true;
                     return 7;
                 default:
                     return 0;
@@ -104,31 +182,31 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 switch (idJenis)
                 {
                     case 1:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Kunjungan 1";
                         break;
                     case 2:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Kunjungan 4";
                         break;
                     case 3:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Kunjungan 6";
                         break;
                     case 4:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "KF";
                         break;
                     case 5:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Persalinan Nakes";
                         break;
                     case 6:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Deteksi Risiko Nakes";
                         break;
                     case 7:
-                        dgKunjungan.Items.Add(kunjungan);
+                        dgDataPwskia.Items.Add(kunjungan);
                         titleTableKunjungan.Text = "Deteksi Risiko Masyarakat";
                         break;
                     default:
@@ -164,7 +242,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnKunjungan1_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
             try
             {
                 GetDataKunjungan(1);
@@ -178,7 +256,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnKunjungan4_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
             try
             {
                 GetDataKunjungan(2);
@@ -191,7 +269,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnKunjungan6_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
             try
             {
                 GetDataKunjungan(3);
@@ -233,7 +311,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
                     try
                     {
-                        dgKunjungan.Items.Clear();
+                        dgDataPwskia.Items.Clear();
                         GetDataKunjungan(kunjunganKe, bulanDanTahun);
                     }
                     catch (Exception ex)
@@ -244,33 +322,9 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             }
         }
 
-        private void btnCariData_Click(object sender, RoutedEventArgs e)
-        {
-            
-            
-        }
-
-        private void txtKeywordCariData_KeyUp(object sender, KeyEventArgs e)
-        {
-            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
-            titleTableKunjungan.Text = "Data PWSKIA";
-            
-
-            dgKunjungan.Items.Clear();
-
-            if (string.IsNullOrEmpty(txtKeywordCariData.Text) != true)
-            {
-                foreach (Pwskia kunjungan in kunjunganContext.CariData(txtKeywordCariData.Text))
-                {
-                    dgKunjungan.Items.Add(kunjungan);
-                }
-
-            }
-        }
-
         private void btnKF_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
 
             try
             {
@@ -284,7 +338,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnPersalNakes_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
 
             try
             {
@@ -298,7 +352,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnDeteksiRisNakes_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
 
             try
             {
@@ -312,7 +366,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnDeteksiRisMasy_Click(object sender, RoutedEventArgs e)
         {
-            dgKunjungan.Items.Clear();
+            dgDataPwskia.Items.Clear();
 
             try
             {
@@ -322,6 +376,146 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             {
                 MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        // Cari data dengan menekan button cari
+        private void btnCariData_Click(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(txtKeywordCariData.Text))
+            {
+                PwskiaViewModel kunjunganContext = new PwskiaViewModel();
+                titleTableKunjungan.Text = $"Hasil Pencarian Data : \"{txtKeywordCariData.Text}\" ";
+
+
+                dgDataPwskia.Items.Clear();
+
+                if (string.IsNullOrEmpty(txtKeywordCariData.Text) != true)
+                {
+                    foreach (Pwskia kunjungan in kunjunganContext.CariData(txtKeywordCariData.Text))
+                    {
+                        dgDataPwskia.Items.Add(kunjungan);
+                    }
+
+                }
+            }
+        }
+
+        // Cari data dengan tombol enter
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return)
+            {
+                if (!string.IsNullOrEmpty(txtKeywordCariData.Text))
+                {
+                    PwskiaViewModel kunjunganContext = new PwskiaViewModel();
+                    titleTableKunjungan.Text = $"Hasil Pencarian Data : \"{txtKeywordCariData.Text}\" ";
+
+
+                    dgDataPwskia.Items.Clear();
+
+                    if (string.IsNullOrEmpty(txtKeywordCariData.Text) != true)
+                    {
+                        foreach (Pwskia kunjungan in kunjunganContext.CariData(txtKeywordCariData.Text))
+                        {
+                            dgDataPwskia.Items.Add(kunjungan);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void btnSimpanPerubahanData_Click(object sender, RoutedEventArgs e)
+        {
+            DesaContext desaContext = new DesaContext();
+            PwskiaViewModel pwskiaContext = new PwskiaViewModel();
+            Pwskia pwskia = new Pwskia();
+
+            // Memasukkan value ke objek dari componen;
+            int idJenis = GetValueFromRadioButton();
+            int jmlBulanLalu = GetJumlahBulanLalu(idJenis, comBoxUbahDesa.Text);
+
+            foreach (Desa desa in desaContext.GetSasaranPerDesa(comBoxUbahDesa.Text))
+            {
+                pwskia.id = Idrecord;
+                pwskia.tanggal = "01 January 2017";
+                pwskia.idJenis = idJenis;
+                pwskia.desa = new Desa
+                {
+                    nama = comBoxUbahDesa.Text,
+                    jmlBulanLalu = jmlBulanLalu,
+                    jmlBulanIni = int.Parse(txtUbahJmlBulanIni.Text),
+
+                    sasaran = new Sasaran
+                    {
+                        bumil = desa.sasaran.bumil,
+                        bulin = desa.sasaran.bulin,
+                        bumilRisti = desa.sasaran.bumil
+                    },
+
+                    
+                };
+            }
+
+
+            try
+            {
+                string message = pwskiaContext.EditDataPWSKIA(pwskia);
+                MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnUbahData_Click(object sender, RoutedEventArgs e)
+        {
+            Pwskia dataPwskia = dgDataPwskia.SelectedItem as Pwskia;
+            // simpan objek untuk ubah data
+            
+
+            if (dgDataPwskia.SelectedItem != null)
+            {
+                // Mengisi nilai pada component
+                comBoxUbahDesa.SelectedItem = dataPwskia.desa.nama;
+                txtUbahJmlBulanIni.Text = dataPwskia.desa.jmlBulanIni.ToString();
+                _ = GetIDJenis(dataPwskia.jenis);
+                Idrecord = dataPwskia.id;
+                popUpUbahData.IsOpen = true;
+
+            }
+        }
+
+        private void btnTriggerHapus_Click(object sender, RoutedEventArgs e)
+        {
+            popUpConfirmDelete.IsOpen = true;
+        }
+
+        private void btnbatalHapus_Click(object sender, RoutedEventArgs e)
+        {
+            if(popUpConfirmDelete.IsOpen == true)
+            {
+                popUpConfirmDelete.IsOpen = false;
+            }
+        }
+
+        private void btnHapusData_Click(object sender, RoutedEventArgs e)
+        {
+            Pwskia dataPwskia = dgDataPwskia.SelectedItem as Pwskia;
+
+            PwskiaViewModel pwskiaContext = new PwskiaViewModel();
+
+            try
+            {
+                string message = pwskiaContext.DeleteDataRecord(dataPwskia.id);
+                MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
 }

@@ -115,9 +115,9 @@
                     <materialDesign:PackIcon Kind="DatabaseAdd" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
-                <Button x:Name="btnTriggerUbahData" Width="40" Height="40" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Grid.Row="0" Grid.Column="2" ToolTip="Ubah Data" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerUbahData_Click">
+                <!--<Button x:Name="btnTriggerUbahData" Width="40" Height="40" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Grid.Row="0" Grid.Column="2" ToolTip="Ubah Data" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerUbahData_Click">
                     <materialDesign:PackIcon Kind="Edit" Height="24" Width="24" VerticalAlignment="Center"/>
-                </Button>
+                </Button>-->
             </Grid>
 
             <materialDesign:Card Grid.Column="1" Height="50">
@@ -151,19 +151,29 @@
                         x:Name="txtKeywordCariData"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                         materialDesign:HintAssist.Hint="Cari Data" 
-                        materialDesign:HintAssist.IsFloating="False" BorderBrush="{x:Null}" KeyUp="txtKeywordCariData_KeyUp">
+                        materialDesign:HintAssist.IsFloating="False" BorderBrush="{x:Null}"
+                        KeyDown="OnKeyDownHandler">
                     </TextBox>
                 </materialDesign:Card>
-                <materialDesign:PackIcon
-                    Foreground="#FF21974C"
-                    Margin="0,0,15,0"
-                    Height="40"
-                    Width="40"
-                    VerticalAlignment="Center"
+                <Button
+                    x:Name="btnCariData"
                     HorizontalAlignment="Right"
-                    Kind="Search">
-                    
-                </materialDesign:PackIcon>
+                    Background="Blue"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Height="40"
+                    BorderBrush="White"
+                    Margin="0,0,15,0"
+                    Width="40" Click="btnCariData_Click">
+                    <materialDesign:PackIcon
+                        Foreground="White"
+                        Height="32"
+                        Width="32"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Kind="Search">
+
+                    </materialDesign:PackIcon>
+                </Button>
             </Grid>
             
         </Grid>
@@ -178,19 +188,17 @@
                 </Grid.ColumnDefinitions>
                 
                 
-                <!--Kunjungan 1-->
+                <!--Tabel Data PWSKIA-->
                 <Grid Grid.Column="0" Margin="5" Grid.ColumnSpan="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="85*"/>
+                        <RowDefinition Height="90*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="titleTableKunjungan" Grid.Row="0" Text="Kunjungan 1" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
-                    <ProgressBar x:Name="progressShowData" IsIndeterminate="False" Visibility="Hidden" VerticalAlignment="Bottom"/>
-                    <Grid Grid.Row="2">
-                        <DataGrid x:Name="dgKunjungan" BorderBrush="#FF323232">
+                     <Grid Grid.Row="2">
+                        <DataGrid x:Name="dgDataPwskia" BorderBrush="#FF323232" >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
+                                <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=numRow}"/>
                                 <DataGridTextColumn Header="Tanggal Input" IsReadOnly="True" Binding="{Binding Path=tanggal}"/>
 
                                 <DataGridTextColumn Header="Jenis" IsReadOnly="True" Binding="{Binding Path=jenis}"/>
@@ -200,6 +208,17 @@
                                 <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=desa.abs}"/>
                                 <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase}"/>
                                 <DataGridTextColumn Header="Penanggung Jawab" IsReadOnly="True" Binding="{Binding Path=penanggungJawab}"/>
+                                <DataGridTemplateColumn Header="Aksi">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <Button x:Name="btnUbahData" Click="btnUbahData_Click" >Ubah</Button>
+                                                <Button Margin="5,0,0,0" x:Name="btnTriggerHapus" Foreground="White" Background="Red" Click="btnTriggerHapus_Click" >Hapus</Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -208,7 +227,180 @@
             </Grid>
         </Grid>
 
+        <!--POPUP Edit Data-->
+        <Popup
+            Width="350"
+            Height="400"
+            x:Name="popUpUbahData"
+            StaysOpen="False"
+            Placement="Center">
+            <Popup.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="10"/>
+            </Popup.Effect>
+
+            <materialDesign:Card Background="#FFA7B6AB">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect BlurRadius="10"/>
+                </materialDesign:Card.Effect>
+                <StackPanel>
+                    <Grid Background="White">
+                        <TextBlock Margin="10" Text="Ubah Data Sasaran" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="50*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Jumlah Bulan Ini" FontSize="14" FontWeight="Bold"/>
+                        <ComboBox x:Name="comBoxUbahDesa" materialDesign:HintAssist.Foreground="White" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                        <TextBox x:Name="txtUbahJmlBulanIni" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Masukkan Jumlah" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <GroupBox 
+                            Margin="0,20,0,0"
+                            Grid.Row="2" 
+                            Header="Pilih Salah Satu"
+                            Style="{x:Null}"
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" BorderBrush="#FF061117" Foreground="#FF7D8980" FontWeight="Bold" >
+                            <StackPanel  Orientation="Vertical">
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25*"/>
+                                        <ColumnDefinition Width="25*"/>
+                                        <ColumnDefinition Width="25*"/>
+                                        <ColumnDefinition Width="25*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33*"/>
+                                        <RowDefinition Height="33*"/>
+                                        <RowDefinition Height="33*"/>
+                                    </Grid.RowDefinitions>
+                                    <RadioButton 
+                                Grid.Column="0" 
+                                x:Name="rbKunjungan1" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                                        K1
+                                    </RadioButton>
+                                    <RadioButton 
+                                Grid.Column="1" 
+                                x:Name="rbKunjungan4" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" >
+                                        K4
+                                    </RadioButton>
+                                    <RadioButton 
+                                Grid.Column="2" 
+                                x:Name="rbKunjungan6" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                                        K6
+                                    </RadioButton>
+                                    <RadioButton 
+                                Grid.Column="3" 
+                                x:Name="rbKF" 
+                                HorizontalAlignment="Center" 
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}">
+                                        KF
+                                    </RadioButton>
+
+                                    <RadioButton 
+                                x:Name="rbPersalNakes"
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
+                                Content="Persalinan Nakes"/>
+                                    <RadioButton 
+                                x:Name="rbDeteksiRisNakes"
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
+                                Content="Deteksi Risiko Nakes"/>
+
+                                    <RadioButton 
+                                x:Name="rbDeteksiRisMasy"
+                                Grid.ColumnSpan="4"
+                                Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" 
+                                Content="Deteksi Risiko Masyarakat"/>
+
+                                </Grid>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </Grid>
+                    <Button x:Name="btnSimpanPerubahanData" Margin="10,20,10,0" Content="SIMPAN" Click="btnSimpanPerubahanData_Click" />
+
+
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Popup>
         
+        <!--Popup Konfirmasi hapus-->
+        <!--Popup Konfirmasi-->
+        <Popup   
+            x:Name="popUpConfirmDelete"
+            Placement="Center"
+            StaysOpen="False"
+            AllowsTransparency="True">
+            <materialDesign:Card BorderBrush="Black" BorderThickness="10">
+                <Grid Width="250" Height="160" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#21974C">
+                        <TextBlock Foreground="White" Margin="2" FontSize="16" TextAlignment="Center" Text="Konfirmasi!" />
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Foreground="#FFD8840A"
+                            Height="70"
+                            Width="70"
+                            Kind="Warning">
+
+                        </materialDesign:PackIcon>
+
+                        <TextBlock 
+                            Margin="10,0,0,0"
+                            FontSize="16"
+                            VerticalAlignment="Center">
+                            Yakin ingin hapus?
+                        </TextBlock>
+
+                    </StackPanel>
+
+                    <Grid Background="#CDE4D3" Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnHapusData" Background="Blue" Margin="2,5,2,10" Grid.Column="1" Content="Hapus" BorderBrush="White" Click="btnHapusData_Click" />
+                        <Button x:Name="btnbatalHapus" Background="White" BorderBrush="Blue" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" />
+                    </Grid>
+
+                </Grid>
+            </materialDesign:Card>
+
+        </Popup>
 
     </Grid>
 </Page>

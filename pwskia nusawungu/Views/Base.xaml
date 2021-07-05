@@ -29,30 +29,31 @@
                 ToolTip="Profil"
                 DeleteToolTip="Logout">
                 <materialDesign:Chip.Icon>
-                    <Image
-                        Source="../Resources/Image/profile.png" />
+                    <materialDesign:PackIcon Kind="User"/>
+                    <!--<Image
+                        Source="../Resources/Image/profile.png" />-->
                 </materialDesign:Chip.Icon>
             </materialDesign:Chip>
 
             <Separator Background="White" Foreground="White" BorderBrush="White" MinHeight="5"/>
 
-            <Button x:Name="btnDashboard" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,10,0,0" Click="btnDashboard_Click" Height="50" HorizontalContentAlignment="Left">
+            <Button x:Name="btnDashboard" Width="250" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Margin="0,10,0,0" Click="btnDashboard_Click" Height="50" HorizontalContentAlignment="Left">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Home" Margin="0,0,10,0" Foreground="White" Height="24" Width="24" />
+                    <materialDesign:PackIcon Kind="Home" Margin="0,0,10,0" Height="24" Width="24" />
                     <TextBlock Text="Dashboard" VerticalAlignment="Center" FontWeight="Normal" />
                 </StackPanel>
             </Button>
 
-            <Button x:Name="btnPWSKIA"  Background="{x:Null}" BorderBrush="{x:Null}" Height="50" HorizontalContentAlignment="Left" FontWeight="Normal" Click="btnPWSKIA_Click">
+            <Button x:Name="btnPWSKIA" Width="250" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Height="50" HorizontalContentAlignment="Left" FontWeight="Normal" Click="btnPWSKIA_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="WomanChild" Margin="0,0,10,0"  Foreground="White" Height="24" Width="24"/>
+                    <materialDesign:PackIcon Kind="WomanChild" Margin="0,0,10,0"  Height="24" Width="24"/>
                     <TextBlock Text="PWS KIA" VerticalAlignment="Center" FontSize="14" />
                 </StackPanel>
             </Button>
 
-            <Button x:Name="btnGrafik" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,0,0,10" Height="50" HorizontalContentAlignment="Left">
+            <Button x:Name="btnGrafik" Width="250" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}" Margin="0,0,0,10" Height="50" HorizontalContentAlignment="Left" Click="btnGrafik_Click">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="ChartBar" Margin="0,0,10,0" Foreground="White" Height="24" Width="24"/>
+                    <materialDesign:PackIcon Kind="ChartBar" Margin="0,0,10,0" Height="24" Width="24"/>
                     <TextBlock Text="Grafik" VerticalAlignment="Center" FontWeight="Normal" />
                 </StackPanel>
             </Button>

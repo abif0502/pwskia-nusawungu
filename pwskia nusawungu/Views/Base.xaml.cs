@@ -28,6 +28,7 @@ namespace pwskia_nusawungu.Views
             Title = "Dashboard";
         }
 
+
         private void btnDashboard_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new Dashboard.Dashboard();
@@ -56,6 +57,11 @@ namespace pwskia_nusawungu.Views
         {
 
             if(popUpConfirmLogout.IsOpen == true) popUpConfirmLogout.IsOpen = false;
+        }
+
+        private void btnGrafik_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -139,9 +139,9 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
                 //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
 
-                // Tanggal sementara pake ini dulu ya
+                // Tanggal sementara 
                 pwskia.tanggal = "01 January 2017";
-                pwskia.id = idJenis;
+                pwskia.idJenis = idJenis;
 
                 foreach (Desa desa in desaContext.GetSasaranPerDesa(namaDesa))
                 {

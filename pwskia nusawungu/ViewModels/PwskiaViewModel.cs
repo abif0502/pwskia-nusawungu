@@ -69,8 +69,8 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 {
                     dataPwskia.Add(new Pwskia
                     {
-                        //id = (Int32)reader["id"],
-                        id = nums,
+                        id = (Int32)reader["id"],
+                        numRow = nums,
 
                         // jenis = k1,k4, dst....
                         jenis = (string)reader["jenis"],
@@ -159,8 +159,8 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 {
                     dataPwskia.Add(new Pwskia
                     {
-                        //id = (Int32)reader["id"],
-                        id = nums,
+                        id = (Int32)reader["id"],
+                        numRow = nums,
                         jenis = (string)reader["jenis"],
                         desa = new Desa {
                             nama = (string)reader["desa"],
@@ -195,7 +195,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             string query = $"INSERT INTO datapwskia(`desa`, `idJenis`, `tanggal`, `bumil`, `bulin`, `bumilRisti`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `penanggungJawab`)" +
                 $"VALUES " +
                 $"('{k.desa.nama}'," +
-                $"'{k.id}'," +
+                $"'{k.idJenis}'," +
                 $"'{k.tanggal}'," +
                 $"{k.desa.sasaran.bumil}," +
                 $"{k.desa.sasaran.bulin}," +
@@ -222,6 +222,58 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             }
 
             return message;
+        }
+
+        public string EditDataPWSKIA(Pwskia pwskia)
+        {
+            string message = "";
+            string query = $"UPDATE datapwskia SET " +
+                $"desa='{pwskia.desa.nama}', " +
+                $"tanggal='{pwskia.tanggal}'," +
+                $"idJenis={pwskia.idJenis}," +
+                $"bumil={pwskia.desa.sasaran.bumil}," +
+                $"bulin={pwskia.desa.sasaran.bulin}," +
+                $"bumilristi={pwskia.desa.sasaran.bumilRisti}," +
+                $"jmlBulanLalu={pwskia.desa.jmlBulanLalu}," +
+                $"jmlBulanIni={pwskia.desa.jmlBulanIni}," +
+                $"abs={pwskia.desa.abs}," +
+                $"persentase={pwskia.desa.persentase}" +
+                $"WHERE id={pwskia.id}";
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.ExecuteReader();
+                message = "Berhasil Memperbaharui Data";
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return message;
+        }
+
+        public string DeleteDataRecord(int id)
+        {
+            string message = "";
+            string query = $"DELETE FROM datapwskia WHERE id={id}";
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.ExecuteReader();
+
+                message = "Berhasil menghapus data";
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return message;
+            
         }
 
 
