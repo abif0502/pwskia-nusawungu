@@ -21,14 +21,14 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        
+
         <!--Header-->
 
         <Grid Grid.Row="0"  Background="#FFA7B6AB" >
             <materialDesign:PackIcon Kind="BoxAdd" Foreground="White" HorizontalAlignment="Left" Margin="30,0,0,0" Width="40" Height="40" VerticalAlignment="Center"/>
             <TextBlock Text="INPUT DATA" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
         </Grid>
-        
+
         <!--Content-->
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <Grid Margin="10">
@@ -48,7 +48,7 @@
 
                 <TextBlock Grid.Row="1" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
                 <TextBox Grid.Row="1" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                
+
                 <!--<TextBlock Grid.Row="2" Text="Kunjungan Ke"  Margin="10" VerticalAlignment="Center" FontWeight="Bold" Grid.Column="0" Foreground="#FF7D8980"/>-->
                 <!--<ComboBox Grid.Row="2" x:Name="comBoxKunjunganKe" Margin="10" materialDesign:HintAssist.Hint="Kunjungan ke-" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="14">
                     <ComboBoxItem>1</ComboBoxItem>
@@ -147,8 +147,15 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="48*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnSimpanData" Grid.Column="0" Background="#FF225FE2" Content="SIMPAN" BorderBrush="{x:Null}" Click="btnSimpanData_Click"/>
-                <Button x:Name="btnTutup" Grid.Column="2" Content="TUTUP" Background="White" Foreground="#FF225FE2" BorderBrush="{x:Null}" Click="btnTutup_Click"/>
+                <Button x:Name="btnSimpanData" materialDesign:ButtonAssist.CornerRadius="10" Grid.Column="0" Content="SIMPAN" BorderBrush="{x:Null}" Click="btnSimpanData_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6B9AFF" Offset="0"/>
+                            <GradientStop Color="#FF225FE2" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="btnTutup" Grid.Column="2" materialDesign:ButtonAssist.CornerRadius="10" Content="TUTUP" Background="White" Foreground="#FF225FE2" BorderBrush="{x:Null}" Click="btnTutup_Click"/>
             </Grid>
         </Grid>
 

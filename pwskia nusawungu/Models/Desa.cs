@@ -77,6 +77,7 @@ namespace pwskia_nusawungu.Models
 
         public List<Desa> GetSasaran()
         {
+            int nomor = 1;
             List<Desa> dataSasaran = new List<Desa>();
 
             string query = "SELECT * FROM tbdesa";
@@ -90,6 +91,7 @@ namespace pwskia_nusawungu.Models
                 {
                     dataSasaran.Add(new Desa
                     {
+                        id = nomor,
                         nama = (string)reader["nama"],
                         sasaran = new Sasaran
                         {
@@ -98,6 +100,8 @@ namespace pwskia_nusawungu.Models
                             bumilRisti = (Int32)reader["bumilRisti"]
                         }
                     });
+
+                    nomor++;
                 }
                 con.Close();
             }
@@ -109,11 +113,12 @@ namespace pwskia_nusawungu.Models
             return dataSasaran;
         }
 
-        public List<Desa> GetSasaranPerDesa(string namaDesa)
+        public List<Desa> GetSasaranPerBulan(string bulanDanTahun)
         {
+            int nomor = 1;
             List<Desa> dataSasaran = new List<Desa>();
 
-            string query = $"SELECT * FROM tbdesa WHERE nama='{namaDesa}'";
+            string query = $"SELECT DISTINCT desa,bumil,bulin,bumilRisti FROM datapwskia WHERE tanggal LIKE '%{bulanDanTahun}%'";
 
             try
             {
@@ -125,8 +130,9 @@ namespace pwskia_nusawungu.Models
                 {
                     dataSasaran.Add(new Desa
                     {
-                        id = (Int32)reader["id"],
-                        nama = (string)reader["nama"],
+                        //id = (Int32)reader["id"],
+                        id = nomor,
+                        nama = (string)reader["desa"],
                         sasaran = new Sasaran
                         {
                             bumil = (Int32)reader["bumil"],
@@ -134,6 +140,8 @@ namespace pwskia_nusawungu.Models
                             bumilRisti = (Int32)reader["bumilRisti"]
                         }
                     });
+
+                    nomor++;
                 }
             }catch(Exception ex)
             {

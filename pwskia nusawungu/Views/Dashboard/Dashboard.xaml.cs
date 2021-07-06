@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using pwskia_nusawungu.Models;
 
+using pwskia_nusawungu.ViewModels.PWSKIA;
+
 namespace pwskia_nusawungu.Views.Dashboard
 {
     /// <summary>
@@ -25,15 +28,30 @@ namespace pwskia_nusawungu.Views.Dashboard
         {
             InitializeComponent();
             GetDesa();
-            GetNilaiSasaran();
+            GetMonthsAndYear();
         }
 
         public void GetNilaiSasaran()
         {
+            dgSasaran.Items.Clear();
             DesaContext context = new DesaContext();
             foreach(Desa desa in context.GetSasaran())
             {
                 dgSasaran.Items.Add(desa);
+            }
+        }
+
+        private void GetMonthsAndYear()
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                comBoxBulan.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(i));
+            }
+
+            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
+            foreach (string tahun in kunjunganContext.GetDaftarTahun())
+            {
+                comBoxTahun.Items.Add(tahun);
             }
         }
 
@@ -92,6 +110,42 @@ namespace pwskia_nusawungu.Views.Dashboard
         private void btnTriggerInputSasaran_Click(object sender, RoutedEventArgs e)
         {
             popUpFromSasaran.IsOpen = true;
+        }
+
+        private void btnTriggerLihatSasaran_Click(object sender, RoutedEventArgs e)
+        {
+            GetNilaiSasaran();
+        }
+
+        private void comBoxBulan_DropDownClosed(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comBoxBulan.Text))
+            {
+                comBoxTahun.IsEnabled = true;
+            }
+        }
+
+        private void comBoxTahun_DropDownClosed(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comBoxTahun.Text))
+            {
+                DesaContext desaContext = new DesaContext();
+                string bulanDanTahun = $"{comBoxBulan.Text} {comBoxTahun.Text}";
+
+                dgSasaranPerbulan.Items.Clear();
+                try
+                {
+                    titleTableBulanDanTahun.Text = $"Data Sasaran \"{bulanDanTahun}\"";
+                    foreach (Desa desa in desaContext.GetSasaranPerBulan(bulanDanTahun))
+                    {
+                        dgSasaranPerbulan.Items.Add(desa);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

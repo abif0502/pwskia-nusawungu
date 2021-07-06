@@ -20,89 +20,53 @@
             <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
 
-        <materialDesign:Card 
-            Margin="10"
-            VerticalAlignment="Center">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="15*"/>
-                    <ColumnDefinition Width="15*"/>
-                    <ColumnDefinition Width="70*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-
-                <Grid 
-                    Grid.ColumnSpan="3"
-                    Background="#FFA7B6AB">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
+            <Button 
+                Height="50"
+                Foreground="White"
+                ToolTip="Lihat Sasaran Terkini" 
+                x:Name="btnTriggerLihatSasaran" Click="btnTriggerLihatSasaran_Click" BorderBrush="{x:Null}">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF87CD9E" Offset="0"/>
+                        <GradientStop Color="#FF21974C" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="EyeCircle" Width="24" Height="24"/>
                     <TextBlock 
-                        Foreground="White"
-                        FontSize="18"
                         VerticalAlignment="Center"
-                        TextAlignment="Center" FontWeight="Bold">
-                            Data Sasaran
+                        Margin="10,0,0,0">
+                        Lihat Semua Data Sasaran
                     </TextBlock>
-                </Grid>
+                </StackPanel>
 
-                <Button 
-                    Grid.Column="0" 
-                    Grid.Row="1"
-                    Height="40"
-                    Width="40"
-                    Background="White"
-                    BorderBrush="#FF21974C"
-                    Foreground="#FF21974C"
-                    ToolTip="Lihat Sasaran" 
-                    Margin="2"
-                    x:Name="btnTriggerLihatSasaran" 
-                    Style="{StaticResource MaterialDesignFloatingActionButton}" 
-                    Click="btnTriggerInputSasaran_Click">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="EyeCircle" Width="32" Height="32"/>
-                    </StackPanel>
-                </Button>
+            </Button>
 
-                <Button 
-                    Grid.Column="1" 
-                    Background="White"
-                    Grid.Row="1"
-                    Height="40"
-                    Width="40"
-                    BorderBrush="#FF21974C"
-                    Foreground="#FF21974C"
-                    Margin="2" 
-                    ToolTip="Ubah Data Sasaran" 
-                    x:Name="btnTriggerInputSasaran" 
-                    Style="{StaticResource MaterialDesignFloatingActionButton}" 
-                    Click="btnTriggerInputSasaran_Click">
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="Pen" Width="32" Height="32"/>
-                    </StackPanel>
-                </Button>
-
-                <materialDesign:Card
-                    Margin="5"
-                    Grid.Row="1" 
-                    Grid.Column="2" >
-                    <StackPanel 
+            <Button 
+                Height="50"
+                BorderBrush="{x:Null}"
+                Foreground="White"
+                Margin="30,0,0,0" 
+                ToolTip="Ubah Data Sasaran" 
+                x:Name="btnTriggerInputSasaran" 
+                Click="btnTriggerInputSasaran_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF87CD9E" Offset="0"/>
+                        <GradientStop Color="#FF21974C" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Pen" Width="24" Height="24"/>
+                    <TextBlock 
                         VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                        <TextBlock 
-                        Margin="10,0,15,0"
-                        FontSize="14"
-                        Text="Lihat per Desa" />
-
-                        <ComboBox x:Name="comBoxSasaranDesa" materialDesign:HintAssist.Hint="Pilih Nama Desa">
-
-                        </ComboBox>
-
-                    </StackPanel>
-                </materialDesign:Card>
-
-            </Grid>
-        </materialDesign:Card>
+                        Margin="10,0,0,0">
+                        Ubah Data Sasaran
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
         <Popup
             Width="350"
@@ -154,10 +118,93 @@
         </Popup>
 
         <Grid Grid.Column="0" Grid.Row="1" Margin="10">
-            <Separator MinHeight="5" Margin="0,-10,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
-            <DataGrid x:Name="dgSasaran">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="85*"/>
+            </Grid.RowDefinitions>
+            <Separator MinHeight="5" Grid.Row="0" Margin="0,0,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
+            <TextBlock Grid.Row="1" Text="Data Sasaran Terkini" Foreground="#FFA7B6AB" FontSize="14" TextAlignment="Center"/>
+            <DataGrid 
+                x:Name="dgSasaran"
+                Grid.Row="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nomor" IsReadOnly="True" Binding="{Binding Path=nomor}"/>
+                    <DataGridTextColumn Header="Nomor" IsReadOnly="True" Binding="{Binding Path=id}"/>
+                    <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
+                    <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
+                    <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>
+                    <DataGridTextColumn Header="Bumil Risti" IsReadOnly="True" Binding="{Binding Path=sasaran.bumilRisti}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <materialDesign:Card
+            Margin="10"
+            Height="100"
+            Grid.Row="0" 
+            Grid.Column="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="33*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="60*"/>
+                </Grid.RowDefinitions>
+                <Grid
+                    Background="#FFA7B6AB"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3">
+                    <TextBlock 
+                        Foreground="White"
+                        FontSize="18"
+                        Margin="10"
+                        TextAlignment="Center"
+                        Text="Lihat Data Sasaran Per Bulan" FontWeight="Bold" />
+                </Grid>
+
+                <TextBlock 
+                    Margin="5"
+                    FontSize="14"
+                    Grid.Column="0"
+                    TextAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Row="1"
+                    Text="Pilih Bulan dan Tahun" />
+                <ComboBox 
+                    Grid.Row="1" 
+                    Margin="5"
+                    Grid.Column="1"
+                    x:Name="comBoxBulan" 
+                    materialDesign:HintAssist.Hint="Pilih Bulan" DropDownClosed="comBoxBulan_DropDownClosed">
+                </ComboBox>
+                <ComboBox 
+                    Grid.Row="1" 
+                    Grid.Column="2"
+                    IsEnabled="False"
+                    Margin="5"
+                    x:Name="comBoxTahun" 
+                    materialDesign:HintAssist.Hint="Pilih Tahun" DropDownClosed="comBoxTahun_DropDownClosed">
+                </ComboBox>
+
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="85*"/>
+            </Grid.RowDefinitions>
+            <Separator MinHeight="5" Grid.Row="0" Margin="0,0,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
+            <TextBlock Grid.Row="1" x:Name="titleTableBulanDanTahun" Text="Data Sasaran " Foreground="#FFA7B6AB" FontSize="14" TextAlignment="Center"/>
+            <DataGrid 
+                x:Name="dgSasaranPerbulan"
+                Grid.Row="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nomor" IsReadOnly="True" Binding="{Binding Path=id}"/>
                     <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
                     <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
                     <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>

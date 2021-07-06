@@ -143,7 +143,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 pwskia.tanggal = "01 January 2017";
                 pwskia.idJenis = idJenis;
 
-                foreach (Desa desa in desaContext.GetSasaranPerDesa(namaDesa))
+                foreach (Desa desa in desaContext.GetSasaranPerBulan(namaDesa))
                 {
 
                     pwskia.desa = new Desa

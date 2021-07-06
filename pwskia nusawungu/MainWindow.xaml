@@ -14,7 +14,7 @@
         Icon="Resources/Icon/icon.png"
         MinHeight="450"
         MinWidth="350"
-        Title="Selamat Datang - Silahkan masuk untuk melanjutkan" Height="480" Width="800" MouseDown="Window_MouseDown">
+        Title="Selamat Datang - Silahkan masuk untuk melanjutkan" Height="450" Width="800" MouseDown="Window_MouseDown">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -66,8 +66,15 @@
                     <materialDesign:PackIcon Kind="Key" Width="24" Height="24" Foreground="White"/>
                     <PasswordBox x:Name="txtPassword" Margin="10,0,0,0" materialDesign:HintAssist.Hint="Kata sandi"  BorderBrush="#89FFFFFF" Foreground="White" FontWeight="Bold" Width="230"/>
                 </StackPanel>
-                <Button x:Name="btnLogin" Height="50" Content="MASUK" Background="#FF225FE2" BorderBrush="{x:Null}" Click="btnLogin_Click"/>
-                <Button x:Name="btnClose" Height="50" Content="BATAL" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7" BorderBrush="#FF3A3AB7" Click="btnClose_Click"/>
+                <Button x:Name="btnLogin" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Masuk" BorderBrush="{x:Null}" Click="btnLogin_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6997FB" Offset="0"/>
+                            <GradientStop Color="#FF225FE2" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="btnClose" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Keluar" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7"  Click="btnClose_Click" BorderBrush="{x:Null}"/>
             </StackPanel>
         </StackPanel>
 
@@ -78,7 +85,7 @@
             StaysOpen="False"
             AllowsTransparency="True">
             <materialDesign:Card BorderBrush="Black" BorderThickness="10">
-                <Grid Width="250" Height="150" Background="White">
+                <Grid Width="250" Height="160" Background="White">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20*"/>
                         <RowDefinition Height="50*"/>
@@ -115,8 +122,16 @@
                             <ColumnDefinition Width="40*"/>
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnKeluar" Background="Blue" Margin="2,2,2,10" Grid.Column="1" Content="Keluar" BorderBrush="White" Click="btnKeluar_Click"/>
-                        <Button x:Name="btnbatal" Background="White" BorderBrush="Blue" Foreground="Blue" Margin="2,2,2,10" Grid.Column="2" Content="Batal" Click="btnbatal_Click"/>
+                        <Button x:Name="btnKeluar" materialDesign:ButtonAssist.CornerRadius="10" Margin="2,2,2,10" Grid.Column="1" Content="Keluar" BorderBrush="{x:Null}" Click="btnKeluar_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF6997FB" Offset="0"/>
+                                    <GradientStop Color="#FF225FE2" Offset="1"/>
+
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnbatal" Background="White" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="White" Foreground="Blue" Margin="2,2,2,10" Grid.Column="2" Content="Batal" Click="btnbatal_Click"/>
                     </Grid>
 
                 </Grid>
@@ -125,9 +140,9 @@
         </Popup>
 
     </Grid>
-    
-    
 
-    
+
+
+
 
 </Window>

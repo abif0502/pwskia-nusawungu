@@ -16,7 +16,7 @@
             <RowDefinition Height="15*"/>
             <RowDefinition Height="85*"/>
         </Grid.RowDefinitions>
-        
+
         <!--Menu bar-->
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--trigger form data-->
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
@@ -33,7 +33,13 @@
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnTriggerLihatData" Width="40" Height="40" Grid.Row="0" ToolTip="Lihat Data" BorderBrush="#FF21974C" Background="White" Foreground="#FF21974C" Grid.Column="0" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerLihatData_Click" >
+                <Button x:Name="btnTriggerLihatData" Width="40" Height="40" Grid.Row="0" ToolTip="Lihat Data" BorderBrush="{x:Null}" Foreground="White" Grid.Column="0" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerLihatData_Click" >
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF87CD9E" Offset="0"/>
+                            <GradientStop Color="#FF21974C" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
                     <materialDesign:PackIcon Kind="EyeCircle" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
@@ -45,7 +51,7 @@
                     x:Name="popUpLihatData"
                     AllowsTransparency="True"
                     Placement="Bottom">
-    
+
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"/>
@@ -58,7 +64,7 @@
                             <RowDefinition Height="33*"/>
                             <RowDefinition Height="33*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <Button x:Name="btnKunjungan1" Grid.Column="0" Foreground="White" Background="#FF21974C" ToolTip="Kunjungan 1" Content="K1" Margin="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnKunjungan1_Click" BorderBrush="White" FontWeight="Bold" />
                         <Button x:Name="btnKunjungan4" Grid.Column="1" Foreground="White" Background="#FF21974C" Content="K4" Margin="2" ToolTip="Kunjungan 4" Style="{StaticResource MaterialDesignFloatingActionButton}"  BorderBrush="White" FontWeight="Bold" Click="btnKunjungan4_Click"/>
                         <Button x:Name="btnKunjungan6" Grid.Column="2" Foreground="White" Background="#FF21974C" Content="K6" Margin="2" ToolTip="Kunjungan 1" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKunjungan6_Click"/>
@@ -108,10 +114,16 @@
 
 
                     </Grid>
-                    
+
                 </Popup>
 
-                <Button x:Name="btnTriggerInputData" Width="40" Height="40" Background="White" Foreground="#FF21974C" BorderBrush="#FF21974C" Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Input Data" Grid.Row="0" Grid.Column="1" Margin="10"  Click="btnTriggerInputData_Click">
+                <Button x:Name="btnTriggerInputData" Width="40" Height="40" Foreground="White" BorderBrush="{x:Null}" Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Input Data" Grid.Row="0" Grid.Column="1" Margin="10"  Click="btnTriggerInputData_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF87CD9E" Offset="0"/>
+                            <GradientStop Color="#FF21974C" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
                     <materialDesign:PackIcon Kind="DatabaseAdd" Height="24" Width="24" VerticalAlignment="Center"/>
                 </Button>
 
@@ -158,12 +170,17 @@
                 <Button
                     x:Name="btnCariData"
                     HorizontalAlignment="Right"
-                    Background="Blue"
                     Style="{StaticResource MaterialDesignFloatingActionButton}"
                     Height="40"
-                    BorderBrush="White"
+                    BorderBrush="{x:Null}"
                     Margin="0,0,15,0"
                     Width="40" Click="btnCariData_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF0D548F" Offset="0"/>
+                            <GradientStop Color="#FF0181EC" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
                     <materialDesign:PackIcon
                         Foreground="White"
                         Height="32"
@@ -175,7 +192,7 @@
                     </materialDesign:PackIcon>
                 </Button>
             </Grid>
-            
+
         </Grid>
 
         <Grid Grid.Row="1" Margin="10" Grid.ColumnSpan="3">
@@ -186,8 +203,8 @@
                     <ColumnDefinition Width="33*"/>
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
-                
-                
+
+
                 <!--Tabel Data PWSKIA-->
                 <Grid Grid.Column="0" Margin="5" Grid.ColumnSpan="3">
                     <Grid.RowDefinitions>
@@ -195,7 +212,7 @@
                         <RowDefinition Height="90*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="titleTableKunjungan" Grid.Row="0" Text="Kunjungan 1" TextAlignment="Center" Foreground="#FF7A7A7A" FontSize="14" Margin="5" FontWeight="Bold"/>
-                     <Grid Grid.Row="2">
+                    <Grid Grid.Row="2">
                         <DataGrid x:Name="dgDataPwskia" BorderBrush="#FF323232" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=numRow}"/>
@@ -206,15 +223,29 @@
                                 <DataGridTextColumn Header="Jumlah Bulan Lalu" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanLalu}"/>
                                 <DataGridTextColumn Header="Jumlah Bulan Ini" IsReadOnly="True" Binding="{Binding Path=desa.jmlBulanIni}"/>
                                 <DataGridTextColumn Header="ABS" IsReadOnly="True" Binding="{Binding Path=desa.abs}"/>
-                                <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase}"/>
+                                <DataGridTextColumn Header="Persentase (%)" IsReadOnly="True" Binding="{Binding Path=desa.persentase, StringFormat=N2}"/>
                                 <DataGridTextColumn Header="Penanggung Jawab" IsReadOnly="True" Binding="{Binding Path=penanggungJawab}"/>
                                 <DataGridTemplateColumn Header="Aksi">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel
                                                 Orientation="Horizontal">
-                                                <Button x:Name="btnUbahData" Click="btnUbahData_Click" >Ubah</Button>
-                                                <Button Margin="5,0,0,0" x:Name="btnTriggerHapus" Foreground="White" Background="Red" Click="btnTriggerHapus_Click" >Hapus</Button>
+                                                <Button x:Name="btnUbahData" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}"  Click="btnUbahData_Click" >
+                                                    <Button.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FF5088FF" Offset="0"/>
+                                                            <GradientStop Color="#FF0051FF" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Button.Background> Ubah
+                                                </Button>
+                                                <Button Margin="5,0,0,0" x:Name="btnTriggerHapus" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}"   Foreground="White" Click="btnTriggerHapus_Click" >
+                                                    <Button.Background>
+                                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                            <GradientStop Color="#FFFF6C6C" Offset="0"/>
+                                                            <GradientStop Color="Red" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Button.Background> Hapus
+                                                </Button>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -340,14 +371,26 @@
                         </GroupBox>
 
                     </Grid>
-                    <Button x:Name="btnSimpanPerubahanData" Margin="10,20,10,0" Content="SIMPAN" Click="btnSimpanPerubahanData_Click" />
+                    <Button 
+                        x:Name="btnSimpanPerubahanData" 
+                        Margin="10,20,10,0" Height="40" 
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Content="SIMPAN" 
+                        Click="btnSimpanPerubahanData_Click" BorderBrush="{x:Null}" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                <GradientStop Color="#FF0051A2" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
 
 
                 </StackPanel>
             </materialDesign:Card>
 
         </Popup>
-        
+
         <!--Popup Konfirmasi hapus-->
         <!--Popup Konfirmasi-->
         <Popup   
@@ -393,8 +436,19 @@
                             <ColumnDefinition Width="40*"/>
                             <ColumnDefinition Width="40*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnHapusData" Background="Blue" Margin="2,5,2,10" Grid.Column="1" Content="Hapus" BorderBrush="White" Click="btnHapusData_Click" />
-                        <Button x:Name="btnbatalHapus" Background="White" BorderBrush="Blue" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" />
+                        <Button x:Name="btnHapusData"
+                                Margin="2,5,2,10" 
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                Grid.Column="1" 
+                                Content="Hapus" BorderBrush="{x:Null}" Click="btnHapusData_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                    <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnbatalHapus" materialDesign:ButtonAssist.CornerRadius="10" Background="White" BorderBrush="{x:Null}" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" />
                     </Grid>
 
                 </Grid>

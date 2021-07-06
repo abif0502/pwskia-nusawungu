@@ -435,7 +435,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             int idJenis = GetValueFromRadioButton();
             int jmlBulanLalu = GetJumlahBulanLalu(idJenis, comBoxUbahDesa.Text);
 
-            foreach (Desa desa in desaContext.GetSasaranPerDesa(comBoxUbahDesa.Text))
+            foreach (Desa desa in desaContext.GetSasaranPerBulan(comBoxUbahDesa.Text))
             {
                 pwskia.id = Idrecord;
                 pwskia.tanggal = "01 January 2017";
