@@ -15,7 +15,6 @@ namespace pwskia_nusawungu.Models
         public Sasaran sasaran { get; set; }
         public int jmlBulanLalu { get; set; }
         public int jmlBulanIni { get; set; }
-        public int r { get; set; }
 
         private int _abs;
         private float _persentase;
@@ -113,12 +112,20 @@ namespace pwskia_nusawungu.Models
             return dataSasaran;
         }
 
-        public List<Desa> GetSasaranPerBulan(string bulanDanTahun)
+        public List<Desa> GetSasaranPerBulan(string bulanDanTahun="", string desa="")
         {
             int nomor = 1;
+            string query;
             List<Desa> dataSasaran = new List<Desa>();
 
-            string query = $"SELECT DISTINCT desa,bumil,bulin,bumilRisti FROM datapwskia WHERE tanggal LIKE '%{bulanDanTahun}%'";
+            if(desa == "")
+            {
+                query = $"SELECT DISTINCT desa,bumil,bulin,bumilRisti FROM datapwskia WHERE tanggal LIKE '%{bulanDanTahun}%'";
+            }
+            else
+            {
+                query = $"SELECT DISTINCT desa,bumil,bulin,bumilRisti FROM datapwskia WHERE desa = '{desa}'";
+            }
 
             try
             {

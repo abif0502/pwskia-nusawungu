@@ -11,7 +11,7 @@ namespace pwskia_nusawungu.Models
     {
         public int? numRow { get; set; }
         public int id { get; set; }
-        public int? idJenis { get; set; }
+        public int idJenis { get; set; }
         public string jenis { get; set; }
         public Desa desa { get; set; }
         public string tanggal { get; set; }

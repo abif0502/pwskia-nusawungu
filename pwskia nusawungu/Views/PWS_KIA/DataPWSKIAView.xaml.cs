@@ -53,24 +53,29 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         public int GetJumlahBulanLalu(int idJenis, string namaDesa)
         {
-            int jumlahBulanLalu = 0;
 
-            // Hanya bulan sementara di tahun 2017
-            string namaBulanLalu="";
+            int jmlBulanLalu = 0;
 
-            int bulanLalu = 1; //  bulan lalu = Januari
             //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
+            // Hanya bulan sementara di tahun 2017
+            int bulanLalu = 0; //  bulan lalu = Januari
+            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
 
+            string namaBulanLalu;
             if (bulanLalu > 0)
             {
                 namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(bulanLalu);
+                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+
             }
+            else if (bulanLalu == 0)
+            {
+                namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(12);
+                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+            }
+
+            return jmlBulanLalu;
             
-
-            PwskiaViewModel kunjunganContext = new PwskiaViewModel();
-
-            jumlahBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
-            return jumlahBulanLalu;
         }
 
         private int GetValueFromRadioButton()
@@ -435,10 +440,11 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             int idJenis = GetValueFromRadioButton();
             int jmlBulanLalu = GetJumlahBulanLalu(idJenis, comBoxUbahDesa.Text);
 
-            foreach (Desa desa in desaContext.GetSasaranPerBulan(comBoxUbahDesa.Text))
+
+            foreach (Desa desa in desaContext.GetSasaranPerBulan(desa: comBoxUbahDesa.Text))
             {
                 pwskia.id = Idrecord;
-                pwskia.tanggal = "01 January 2017";
+                pwskia.tanggal = "01 February 2017";
                 pwskia.idJenis = idJenis;
                 pwskia.desa = new Desa
                 {
@@ -453,10 +459,9 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                         bumilRisti = desa.sasaran.bumil
                     },
 
-                    
+
                 };
             }
-
 
             try
             {

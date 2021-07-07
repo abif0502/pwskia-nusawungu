@@ -103,16 +103,27 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         public int GetJumlahBulanLalu(int idJenis, string namaDesa)
         {
-            //int jumlahBulanLalu=0;
+            int jmlBulanLalu = 0;
+
             //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
-
             // Hanya bulan sementara di tahun 2017
-            string namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(1);
-
+            int bulanLalu = 0; //  bulan lalu = Januari
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
-            
-            int jumlahBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
-            return jumlahBulanLalu;
+
+            string namaBulanLalu;
+            if (bulanLalu > 0)
+            {
+                namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(bulanLalu);
+                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+
+            }
+            else if (bulanLalu == 0)
+            {
+                namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(12);
+                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+            }
+
+            return jmlBulanLalu;
         }
 
         ////////////////////////////////// Function button //////////////////////////////
@@ -123,12 +134,13 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         private void btnSimpanData_Click(object sender, RoutedEventArgs e)
         {
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
-            Pwskia pwskia = new Pwskia();
             DesaContext desaContext = new DesaContext();
+
+
 
             if(string.IsNullOrEmpty(txtJumlahBulanIni.Text) || GetValueFromRadioButton() == 0 || string.IsNullOrEmpty(comBoxDesa.Text))
             {
-
+                MessageBox.Show("Data harus diisi", "Peringatan!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
@@ -140,37 +152,60 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
 
                 // Tanggal sementara 
-                pwskia.tanggal = "01 January 2017";
-                pwskia.idJenis = idJenis;
+                string tanggalSekarang = "01 January 2017";
 
-                foreach (Desa desa in desaContext.GetSasaranPerBulan(namaDesa))
+                // Cek jika ada data duplikat
+                PwskiaViewModel pwskiaContext = new PwskiaViewModel();
+                string[] tanggalSplit = tanggalSekarang.Split(' ');
+                string bulanDanTahun = tanggalSplit[1] + " " + tanggalSplit[2];
+
+                if (!pwskiaContext.GetSingleDataPwsKia(idJenis, bulanDanTahun, namaDesa).Any())
                 {
+                    //Simpan data jika tidak ada data duplikat
 
-                    pwskia.desa = new Desa
+                    Pwskia pwskia = new Pwskia();
+
+                    pwskia.tanggal = tanggalSekarang;
+                    pwskia.idJenis = idJenis;
+                    foreach (Desa desa in desaContext.GetSasaranPerBulan(desa: namaDesa))
                     {
-                        nama = comBoxDesa.Text,
-                        jmlBulanLalu = jumlahBulanLalu,
-                        jmlBulanIni = jumlahBulanIni,
-                        sasaran = new Sasaran
+                        pwskia.desa = new Desa
                         {
-                            bumil = desa.sasaran.bumil,
-                            bulin = desa.sasaran.bulin,
-                            bumilRisti = desa.sasaran.bumilRisti
-                        },
-                    };
+                            nama = comBoxDesa.Text,
+                            jmlBulanLalu = jumlahBulanLalu,
+                            jmlBulanIni = jumlahBulanIni,
+                            sasaran = new Sasaran
+                            {
+                                bumil = desa.sasaran.bumil,
+                                bulin = desa.sasaran.bulin,
+                                bumilRisti = desa.sasaran.bumilRisti
+                            },
+                        };
+                    }
+
+                    pwskia.penanggungJawab = penanggungJawab;
+
+                    try
+                    {
+                        string message = kunjunganContext.AddDataPwskia(pwskia);
+                        MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    // Jika ada data akan mengirim inforasi, dan tidak akan menyimpan
+                    foreach (Pwskia duplikat in pwskiaContext.GetSingleDataPwsKia(idJenis, bulanDanTahun, namaDesa))
+                    {
+                        MessageBox.Show($"Data \"{duplikat.jenis}\" untuk \"{duplikat.desa.nama}\" di bulan \"{bulanDanTahun}\" sudah ada. Jika ada kesalahan input silahkan pilih ubah data",
+                            "Info!",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
 
-                pwskia.penanggungJawab = penanggungJawab;
-
-                try
-                {
-                    string message = kunjunganContext.AddDataPwskia(pwskia);
-                    MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
             }
 
         }
