@@ -61,7 +61,8 @@ namespace pwskia_nusawungu.Views
 
         private void btnGrafik_Click(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new Grafik.GrafikView();
+            Title = "PWS KIA - Grafik";
         }
     }
 }

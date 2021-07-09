@@ -43,9 +43,11 @@ namespace pwskia_nusawungu.Views.Dashboard
 
         private void GetMonthsAndYear()
         {
-            for (int i = 1; i <= 12; i++)
+            Tanggal tanggal = new Tanggal();
+
+            foreach (string bulan in tanggal.GetDaftarBulan())
             {
-                comBoxBulan.Items.Add(DateTimeFormatInfo.CurrentInfo.GetMonthName(i));
+                comBoxBulan.Items.Add(bulan);
             }
 
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
@@ -78,33 +80,42 @@ namespace pwskia_nusawungu.Views.Dashboard
 
         private void btnSimpanSasaran_Click(object sender, RoutedEventArgs e)
         {
-            DesaContext context = new DesaContext();
-            Desa desa = new Desa();
-            desa.nama = comBoxDesaSasaran.Text;
-            desa.sasaran = new Sasaran()
+            if(string.IsNullOrEmpty(comBoxDesaSasaran.Text) || string.IsNullOrEmpty(txtBumil.Text) || string.IsNullOrEmpty(txtBulin.Text) || string.IsNullOrEmpty(txtBumilRisti.Text))
             {
-                bumil = int.Parse(txtBumil.Text),
-                bulin = int.Parse(txtBulin.Text),
-                bumilRisti = int.Parse(txtBumilRisti.Text)
-            };
-            
-            try
+                MessageBox.Show("Data tidak boleh kosong", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
             {
-                string message = context.EditSasaran(desa);
-                if (message != null)
+                DesaContext context = new DesaContext();
+                Desa desa = new Desa();
+                desa.nama = comBoxDesaSasaran.Text;
+                desa.sasaran = new Sasaran()
                 {
-                    var yes = MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    dgSasaran.Items.Clear();
-                    GetNilaiSasaran();
+                    bumil = int.Parse(txtBumil.Text),
+                    bulin = int.Parse(txtBulin.Text),
+                    bumilRisti = int.Parse(txtBumilRisti.Text)
+                };
+
+                try
+                {
+                    string message = context.EditSasaran(desa);
+                    if (message != null)
+                    {
+                        var yes = MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        dgSasaran.Items.Clear();
+                        GetNilaiSasaran();
+                    }
                 }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Gagal!", MessageBoxButton.OK, MessageBoxImage.Error);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Gagal!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                txtBulin.Clear();
+                txtBumil.Clear();
+                txtBumilRisti.Clear();
             }
 
-            txtBulin.Clear();
-            txtBumil.Clear();
-            txtBumilRisti.Clear();
         }
 
         private void btnTriggerInputSasaran_Click(object sender, RoutedEventArgs e)

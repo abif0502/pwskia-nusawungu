@@ -67,6 +67,7 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -116,6 +117,7 @@
     <Compile Include="Models\Desa.cs" />
     <Compile Include="Models\Pwskia.cs" />
     <Compile Include="Models\Sasaran.cs" />
+    <Compile Include="Models\Tanggal.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\PwskiaViewModel.cs" />
     <Compile Include="Views\Base.xaml.cs">
@@ -124,8 +126,8 @@
     <Compile Include="Views\Dashboard\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PersalinanNakes\PersalinanNakes.xaml.cs">
-      <DependentUpon>PersalinanNakes.xaml</DependentUpon>
+    <Compile Include="Views\Grafik\GrafikView.xaml.cs">
+      <DependentUpon>GrafikView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PWS_KIA\FormInputData.xaml.cs">
       <DependentUpon>FormInputData.xaml</DependentUpon>
@@ -153,7 +155,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PersalinanNakes\PersalinanNakes.xaml">
+    <Page Include="Views\Grafik\GrafikView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Image\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Image\cilacap.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

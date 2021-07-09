@@ -35,7 +35,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 while (reader.Read())
                 {
                     string[] tanggal = reader["tanggal"].ToString().Split(' ');
-                    tahun.Add(tanggal[2]);
+                    tahun.Add(tanggal[3]);
                 }
 
             }catch(Exception ex)

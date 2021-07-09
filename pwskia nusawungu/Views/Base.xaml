@@ -105,7 +105,7 @@
                             VerticalAlignment="Center">
                             Yakin ingin keluar?
                         </TextBlock>
-                        
+
                     </StackPanel>
 
                     <Grid Background="#CDE4D3" Grid.Row="2" VerticalAlignment="Bottom">
@@ -127,7 +127,14 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="btnbatal" VerticalAlignment="Center" Background="White" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Foreground="Blue" Margin="2" Grid.Column="2" Content="Batal" Click="btnbatal_Click"/>
+                        <Button x:Name="btnbatal" VerticalAlignment="Center" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Foreground="Blue" Margin="2" Grid.Column="2" Content="Batal" Click="btnbatal_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="#FFA09E9E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
                     </Grid>
 
                 </Grid>

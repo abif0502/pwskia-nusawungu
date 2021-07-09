@@ -74,7 +74,14 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
-                <Button x:Name="btnClose" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Keluar" Background="#FFFFFF" Margin="0,20,0,30" Foreground="#FF3A3AB7"  Click="btnClose_Click" BorderBrush="{x:Null}"/>
+                <Button x:Name="btnClose" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Keluar" Margin="0,20,0,30" Foreground="#FF3A3AB7"  Click="btnClose_Click" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#FFA09E9E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
             </StackPanel>
         </StackPanel>
 
@@ -131,7 +138,14 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="btnbatal" Background="White" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="White" Foreground="Blue" Margin="2,2,2,10" Grid.Column="2" Content="Batal" Click="btnbatal_Click"/>
+                        <Button x:Name="btnbatal" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Foreground="Blue" Margin="2,2,2,10" Grid.Column="2" Content="Batal" Click="btnbatal_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="#FFA09E9E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
                     </Grid>
 
                 </Grid>

@@ -13,24 +13,23 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="85*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
 
         <!--Menu bar-->
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="25*"/>
             </Grid.ColumnDefinitions>
 
             <!--trigger form data-->
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="btnTriggerLihatData" Width="40" Height="40" Grid.Row="0" ToolTip="Lihat Data" BorderBrush="{x:Null}" Foreground="White" Grid.Column="0" Margin="10" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnTriggerLihatData_Click" >
@@ -65,52 +64,98 @@
                             <RowDefinition Height="33*"/>
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="btnKunjungan1" Grid.Column="0" Foreground="White" Background="#FF21974C" ToolTip="Kunjungan 1" Content="K1" Margin="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnKunjungan1_Click" BorderBrush="White" FontWeight="Bold" />
-                        <Button x:Name="btnKunjungan4" Grid.Column="1" Foreground="White" Background="#FF21974C" Content="K4" Margin="2" ToolTip="Kunjungan 4" Style="{StaticResource MaterialDesignFloatingActionButton}"  BorderBrush="White" FontWeight="Bold" Click="btnKunjungan4_Click"/>
-                        <Button x:Name="btnKunjungan6" Grid.Column="2" Foreground="White" Background="#FF21974C" Content="K6" Margin="2" ToolTip="Kunjungan 1" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKunjungan6_Click"/>
-                        <Button x:Name="btnKF" Grid.Column="3" Foreground="White" Background="#FF21974C" Content="KF" Margin="2" ToolTip="KF" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="White" FontWeight="Bold" Click="btnKF_Click"/>
+                        <Button x:Name="btnKunjungan1" Grid.Column="0" Foreground="White" ToolTip="Kunjungan 1" Content="K1" Margin="2" Style="{StaticResource MaterialDesignFloatingActionButton}" Click="btnKunjungan1_Click" BorderBrush="{x:Null}" FontWeight="Bold" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnKunjungan4" Grid.Column="1" Foreground="White" Content="K4" Margin="2" ToolTip="Kunjungan 4" Style="{StaticResource MaterialDesignFloatingActionButton}"  BorderBrush="{x:Null}" FontWeight="Bold" Click="btnKunjungan4_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnKunjungan6" Grid.Column="2" Foreground="White" Content="K6" Margin="2" ToolTip="Kunjungan 1" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="{x:Null}" FontWeight="Bold" Click="btnKunjungan6_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnKF" Grid.Column="3" Foreground="White" Content="KF" Margin="2" ToolTip="KF" Style="{StaticResource MaterialDesignFloatingActionButton}" BorderBrush="{x:Null}" FontWeight="Bold" Click="btnKF_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <Button 
                             x:Name="btnPersalNakes" 
                             Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                             Foreground="White" 
-                            Background="#FF21974C" 
                             Content="Persalinan Nakes" 
                             Height="50"
                             Margin="2" 
                             ToolTip="Persalinan Nakes" 
                             Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            BorderBrush="White" 
-                            FontWeight="Bold" Click="btnPersalNakes_Click" />
+                            BorderBrush="{x:Null}" 
+                            FontWeight="Bold" Click="btnPersalNakes_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <Button 
                             x:Name="btnDeteksiRisNakes" 
                             Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" 
                             Foreground="White" 
-                            Background="#FF21974C" 
                             Content="Deteksi Risiko Nakes" 
                             Height="50"
                             Margin="2" 
                             ToolTip="Deteksi Risiko Nakes" 
                             Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            BorderBrush="White" 
-                            FontWeight="Bold" Click="btnDeteksiRisNakes_Click" />
+                            BorderBrush="{x:Null}" 
+                            FontWeight="Bold" Click="btnDeteksiRisNakes_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <Button 
                             x:Name="btnDeteksiRisMasy" 
                             Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" 
                             Foreground="White" 
-                            Background="#FF21974C" 
                             Content="Deteksi Risiko Masyarakat" 
                             Height="50"
                             Margin="2" 
                             ToolTip="Deteksi Risiko Msyarakat" 
                             Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                             materialDesign:ButtonAssist.CornerRadius="25"
-                            BorderBrush="White" 
-                            FontWeight="Bold" Click="btnDeteksiRisMasy_Click" />
+                            BorderBrush="{x:Null}" 
+                            FontWeight="Bold" Click="btnDeteksiRisMasy_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF87CD9E" Offset="0"/>
+                                    <GradientStop Color="#FF21974C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
 
                     </Grid>
@@ -132,7 +177,7 @@
                 </Button>-->
             </Grid>
 
-            <materialDesign:Card Grid.Column="1" Height="50">
+            <materialDesign:Card Grid.Column="1" Height="55">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25*"/>
@@ -142,7 +187,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="Data per bulan" Margin="10" VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"/>
-                    <ComboBox x:Name="comBoxJenis" Grid.Column="1" Margin="5" materialDesign:HintAssist.Hint="Kunjungan" DropDownClosed="comBoxJenis_DropDownClosed" >
+                    <ComboBox x:Name="comBoxJenis" Grid.Column="1" Margin="5" materialDesign:HintAssist.Hint="Pilih Jenis Data" Style="{StaticResource MaterialDesignFilledComboBox}" DropDownClosed="comBoxJenis_DropDownClosed" >
                         <ComboBoxItem></ComboBoxItem>
                         <ComboBoxItem>Kunjungan 1</ComboBoxItem>
                         <ComboBoxItem>Kunjungan 4</ComboBoxItem>
@@ -152,13 +197,13 @@
                         <ComboBoxItem>Deteksi Risiko Nakes</ComboBoxItem>
                         <ComboBoxItem>Deteksi Risiko Masyarakat</ComboBoxItem>
                     </ComboBox>
-                    <ComboBox x:Name="comBoxBulan" Grid.Column="2" Margin="5" materialDesign:HintAssist.Hint="Pilih bulan" IsEnabled="False" DropDownClosed="comBoxBulan_DropDownClosed" ></ComboBox>
-                    <ComboBox x:Name="comBoxTahun" Grid.Column="3" Margin="5" materialDesign:HintAssist.Hint="Pilih tahun" IsEnabled="False" DropDownClosed="comBoxTahun_DropDownClosed"></ComboBox>
+                    <ComboBox x:Name="comBoxBulan" Grid.Column="2" Margin="5" Style="{StaticResource MaterialDesignFilledComboBox}" materialDesign:HintAssist.Hint="Pilih bulan" IsEnabled="False" DropDownClosed="comBoxBulan_DropDownClosed" ></ComboBox>
+                    <ComboBox x:Name="comBoxTahun" Grid.Column="3" Margin="5" Style="{StaticResource MaterialDesignFilledComboBox}" materialDesign:HintAssist.Hint="Pilih tahun" IsEnabled="False" DropDownClosed="comBoxTahun_DropDownClosed"></ComboBox>
                 </Grid>
             </materialDesign:Card>
 
             <Grid Grid.Column="2">
-                <materialDesign:Card Height="50" Margin="10">
+                <materialDesign:Card Height="55" Margin="10">
                     <TextBox 
                         x:Name="txtKeywordCariData"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" 
@@ -177,8 +222,8 @@
                     Width="40" Click="btnCariData_Click">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF0D548F" Offset="0"/>
-                            <GradientStop Color="#FF0181EC" Offset="1"/>
+                            <GradientStop Color="#FF62B6F1" Offset="0"/>
+                            <GradientStop Color="#FF0051A2" Offset="0.997"/>
                         </LinearGradientBrush>
                     </Button.Background>
                     <materialDesign:PackIcon
@@ -288,8 +333,8 @@
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold"/>
-                        <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Jumlah Bulan Ini" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
+                        <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Jumlah Bulan Ini" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
                         <ComboBox x:Name="comBoxUbahDesa" materialDesign:HintAssist.Foreground="White" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
                         <TextBox x:Name="txtUbahJmlBulanIni" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Masukkan Jumlah" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
                         <GroupBox 
@@ -448,7 +493,14 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="btnbatalHapus" materialDesign:ButtonAssist.CornerRadius="10" Background="White" BorderBrush="{x:Null}" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" />
+                        <Button x:Name="btnbatalHapus" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="#FFA09E9E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
                     </Grid>
 
                 </Grid>

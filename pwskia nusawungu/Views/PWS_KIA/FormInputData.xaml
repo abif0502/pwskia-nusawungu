@@ -44,7 +44,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-                <ComboBox Grid.Row="0" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
+                <ComboBox Grid.Row="0" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignFilledComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
 
                 <TextBlock Grid.Row="1" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
                 <TextBox Grid.Row="1" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
@@ -155,7 +155,14 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
-                <Button x:Name="btnTutup" Grid.Column="2" materialDesign:ButtonAssist.CornerRadius="10" Content="TUTUP" Background="White" Foreground="#FF225FE2" BorderBrush="{x:Null}" Click="btnTutup_Click"/>
+                <Button x:Name="btnTutup" Grid.Column="2" materialDesign:ButtonAssist.CornerRadius="10" Content="TUTUP" Foreground="#FF225FE2" BorderBrush="{x:Null}" Click="btnTutup_Click">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#FFA09E9E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
             </Grid>
         </Grid>
 

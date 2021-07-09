@@ -103,23 +103,24 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         public int GetJumlahBulanLalu(int idJenis, string namaDesa)
         {
+            Tanggal tanggal = new Tanggal();
             int jmlBulanLalu = 0;
 
             //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
             // Hanya bulan sementara di tahun 2017
-            int bulanLalu = 0; //  bulan lalu = Januari
+            int bulanLalu = 1; //  bulan lalu = Januari
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
 
             string namaBulanLalu;
             if (bulanLalu > 0)
             {
-                namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(bulanLalu);
+                namaBulanLalu = tanggal.GetDaftarBulan()[bulanLalu - 1];
                 jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
 
             }
             else if (bulanLalu == 0)
             {
-                namaBulanLalu = DateTimeFormatInfo.CurrentInfo.GetMonthName(12);
+                namaBulanLalu = tanggal.GetDaftarBulan()[11];
                 jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
             }
 
@@ -152,12 +153,12 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
 
                 // Tanggal sementara 
-                string tanggalSekarang = "01 January 2017";
+                string tanggalSekarang = "Rabu, 1 Februari 2017";
 
                 // Cek jika ada data duplikat
                 PwskiaViewModel pwskiaContext = new PwskiaViewModel();
                 string[] tanggalSplit = tanggalSekarang.Split(' ');
-                string bulanDanTahun = tanggalSplit[1] + " " + tanggalSplit[2];
+                string bulanDanTahun = tanggalSplit[2] + " " + tanggalSplit[3];
 
                 if (!pwskiaContext.GetSingleDataPwsKia(idJenis, bulanDanTahun, namaDesa).Any())
                 {
@@ -197,7 +198,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 }
                 else
                 {
-                    // Jika ada data akan mengirim inforasi, dan tidak akan menyimpan
+                    // Jika ada data akan mengirim informasi, dan tidak akan menyimpan
                     foreach (Pwskia duplikat in pwskiaContext.GetSingleDataPwsKia(idJenis, bulanDanTahun, namaDesa))
                     {
                         MessageBox.Show($"Data \"{duplikat.jenis}\" untuk \"{duplikat.desa.nama}\" di bulan \"{bulanDanTahun}\" sudah ada. Jika ada kesalahan input silahkan pilih ubah data",
