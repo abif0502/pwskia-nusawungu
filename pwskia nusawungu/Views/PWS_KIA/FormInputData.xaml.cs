@@ -34,6 +34,19 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             //Set penanggung jawab dari adminName
             this.penanggungJawab = penanggungJawab;
+
+
+
+            Tanggal tanggalContext = new Tanggal();
+
+            foreach(string tanggal in tanggalContext.GetDaftarBulan())
+            {
+                comBoxBulan.Items.Add(tanggal);
+            }
+            string[] tanggalSplit = tanggalContext.TanggalSekarang().Split(' ');
+            txtTanggal.Text = tanggalSplit[0];
+            comBoxBulan.Text = tanggalSplit[1];
+            txtTahun.Text = tanggalSplit[2];
         }
 
         private int GetValueFromRadioButton()
@@ -150,15 +163,11 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 int jumlahBulanLalu = GetJumlahBulanLalu(idJenis, namaDesa);
                 int jumlahBulanIni = int.Parse(txtJumlahBulanIni.Text);
 
-                //kunjungan.tanggal = DateTime.Now.ToString("dd MMMM yyyy");
-
-                // Tanggal sementara 
-                string tanggalSekarang = "Rabu, 1 Februari 2017";
+                string tanggalSekarang = $"{txtTanggal.Text} {comBoxBulan.Text} {txtTahun.Text}";
 
                 // Cek jika ada data duplikat
                 PwskiaViewModel pwskiaContext = new PwskiaViewModel();
-                string[] tanggalSplit = tanggalSekarang.Split(' ');
-                string bulanDanTahun = tanggalSplit[2] + " " + tanggalSplit[3];
+                string bulanDanTahun = comBoxBulan.Text + " " + txtTahun.Text;
 
                 if (!pwskiaContext.GetSingleDataPwsKia(idJenis, bulanDanTahun, namaDesa).Any())
                 {

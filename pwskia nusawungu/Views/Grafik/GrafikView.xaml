@@ -34,9 +34,9 @@
                       materialDesign:HintAssist.Hint="Pilih Jenis" 
                       DropDownClosed="comBoxJenis_DropDownClosed">
                 <ComboBoxItem></ComboBoxItem>
-                <ComboBoxItem>Kunjungan 1</ComboBoxItem>
-                <ComboBoxItem>Kunjungan 4</ComboBoxItem>
-                <ComboBoxItem>Kunjungan 6</ComboBoxItem>
+                <ComboBoxItem>K1</ComboBoxItem>
+                <ComboBoxItem>K4</ComboBoxItem>
+                <ComboBoxItem>K6</ComboBoxItem>
                 <ComboBoxItem>KF</ComboBoxItem>
                 <ComboBoxItem>Persalinan Nakes</ComboBoxItem>
                 <ComboBoxItem>Deteksi Risiko Nakes</ComboBoxItem>
@@ -88,7 +88,7 @@
         
         <!--Chart-->
         <Grid x:Name="gridGrafik" Grid.Row="2" Margin="0,0,10,0" Height="480">
-            <Grid x:Name="surfaceGrafik" Background="White" >
+            <Grid x:Name="surfaceGrafik"  >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20*"/>
@@ -132,7 +132,7 @@
 
                     </Grid>
 
-                    <Grid x:Name="gridGrafikPwskia" Margin="10" Grid.Column="1" Grid.RowSpan="2">
+                    <Grid x:Name="gridGrafikPwskia" Margin="0,10,0,0" Grid.Column="1" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="12.5*"/>
                             <ColumnDefinition Width="12.5*"/>
@@ -162,7 +162,8 @@
         
         <!--End Chart-->
         
-
+        
+        <!--Print Area-->
         <Popup>
             <Grid x:Name="paperPrintGrafikA4" Background="White" Height="793.7" Width="1122.5">
                 <Grid.ColumnDefinitions>
@@ -175,17 +176,17 @@
                     <RowDefinition Height="85*"/>
                 </Grid.RowDefinitions>
                 
-                <Image Grid.Column="0" Margin="10,20,0,0"  Width="75" Source="../../Resources/Image/Cilacap.png"/>
-                <Image Grid.Column="2" Margin="0,10,10,0" Width="90" Source="../../Resources/Icon/icon.png"/>
+                <Image Grid.Column="0" Margin="0,10,0,0"  Width="75" Source="../../Resources/Image/Cilacap.png"/>
+                <Image Grid.Column="2" Margin="0,10,0,0" Width="90" Source="../../Resources/Icon/icon.png"/>
                 <StackPanel Grid.Column="1" 
-                        Margin="0,20,0,0" Orientation="Vertical">
+                        Margin="0,10,0,0" Orientation="Vertical">
                     <TextBlock 
                         Text="PEMERINTAH KABUPATEN CILACAP" 
-                        FontSize="16" 
+                        FontSize="18" 
                         TextAlignment="Center" FontFamily="Calibri" FontWeight="Bold" />
                     <TextBlock
                         Text="DINAS KESEHATAN" 
-                        FontSize="16" 
+                        FontSize="18" 
                         TextAlignment="Center" FontWeight="Bold"/>
                     <TextBlock
                         Text="UPTD PUSKESMAS NUSAWUNGU II" 
@@ -196,25 +197,103 @@
                         TextWrapping="Wrap"
                         Text="Jl. Gerilya, Karangsari, Nusawangkal, Nusawungu, Kabupaten Cilacap, Jawa Tengah 53283" 
                         FontSize="14" 
+                        Margin="0"
                         TextAlignment="Center" FontFamily="Times New Roman" FontStyle="Italic"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="3">
-                    <Separator Background="Black" MinHeight="2" Margin="10" VerticalAlignment="Top" />
 
-                    <TextBlock Text="Judul Grafik"
+                    <Rectangle Margin="37.7,0,37.7,0" VerticalAlignment="Top" StrokeThickness="5"  Stroke="Black" OpacityMask="Black" />
+                    <Rectangle Margin="37.7,2,37.7,0" VerticalAlignment="Top" StrokeThickness="2"  Stroke="Black" OpacityMask="Black"/>
+
+                    <Grid Margin="40,5,40,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Bulan Dan Tahun"
+                                   Grid.Column="2"
                                FontSize="14"
-                               Margin="10"
-                               x:Name="printJudulGrafik"
+                               x:Name="txtPrintBulanDanTahun"
+                               TextAlignment="Right"
+                               FontWeight="Bold" FontFamily="Times New Roman" />
+
+                        <TextBlock Text="Judul Grafik"
+                               FontSize="14"
+                               Grid.Column="1"
+                               Margin="5"
+                               x:Name="txtPrintJenis"
                                TextAlignment="Center"
-                               FontWeight="Bold" FontFamily="Times New Roman"/>
+                               FontWeight="Bold" FontFamily="Times New Roman" />
 
-                    <Grid x:Name="paperContent" Height="480" Margin="10">
-
-                        
                     </Grid>
 
+                    <Border BorderThickness="1" Margin="37.7,0,37.7,0" BorderBrush="Black" >
+                        <Grid x:Name="paperContent" Height="480" >
+
+
+                        </Grid>
+                    </Border>
+                    <Grid Height="130" Margin="50,5,50,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock 
+                                TextAlignment="Center"
+                                FontFamily="Times New Roman"
+                                Text="Mengetahui"
+                                FontSize="12"/>
+                            <TextBlock 
+                                TextAlignment="Center"
+                                FontFamily="Times New Roman"
+                                Text="Kepala UPT PUSKESMAS Nusawungu 2"
+                                FontSize="12"/>
+                            <TextBlock 
+                                TextAlignment="Center"
+                                Margin="0,70,0,0"
+                                FontFamily="Times New Roman"
+                                Text="dr. Hj.Lini Nur'aini"
+                                FontSize="12" TextDecorations="Underline"/>
+                            <TextBlock 
+                                TextAlignment="Center"
+                                FontFamily="Times New Roman"
+                                Text="NIP. 19720416200801 2008"
+                                FontSize="12"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock 
+                                TextAlignment="Center"
+                                Margin="0,10,0,0"
+                                FontFamily="Times New Roman"
+                                Text="Penanggung Jawab Program Ibu"
+                                FontSize="12"/>
+                            <TextBlock 
+                                x:Name="txtPenanggungJawab"
+                                TextAlignment="Center"
+                                Margin="0,70,0,0"
+                                FontFamily="Times New Roman"
+                                Text="penanggungjawab"
+                                FontSize="12" TextDecorations="Underline"/>
+                            <TextBlock 
+                                x:Name="txtNIPPenanggungJawab"
+                                TextAlignment="Center"
+                                FontFamily="Times New Roman"
+                                Text="NIP. "
+                                FontSize="12"/>
+                        </StackPanel>
+
+                    </Grid>
                 </StackPanel>
+
+                
+
 
             </Grid>
         </Popup>

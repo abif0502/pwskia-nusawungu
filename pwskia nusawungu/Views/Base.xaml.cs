@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pwskia_nusawungu.Views;
+using pwskia_nusawungu.Models;
 
 namespace pwskia_nusawungu.Views
 {
@@ -20,12 +21,14 @@ namespace pwskia_nusawungu.Views
     /// </summary>
     public partial class Base : Window
     {
-        public string adminName { get; set; }
-        public Base()
+        public Admin dataAdmin { get; set; }
+        public Base(Admin admin)
         {
             InitializeComponent();
             Main.Content = new Dashboard.Dashboard();
             Title = "Dashboard";
+            this.dataAdmin = admin;
+            btnProfile.Content = dataAdmin.name;
         }
 
 
@@ -41,7 +44,7 @@ namespace pwskia_nusawungu.Views
 
         private void btnPWSKIA_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new PWS_KIA.DataPWSKIAView(adminName);
+            Main.Content = new PWS_KIA.DataPWSKIAView(dataAdmin);
             Title = "PWS KIA - Data Record";
         }
 
@@ -61,7 +64,7 @@ namespace pwskia_nusawungu.Views
 
         private void btnGrafik_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Grafik.GrafikView();
+            Main.Content = new Grafik.GrafikView(dataAdmin);
             Title = "PWS KIA - Grafik";
         }
     }

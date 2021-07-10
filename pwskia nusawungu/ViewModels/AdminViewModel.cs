@@ -22,10 +22,11 @@ namespace pwskia_nusawungu.ViewModels
 
         // retrieving data from database
 
-        public string loginAdmin(string username, string password)
+        public List<Admin> loginAdmin(string username, string password)
         {
             string enPassw = EncryptProvider.Sha256(password);
-            string name = null;
+
+            List<Admin> admin = new List<Admin>();
 
             string query = $"SELECT * FROM admin WHERE username='{username}' AND password='{enPassw}'";
 
@@ -38,7 +39,11 @@ namespace pwskia_nusawungu.ViewModels
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    name = (string)reader["nama"];
+                    admin.Add(new Admin
+                    {
+                        name = (string)reader["nama"],
+                        nip = (string)reader["nip"]
+                    });
                 }
 
                 koneksi.Close();
@@ -48,7 +53,7 @@ namespace pwskia_nusawungu.ViewModels
                 throw new Exception(message: "Silahkan cek koneksi internet!");
             }
 
-            return name;
+            return admin;
         }
 
         // Registration new admin

@@ -24,7 +24,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
         public List<string> GetDaftarTahun()
         {
             List<string> tahun = new List<string>();
-            string query = "SELECT DISTINCT tanggal FROM datapwskia";
+            string query = "SELECT DISTINCT SUBSTRING_INDEX(tanggal,' ',-1) FROM datapwskia";
 
             try
             {
@@ -34,8 +34,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
 
                 while (reader.Read())
                 {
-                    string[] tanggal = reader["tanggal"].ToString().Split(' ');
-                    tahun.Add(tanggal[3]);
+                    tahun.Add((string)reader.GetString(0));
                 }
 
             }catch(Exception ex)
@@ -191,14 +190,16 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 query = $"SELECT * FROM datapwskia " +
                     $"JOIN daftarJenis " +
                     $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis}";
+                    $"WHERE daftarJenis.id={idJenis} " +
+                    $"ORDER BY datapwskia.persentase DESC";
             }
             else
             {
                 query = $"SELECT * FROM datapwskia " +
                     $"JOIN daftarJenis " +
                     $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%'";
+                    $"WHERE daftarJenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%' " +
+                    $"ORDER BY datapwskia.persentase DESC";
             }
 
             List<Pwskia> dataPwskia = new List<Pwskia>();

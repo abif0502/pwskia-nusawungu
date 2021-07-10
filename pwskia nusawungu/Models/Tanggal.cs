@@ -14,10 +14,10 @@ namespace pwskia_nusawungu.Models
 
         public string TanggalSekarang()
         {
-            string hariIni = _hari[(int)DateTime.Today.DayOfWeek];
+            //string hariIni = _hari[(int)DateTime.Today.DayOfWeek];
             string bulanIni = _bulan[DateTime.Today.Month - 1];
 
-            return $"{hariIni}, {DateTime.Today.Day} {bulanIni} {DateTime.Today.Year}";
+            return $"{DateTime.Today.Day} {bulanIni} {DateTime.Today.Year}";
         }
 
         public string[] GetDaftarBulan()

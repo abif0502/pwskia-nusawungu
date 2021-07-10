@@ -24,10 +24,12 @@ namespace pwskia_nusawungu.Views.Grafik
     /// </summary>
     public partial class GrafikView : Page
     {
-        public GrafikView()
+        public Admin penanggungJawab { get; set; }
+
+        public GrafikView(Admin admin)
         {
             InitializeComponent();
-
+            penanggungJawab = admin;
             GetMonthsAndYear();
 
 
@@ -113,13 +115,13 @@ namespace pwskia_nusawungu.Views.Grafik
             textBulanIni.TextWrapping = TextWrapping.Wrap;
             textBulanIni.TextAlignment = TextAlignment.Center;
             textBulanIni.VerticalAlignment = VerticalAlignment.Center;
-            textBulanIni.FontSize = 11;
+            textBulanIni.FontSize = 12;
 
             textBulanlalu.Text = pwskia.desa.jmlBulanLalu.ToString();
             textBulanlalu.TextWrapping = TextWrapping.Wrap;
             textBulanlalu.TextAlignment = TextAlignment.Center;
             textBulanlalu.VerticalAlignment = VerticalAlignment.Center;
-            textBulanlalu.FontSize = 11;
+            textBulanlalu.FontSize = 12;
 
             gridGrafikPwskia.Children.Add(textBulanIni);
             gridGrafikPwskia.Children.Add(textBulanlalu);
@@ -155,13 +157,12 @@ namespace pwskia_nusawungu.Views.Grafik
                     text.Text = $"{dispPersentase}%";
                     text.TextAlignment = TextAlignment.Center;
                     text.VerticalAlignment = VerticalAlignment.Center;
-                    text.FontSize = 11;
+                    text.FontSize = 12;
 
                     textDesa.Text = $"{pwskia.desa.nama}";
                     textDesa.TextAlignment = TextAlignment.Center;
                     textDesa.VerticalAlignment = VerticalAlignment.Center;
-                    textDesa.TextWrapping = TextWrapping.Wrap;
-                    textDesa.FontSize = 11;
+                    textDesa.FontSize = 12;
 
                     DrawRectangle(pwskia, column, indexBulan);
                     GetJumlah(pwskia, column);
@@ -267,13 +268,13 @@ namespace pwskia_nusawungu.Views.Grafik
 
             switch (comBoxJenis.Text)
             {
-                case "Kunjungan 1":
+                case "K1":
                     idJenis = 1;
                     break;
-                case "Kunjungan 4":
+                case "K4":
                     idJenis = 2;
                     break;
-                case "Kunjungan 6":
+                case "K6":
                     idJenis = 3;
                     break;
                 case "KF":
@@ -306,7 +307,10 @@ namespace pwskia_nusawungu.Views.Grafik
         private void btnTriggerPrint_Click(object sender, RoutedEventArgs e)
         {
             
-            printJudulGrafik.Text = $"Grafik \"{comBoxJenis.Text}\" {comBoxBulan.Text} {comBoxTahun.Text}";
+            txtPrintJenis.Text = $"GRAFIK CAKUPAN {comBoxJenis.Text}";
+            txtPrintBulanDanTahun.Text = $"{comBoxBulan.Text} {comBoxTahun.Text}";
+            txtPenanggungJawab.Text = penanggungJawab.name;
+            txtNIPPenanggungJawab.Text = $"NIP. {penanggungJawab.nip}";
 
             gridGrafik.Children.Remove(surfaceGrafik);
             

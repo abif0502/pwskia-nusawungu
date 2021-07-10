@@ -24,12 +24,12 @@ namespace pwskia_nusawungu.Views.PWS_KIA
     /// </summary>
     public partial class DataPWSKIAView : Page
     {
-        public string penanggungJawab { get; set; }
+        public Admin dataAdmin { get; set; }
         public int Idrecord { get; set; }
-        public DataPWSKIAView(string adminName)
+        public DataPWSKIAView(Admin dataAdmin)
         {
             InitializeComponent();
-            penanggungJawab = adminName;
+            this.dataAdmin = dataAdmin;
             GetMonthsAndYear();
             GetDesa();
         }
@@ -153,12 +153,14 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             foreach(string bulan in tanggal.GetDaftarBulan())
             {
                 comBoxBulan.Items.Add(bulan);
+                comBoxPrintBulan.Items.Add(bulan);
             }
 
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
             foreach(string tahun in kunjunganContext.GetDaftarTahun())
             {
                 comBoxTahun.Items.Add(tahun);
+                comBoxPrintTahun.Items.Add(tahun);
             }
         }
 
@@ -224,7 +226,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnTriggerInputData_Click(object sender, RoutedEventArgs e)
         {
-            FormInputData formInput = new FormInputData(penanggungJawab);
+            FormInputData formInput = new FormInputData(dataAdmin.name);
             formInput.ShowDialog();
         }
 
@@ -523,6 +525,11 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private void btnPrintLaporan_Click(object sender, RoutedEventArgs e)
+        {
+            popUpPrinter.IsOpen = true;
         }
     }
 }

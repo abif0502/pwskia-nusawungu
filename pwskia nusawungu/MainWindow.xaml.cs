@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using NETCore.Encrypt;
 using pwskia_nusawungu.ViewModels;
 using pwskia_nusawungu.Views;
+using pwskia_nusawungu.Models;
 
 namespace pwskia_nusawungu
 {
@@ -45,14 +46,15 @@ namespace pwskia_nusawungu
                 try
                 {
                     AdminViewModel adminVM = new AdminViewModel();
-                    string name = adminVM.loginAdmin(txtUsername.Text, txtPassword.Password);
-                    if (name != null)
+                    List<Admin> dataAdmin = adminVM.loginAdmin(txtUsername.Text, txtPassword.Password);
+                    if (dataAdmin.Any())
                     {
-                        Base basePage = new Base();
-                        basePage.btnProfile.Content = name;
-                        basePage.adminName = name;
-                        this.Close();
-                        basePage.Show();
+                        foreach(Admin admin in dataAdmin)
+                        {
+                            Base basePage = new Base(admin);
+                            this.Close();
+                            basePage.Show();
+                        }
                     }
                     else
                     {

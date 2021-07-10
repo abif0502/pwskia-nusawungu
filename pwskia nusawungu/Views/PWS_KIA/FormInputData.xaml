@@ -44,10 +44,17 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="Desa" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-                <ComboBox Grid.Row="0" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignFilledComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
+                <ComboBox Grid.Row="0" Margin="10"  Grid.Column="1" x:Name="comBoxDesa" VerticalAlignment="Center" FontSize="14" Style="{StaticResource MaterialDesignComboBox}" materialDesign:HintAssist.Hint="Pilih Desa"/>
 
-                <TextBlock Grid.Row="1" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
-                <TextBox Grid.Row="1" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                <TextBlock Grid.Row="1" Text="Tanggal" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtTanggal" Margin="10,10,5,10" materialDesign:HintAssist.Hint="Tanggal" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                    <ComboBox x:Name="comBoxBulan" Width="80" Margin="5,10,5,10" materialDesign:HintAssist.Hint="Bulan"/>
+                    <TextBox x:Name="txtTahun" Margin="5,10,5,10" materialDesign:HintAssist.Hint="Tahun" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                </StackPanel>
+
+                <TextBlock Grid.Row="2" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
+                <TextBox Grid.Row="2" Margin="10" Grid.Column="1" x:Name="txtJumlahBulanIni" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Masukkan Jumlah" Style="{StaticResource MaterialDesignOutlinedTextBox}" Height="50" materialDesign:HintAssist.IsFloating="False"  FontSize="12" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
 
                 <!--<TextBlock Grid.Row="2" Text="Kunjungan Ke"  Margin="10" VerticalAlignment="Center" FontWeight="Bold" Grid.Column="0" Foreground="#FF7D8980"/>-->
                 <!--<ComboBox Grid.Row="2" x:Name="comBoxKunjunganKe" Margin="10" materialDesign:HintAssist.Hint="Kunjungan ke-" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="14">
@@ -57,7 +64,7 @@
                 </ComboBox>-->
 
                 <GroupBox 
-                    Grid.Row="2" 
+                    Grid.Row="3" 
                     Header="Pilih Salah Satu"
                     Style="{x:Null}"
                     Grid.Column="0" 
