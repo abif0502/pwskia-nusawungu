@@ -16,6 +16,8 @@ namespace pwskia_nusawungu.Models
         public int jmlBulanLalu { get; set; }
         public int jmlBulanIni { get; set; }
 
+        public int rank { get; set; }
+
         private int _abs;
         private float _persentase;
 

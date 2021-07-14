@@ -190,16 +190,14 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 query = $"SELECT * FROM datapwskia " +
                     $"JOIN daftarJenis " +
                     $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis} " +
-                    $"ORDER BY datapwskia.persentase DESC";
+                    $"WHERE daftarJenis.id={idJenis} ";
             }
             else
             {
                 query = $"SELECT * FROM datapwskia " +
                     $"JOIN daftarJenis " +
                     $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%' " +
-                    $"ORDER BY datapwskia.persentase DESC";
+                    $"WHERE daftarJenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%'";
             }
 
             List<Pwskia> dataPwskia = new List<Pwskia>();

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 
 using pwskia_nusawungu.Models;
 using pwskia_nusawungu.ViewModels.PWSKIA;
+using System.Printing;
 
 namespace pwskia_nusawungu.Views.PWS_KIA
 {
@@ -33,6 +34,8 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             GetMonthsAndYear();
             GetDesa();
         }
+
+        
 
         private void txtNumberFormat_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -153,14 +156,12 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             foreach(string bulan in tanggal.GetDaftarBulan())
             {
                 comBoxBulan.Items.Add(bulan);
-                comBoxPrintBulan.Items.Add(bulan);
             }
 
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
             foreach(string tahun in kunjunganContext.GetDaftarTahun())
             {
                 comBoxTahun.Items.Add(tahun);
-                comBoxPrintTahun.Items.Add(tahun);
             }
         }
 
@@ -170,52 +171,89 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         // 
         public void GetDataKunjungan(int idJenis, string bulanDanTahun = "")
         {
-
+            dgTabelLaporan.Items.Clear();
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
 
-            List<Pwskia> dataKunjungan = new List<Pwskia>();
+            List<Pwskia> dataPwskia = new List<Pwskia>();
+            List<Pwskia> dataPwskiaNoRank = new List<Pwskia>();
 
             if (bulanDanTahun == "")
             {
                 // GET semua data kunjungan
-                dataKunjungan = kunjunganContext.GetAllDataPwskia(idJenis);
+                dataPwskia = kunjunganContext.GetAllDataPwskia(idJenis);
             }
             else
             {
                 // GET data kunjungan per bulan dan tahun
-                dataKunjungan = kunjunganContext.GetAllDataPwskia(idJenis, bulanDanTahun);
+                int r = 1;
+                dataPwskiaNoRank = kunjunganContext.GetAllDataPwskia(idJenis, bulanDanTahun);
+                foreach(Pwskia pwskia in dataPwskiaNoRank.OrderBy(o => o.desa.persentase).ToList())
+                {
+                    dataPwskia.Add(new Pwskia
+                    {
+                        id = pwskia.id,
+                        numRow = pwskia.numRow,
+                        jenis = pwskia.jenis,
+                        desa = new Desa
+                        {
+                            nama = pwskia.desa.nama,
+                            sasaran = new Sasaran
+                            {
+                                bumil = pwskia.desa.sasaran.bumil,
+                                bulin = pwskia.desa.sasaran.bulin,
+                                bumilRisti = pwskia.desa.sasaran.bumilRisti
+                            },
+                            jmlBulanLalu = pwskia.desa.jmlBulanLalu,
+                            jmlBulanIni = pwskia.desa.jmlBulanIni,
+                            rank = r
+                        },
+                        tanggal = pwskia.tanggal,
+                        penanggungJawab = pwskia.penanggungJawab
+                    }) ;
+
+                    r++;
+                }
             }
 
-            foreach (Pwskia kunjungan in dataKunjungan)
+            dataPwskia = dataPwskia.OrderBy(o => o.numRow).ToList();
+
+            foreach (Pwskia pwskia in dataPwskia)
             {
                 switch (idJenis)
                 {
                     case 1:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "Kunjungan 1";
                         break;
                     case 2:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "Kunjungan 4";
                         break;
                     case 3:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "Kunjungan 6";
                         break;
                     case 4:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "KF";
                         break;
                     case 5:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "Persalinan Nakes";
                         break;
                     case 6:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "Deteksi Risiko Nakes";
                         break;
                     case 7:
-                        dgDataPwskia.Items.Add(kunjungan);
+                        dgTabelLaporan.Items.Add(pwskia);
+                        dgDataPwskia.Items.Add(pwskia);
                         titleTableKunjungan.Text = "Deteksi Risiko Masyarakat";
                         break;
                     default:
@@ -308,6 +346,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         // ACTION GET data kunjungan per bulan dan tahun
         private void comBoxTahun_DropDownClosed(object sender, EventArgs e)
         {
+            btnPrintLaporan.IsEnabled = true;
             if (string.IsNullOrEmpty(comBoxTahun.Text) == false)
             {
                 // Get data per bulan, tahun
@@ -529,7 +568,21 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnPrintLaporan_Click(object sender, RoutedEventArgs e)
         {
-            popUpPrinter.IsOpen = true;
+            int jenis = GetIDJenis(comBoxJenis.Text);
+            string bulan = comBoxBulan.Text;
+            string tahun = comBoxTahun.Text;
+
+            txtPrintBulanDanTahun.Text = bulan + " " + tahun;
+            txtPrintJenis.Text = comBoxJenis.Text;
+            txtPenanggungJawab.Text = dataAdmin.name;
+            txtNIPPenanggungJawab.Text = "NIP. " + dataAdmin.nip;
+
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintTicket.PageOrientation = PageOrientation.Landscape;
+                printDialog.PrintVisual(gridPrintLaporan, "Laporan PWSKIA");
+            }
         }
     }
 }
