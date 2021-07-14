@@ -149,6 +149,9 @@
     <Compile Include="Models\Tanggal.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\PwskiaViewModel.cs" />
+    <Compile Include="Views\AdminViews\DaftarAdmin.xaml.cs">
+      <DependentUpon>DaftarAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Base.xaml.cs">
       <DependentUpon>Base.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AdminViews\DaftarAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Base.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

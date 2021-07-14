@@ -21,29 +21,6 @@
         </Grid.RowDefinitions>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
-            <Button 
-                Height="50"
-                Foreground="White"
-                ToolTip="Lihat Sasaran Terkini" 
-                Margin="10"
-                materialDesign:ButtonAssist.CornerRadius="10"
-                x:Name="btnTriggerLihatSasaran" Click="btnTriggerLihatSasaran_Click" BorderBrush="{x:Null}">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF87CD9E" Offset="0"/>
-                        <GradientStop Color="#FF21974C" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="EyeCircle" Width="24" Height="24"/>
-                    <TextBlock 
-                        VerticalAlignment="Center"
-                        Margin="10,0,0,0">
-                        Lihat Semua Data Sasaran
-                    </TextBlock>
-                </StackPanel>
-
-            </Button>
 
             <Button 
                 Height="50"

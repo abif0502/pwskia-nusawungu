@@ -75,6 +75,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                         jenis = (string)reader["jenis"],
                         desa = new Desa
                         {
+                            idJenis = (Int32)reader["idJenis"],
                             nama = (string)reader["desa"],
                             sasaran = new Sasaran
                             {
@@ -84,6 +85,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                             },
                             jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
                             jmlBulanIni = (Int32)reader["jmlBulanIni"],
+                            persentase = (float)reader["persentase"]
                         },
                         tanggal = (string)reader["tanggal"],
                         penanggungJawab = (string)reader["penanggungJawab"]
@@ -155,6 +157,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                         jenis = (string)reader["jenis"],
                         desa = new Desa
                         {
+                            idJenis = (Int32)reader["idJenis"],
                             nama = (string)reader["desa"],
                             sasaran = new Sasaran
                             {
@@ -164,6 +167,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                             },
                             jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
                             jmlBulanIni = (Int32)reader["jmlBulanIni"],
+                            persentase = (float)reader["persentase"]
                         },
                         tanggal = (string)reader["tanggal"],
                         penanggungJawab = (string)reader["penanggungJawab"]
@@ -215,6 +219,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                         numRow = nums,
                         jenis = (string)reader["jenis"],
                         desa = new Desa {
+                            idJenis = (Int32)reader["idJenis"],
                             nama = (string)reader["desa"],
                             sasaran = new Sasaran
                             {
@@ -224,6 +229,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                             },
                             jmlBulanLalu = (Int32)reader["jmlBulanLalu"],
                             jmlBulanIni = (Int32)reader["jmlBulanIni"],
+                            persentase = (float)reader["persentase"]
                         },
                         tanggal = (string)reader["tanggal"],
                         penanggungJawab = (string)reader["penanggungJawab"]
@@ -247,7 +253,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             string query = $"INSERT INTO datapwskia(`desa`, `idJenis`, `tanggal`, `bumil`, `bulin`, `bumilRisti`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `penanggungJawab`)" +
                 $"VALUES " +
                 $"('{pwskia.desa.nama}'," +
-                $"'{pwskia.idJenis}'," +
+                $"'{pwskia.desa.idJenis}'," +
                 $"'{pwskia.tanggal}'," +
                 $"{pwskia.desa.sasaran.bumil}," +
                 $"{pwskia.desa.sasaran.bulin}," +
@@ -281,7 +287,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             string message = "";
             string query = $"UPDATE datapwskia SET " +
                 $"desa='{pwskia.desa.nama}', " +
-                $"idJenis={pwskia.idJenis}," +
+                $"idJenis={pwskia.desa.idJenis}," +
                 $"bumil={pwskia.desa.sasaran.bumil}," +
                 $"bulin={pwskia.desa.sasaran.bulin}," +
                 $"bumilristi={pwskia.desa.sasaran.bumilRisti}," +

@@ -9,9 +9,11 @@ namespace pwskia_nusawungu.Models
 {
     public class Admin
     {
-        public string name { get; set; }
+        public int? nums { get; set; }
+        public string nama { get; set; }
         public string username { get ; set; }
         public string nip { get; set; }
         public string passw { get; set; }
+        public string super { get; set; }
     }
 }

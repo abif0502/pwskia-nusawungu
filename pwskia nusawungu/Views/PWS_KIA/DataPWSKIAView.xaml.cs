@@ -27,6 +27,8 @@ namespace pwskia_nusawungu.Views.PWS_KIA
     {
         public Admin dataAdmin { get; set; }
         public int Idrecord { get; set; }
+
+        public int indexBulanIni { get; set; }
         public DataPWSKIAView(Admin dataAdmin)
         {
             InitializeComponent();
@@ -57,25 +59,19 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         public int GetJumlahBulanLalu(int idJenis, string namaDesa)
         {
             Tanggal tanggal = new Tanggal();
-            int jmlBulanLalu = 0;
 
-            //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
-            // Hanya bulan sementara di tahun 2017
-            int bulanLalu = 1; //  bulan lalu = Januari
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
 
             string namaBulanLalu;
-            if (bulanLalu > 0)
-            {
-                namaBulanLalu = tanggal.GetDaftarBulan()[bulanLalu-1];
-                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+            int indexBulanLalu = indexBulanIni - 1;
 
-            }
-            else if (bulanLalu == 0)
+            if(indexBulanLalu < 0)
             {
-                namaBulanLalu = tanggal.GetDaftarBulan()[11];
-                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+                indexBulanLalu = 11;
             }
+
+            namaBulanLalu = tanggal.GetDaftarBulan()[indexBulanLalu];
+            int jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
 
             return jmlBulanLalu;
             
@@ -169,7 +165,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         // Fungsi untuk mengambil data kunjungan berdasarkan parameter yang diperlukan
         // Jika parameter bulan tidak diisi, tampilkan semua data
         // 
-        public void GetDataKunjungan(int idJenis, string bulanDanTahun = "")
+        public void GetDataPwskia(int idJenis, string bulanDanTahun = "")
         {
             dgTabelLaporan.Items.Clear();
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
@@ -187,7 +183,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 // GET data kunjungan per bulan dan tahun
                 int r = 1;
                 dataPwskiaNoRank = kunjunganContext.GetAllDataPwskia(idJenis, bulanDanTahun);
-                foreach(Pwskia pwskia in dataPwskiaNoRank.OrderBy(o => o.desa.persentase).ToList())
+                foreach(Pwskia pwskia in dataPwskiaNoRank.OrderByDescending(o => o.desa.persentase).ToList())
                 {
                     dataPwskia.Add(new Pwskia
                     {
@@ -264,7 +260,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
         private void btnTriggerInputData_Click(object sender, RoutedEventArgs e)
         {
-            FormInputData formInput = new FormInputData(dataAdmin.name);
+            FormInputData formInput = new FormInputData(dataAdmin.nama);
             formInput.ShowDialog();
         }
 
@@ -292,7 +288,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             dgDataPwskia.Items.Clear();
             try
             {
-                GetDataKunjungan(1);
+                GetDataPwskia(1);
 
             }
             catch(Exception ex)
@@ -306,7 +302,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             dgDataPwskia.Items.Clear();
             try
             {
-                GetDataKunjungan(2);
+                GetDataPwskia(2);
             }
             catch (Exception ex)
             {
@@ -319,7 +315,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             dgDataPwskia.Items.Clear();
             try
             {
-                GetDataKunjungan(3);
+                GetDataPwskia(3);
             }
             catch (Exception ex)
             {
@@ -360,7 +356,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                     try
                     {
                         dgDataPwskia.Items.Clear();
-                        GetDataKunjungan(kunjunganKe, bulanDanTahun);
+                        GetDataPwskia(kunjunganKe, bulanDanTahun);
                     }
                     catch (Exception ex)
                     {
@@ -376,7 +372,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             try
             {
-                GetDataKunjungan(4);
+                GetDataPwskia(4);
             }
             catch(Exception ex)
             {
@@ -390,7 +386,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             try
             {
-                GetDataKunjungan(5);
+                GetDataPwskia(5);
             }
             catch (Exception ex)
             {
@@ -404,7 +400,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             try
             {
-                GetDataKunjungan(6);
+                GetDataPwskia(6);
             }
             catch (Exception ex)
             {
@@ -418,7 +414,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             try
             {
-                GetDataKunjungan(7);
+                GetDataPwskia(7);
             }
             catch (Exception ex)
             {
@@ -487,10 +483,9 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             foreach (Desa desa in desaContext.GetSasaranPerBulan(desa: comBoxUbahDesa.Text))
             {
                 pwskia.id = Idrecord;
-                pwskia.tanggal = "01 Februari 2017";
-                pwskia.idJenis = idJenis;
                 pwskia.desa = new Desa
                 {
+                    idJenis = idJenis,
                     nama = comBoxUbahDesa.Text,
                     jmlBulanLalu = jmlBulanLalu,
                     jmlBulanIni = int.Parse(txtUbahJmlBulanIni.Text),
@@ -499,7 +494,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                     {
                         bumil = desa.sasaran.bumil,
                         bulin = desa.sasaran.bulin,
-                        bumilRisti = desa.sasaran.bumil
+                        bumilRisti = desa.sasaran.bumilRisti
                     },
 
 
@@ -525,12 +520,16 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             if (dgDataPwskia.SelectedItem != null)
             {
+                Tanggal tanggal = new Tanggal();
                 // Mengisi nilai pada component
                 comBoxUbahDesa.SelectedItem = dataPwskia.desa.nama;
                 txtUbahJmlBulanIni.Text = dataPwskia.desa.jmlBulanIni.ToString();
                 _ = GetIDJenis(dataPwskia.jenis);
                 Idrecord = dataPwskia.id;
                 popUpUbahData.IsOpen = true;
+                string[] detailTanggal = dataPwskia.tanggal.Split(' ');
+
+                indexBulanIni = Array.IndexOf(tanggal.GetDaftarBulan(), detailTanggal[1]);
 
             }
         }
@@ -574,7 +573,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
 
             txtPrintBulanDanTahun.Text = bulan + " " + tahun;
             txtPrintJenis.Text = comBoxJenis.Text;
-            txtPenanggungJawab.Text = dataAdmin.name;
+            txtPenanggungJawab.Text = dataAdmin.nama;
             txtNIPPenanggungJawab.Text = "NIP. " + dataAdmin.nip;
 
             PrintDialog printDialog = new PrintDialog();

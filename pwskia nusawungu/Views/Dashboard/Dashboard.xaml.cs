@@ -29,6 +29,7 @@ namespace pwskia_nusawungu.Views.Dashboard
             InitializeComponent();
             GetDesa();
             GetMonthsAndYear();
+            GetNilaiSasaran();
         }
 
         public void GetNilaiSasaran()
@@ -121,11 +122,6 @@ namespace pwskia_nusawungu.Views.Dashboard
         private void btnTriggerInputSasaran_Click(object sender, RoutedEventArgs e)
         {
             popUpFromSasaran.IsOpen = true;
-        }
-
-        private void btnTriggerLihatSasaran_Click(object sender, RoutedEventArgs e)
-        {
-            GetNilaiSasaran();
         }
 
         private void comBoxBulan_DropDownClosed(object sender, EventArgs e)

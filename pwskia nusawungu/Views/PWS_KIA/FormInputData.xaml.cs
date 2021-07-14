@@ -25,6 +25,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
     {
 
         public string penanggungJawab { get; set; }
+        public int sasaran { get; set; }
         public FormInputData(string penanggungJawab)
         {
             InitializeComponent();
@@ -176,11 +177,11 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                     Pwskia pwskia = new Pwskia();
 
                     pwskia.tanggal = tanggalSekarang;
-                    pwskia.idJenis = idJenis;
-                    foreach (Desa desa in desaContext.GetSasaranPerBulan(desa: namaDesa))
+                    foreach (Desa desa in desaContext.GetSasaran(desa: namaDesa))
                     {
                         pwskia.desa = new Desa
                         {
+                            idJenis = idJenis,
                             nama = comBoxDesa.Text,
                             jmlBulanLalu = jumlahBulanLalu,
                             jmlBulanIni = jumlahBulanIni,

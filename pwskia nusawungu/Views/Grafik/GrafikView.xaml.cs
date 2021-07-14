@@ -147,7 +147,7 @@ namespace pwskia_nusawungu.Views.Grafik
             try
             {
                 int column = 0;
-                foreach(Pwskia pwskia in pwskiaContext.GetAllDataPwskia(idJenis, bulan + " " + tahun))
+                foreach(Pwskia pwskia in pwskiaContext.GetAllDataPwskia(idJenis, bulan + " " + tahun).OrderByDescending(o=>o.desa.persentase).ToList())
                 {
                     TextBlock text = new TextBlock();
                     TextBlock textDesa = new TextBlock();
@@ -309,7 +309,7 @@ namespace pwskia_nusawungu.Views.Grafik
             
             txtPrintJenis.Text = $"GRAFIK CAKUPAN {comBoxJenis.Text}";
             txtPrintBulanDanTahun.Text = $"{comBoxBulan.Text} {comBoxTahun.Text}";
-            txtPenanggungJawab.Text = penanggungJawab.name;
+            txtPenanggungJawab.Text = penanggungJawab.nama;
             txtNIPPenanggungJawab.Text = $"NIP. {penanggungJawab.nip}";
 
             gridGrafik.Children.Remove(surfaceGrafik);

@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using pwskia_nusawungu.Views;
 using pwskia_nusawungu.Models;
 
+using pwskia_nusawungu.ViewModels;
+
 namespace pwskia_nusawungu.Views
 {
     /// <summary>
@@ -28,13 +30,19 @@ namespace pwskia_nusawungu.Views
             Main.Content = new Dashboard.Dashboard();
             Title = "Dashboard";
             this.dataAdmin = admin;
-            btnProfile.Content = dataAdmin.name;
+            btnProfile.Content = dataAdmin.nama;
+
+            if(dataAdmin.super == "1")
+            {
+                btnDaftarAdmin.Visibility = Visibility.Visible;
+            }
         }
 
 
         private void btnDashboard_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new Dashboard.Dashboard();
+            Title = "PWSKIA - Dashboard";
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -66,6 +74,48 @@ namespace pwskia_nusawungu.Views
         {
             Main.Content = new Grafik.GrafikView(dataAdmin);
             Title = "PWS KIA - Grafik";
+        }
+
+        private void btnDaftarAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new AdminView.DaftarAdmin();
+            Title = "Daftar Admin";
+        }
+
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            popUpUbahPassword.IsOpen = true;
+        }
+
+        private void btnUbahPassword_Click(object sender, RoutedEventArgs e)
+        {
+            AdminViewModel adminContext = new AdminViewModel();
+            try
+            {
+                if (string.IsNullOrEmpty(profilPasswordBaru.Password) || string.IsNullOrEmpty(profilPasswordBaru.Password) || string.IsNullOrEmpty(profilKonfirmasiPassword.Password))
+                {
+                    MessageBox.Show("Harap isi data dengan lengkap", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    if(profilPasswordBaru.Password == profilKonfirmasiPassword.Password)
+                    {
+                        if(adminContext.UbahPasswordAdmin(dataAdmin, profilPasswordLama.Password, profilPasswordBaru.Password) == true)
+                        {
+                            MessageBox.Show("Berhasil Mengubah Sandi, Harap keluar dan login kembali", "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sandi Anda Salah", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                        
+                    }
+                }
+                
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

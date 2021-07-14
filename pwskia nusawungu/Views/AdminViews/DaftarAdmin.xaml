@@ -1,0 +1,206 @@
+﻿<Page x:Class="pwskia_nusawungu.Views.AdminView.DaftarAdmin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pwskia_nusawungu.Views.AdminView"
+      mc:Ignorable="d" 
+      Background="#CDE4D3"
+      MinHeight="600" MinWidth="960" MaxHeight="717" MaxWidth="1137"
+      Title="DaftarAdmin">
+
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="DAFTAR ADMIN" TextAlignment="Center" FontSize="20" Margin="20"/>
+            <Button x:Name="btnTambahDataAdmin" FontSize="14" Content="Tambah Admin" Margin="10" HorizontalAlignment="Left" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Click="btnTambahDataAdmin_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF62B6F1" Offset="0"/>
+                        <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <DataGrid x:Name="dgDaftarAdmin" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" Header="No" Binding="{Binding Path=nums}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Nama" Binding="{Binding Path=nama}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="NIP" Binding="{Binding Path=nip}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Username" Binding="{Binding Path=username}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Super" Binding="{Binding Path=super}"/>
+                    <DataGridTemplateColumn Header="Aksi">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Button x:Name="btnUbahData" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Click="btnUbahData_Click" >
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF5088FF" Offset="0"/>
+                                                <GradientStop Color="#FF0051FF" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Button.Background> Ubah
+                                    </Button>
+                                    <Button Margin="5,0,0,0" x:Name="btnTriggerHapus" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}"   Foreground="White" Click="btnTriggerHapus_Click">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FFFF6C6C" Offset="0"/>
+                                                <GradientStop Color="Red" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Button.Background> Hapus
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <!-- POPUP UBAH ADMIN -->
+        <Popup x:Name="popUbahData" Placement="Center" StaysOpen="False">
+            <StackPanel Background="White" Height="130" Width="200">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="70*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="txtUsernameUpdate" Visibility="Hidden" />
+
+                    <TextBlock Text="Super" FontSize="14" Margin="10" TextAlignment="Left" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="coBoxUbahSuper" VerticalAlignment="Center" FontSize="14" Margin="10" Grid.Column="1" materialDesign:HintAssist.Hint="Super">
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>0</ComboBoxItem>
+                    </ComboBox>
+
+                </Grid>
+                <Button x:Name="btnSimpanUbahData" Content="Simpan" Margin="10,20,10,10" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Click="btnSimpanUbahData_Click"  >
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF62B6F1" Offset="0"/>
+                            <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </Popup>
+
+        <!-- POPUP Tambah Admin -->
+        <Popup x:Name="popTambahAdmin" StaysOpen="False" Placement="Center">
+            <StackPanel Background="White" Height="350" Width="300">
+                <TextBlock FontSize="24" TextAlignment="Center" Text="TAMBAH DATA ADMIN"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="70*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock VerticalAlignment="Center" FontSize="14" Margin="10" Text="Nama"/>
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" FontSize="14" Margin="10" Text="NIP"/>
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Username"/>
+                    <TextBlock Grid.Row="3" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Password"/>
+                    <TextBlock Grid.Row="4" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Konfirmasi"/>
+
+                    <TextBox x:Name="txtNama" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nama Lengkap" />
+                    <TextBox x:Name="txtNIP" Grid.Row="1" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="NIP" />
+                    <TextBox x:Name="txtUsername" Grid.Row="2" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username" />
+                    <PasswordBox x:Name="txtPassword1" Grid.Row="3"  Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Password" />
+                    <PasswordBox x:Name="txtPassword2" Grid.Row="4" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Konfirmasi Password" />
+
+
+
+                </Grid>
+
+                <Button x:Name="btnSimpanAdmin" materialDesign:ButtonAssist.CornerRadius="10" Content="Simpan" Margin="10,20,10,10" Click="btnSimpanAdmin_Click" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF62B6F1" Offset="0"/>
+                            <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+            </StackPanel>
+        </Popup>
+        
+        <!-- POPUP KONFIRMASI HAPUS -->
+        <Popup   
+            x:Name="popUpConfirmDelete"
+            Placement="Center"
+            StaysOpen="False"
+            AllowsTransparency="True">
+            <materialDesign:Card BorderBrush="Black" BorderThickness="10">
+                <Grid Width="250" Height="160" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#21974C">
+                        <TextBlock Foreground="White" Margin="2" FontSize="16" TextAlignment="Center" Text="Konfirmasi!" />
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Foreground="#FFD8840A"
+                            Height="70"
+                            Width="70"
+                            Kind="Warning">
+
+                        </materialDesign:PackIcon>
+
+                        <TextBlock 
+                            Margin="10,0,0,0"
+                            FontSize="16"
+                            VerticalAlignment="Center">
+                            Yakin ingin hapus?
+                        </TextBlock>
+
+                    </StackPanel>
+
+                    <Grid Background="#CDE4D3" Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnHapusData"
+                                Margin="2,5,2,10" 
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                Grid.Column="1" 
+                                Content="Hapus" BorderBrush="{x:Null}" Click="btnHapusData_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                    <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnbatalHapus" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="#FFA09E9E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </materialDesign:Card>
+
+        </Popup>
+
+    </Grid>
+</Page>

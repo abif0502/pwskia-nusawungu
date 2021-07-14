@@ -11,6 +11,7 @@ namespace pwskia_nusawungu.Models
     public class Desa
     {
         public int? id { get; set; }
+        public int idJenis { get; set; }
         public string nama { get; set; }
         public Sasaran sasaran { get; set; }
         public int jmlBulanLalu { get; set; }
@@ -30,7 +31,39 @@ namespace pwskia_nusawungu.Models
         public float persentase
         {
             set { _persentase = value; }
-            get { return (float)abs / sasaran.bumil * 100; }
+            get {
+                if(_persentase == 0)
+                {
+                    switch (idJenis)
+                    {
+                        case 1:
+                            _persentase = (float)abs / sasaran.bumil * 100;
+                            break;
+                        case 2:
+                            _persentase = (float)abs / sasaran.bumil * 100;
+                            break;
+                        case 3:
+                            _persentase = (float)abs / sasaran.bumil * 100;
+                            break;
+                        case 4:
+                            _persentase = (float)abs / sasaran.bulin * 100;
+                            break;
+                        case 5:
+                            _persentase = (float)abs / sasaran.bulin * 100;
+                            break;
+                        case 6:
+                            _persentase = (float)abs / sasaran.bumil * 100;
+                            break;
+                        case 7:
+                            _persentase = (float)abs / sasaran.bumil * 100;
+                            break;
+                        default:
+                            _persentase = (float)abs / sasaran.bumil * 100;
+                            break;
+                    }
+                }
+                return _persentase;
+            }
         }
     }
 
@@ -76,12 +109,19 @@ namespace pwskia_nusawungu.Models
             
         }
 
-        public List<Desa> GetSasaran()
+        public List<Desa> GetSasaran(string desa="")
         {
             int nomor = 1;
+            string query;
+            if (desa == "")
+            {
+                query = "SELECT * FROM tbdesa";
+            }
+            else
+            {
+                query = $"SELECT * FROM tbdesa WHERE nama='{desa}'";
+            }
             List<Desa> dataSasaran = new List<Desa>();
-
-            string query = "SELECT * FROM tbdesa";
             try
             {
                 con.Open();
@@ -160,30 +200,10 @@ namespace pwskia_nusawungu.Models
             return dataSasaran;
         }
 
+        
 
 
 
 
-
-        //public List<Desa> GetDesa()
-        //{
-        //    List<Desa> desa = new List<Desa>();
-
-        //    string query = "SELECT * FROM tbdesa";
-
-        //    con.Open();
-        //    MySqlCommand cmd = new MySqlCommand(query, con);
-        //    MySqlDataReader reader = cmd.ExecuteReader();
-
-        //    while (reader.Read())
-        //    {
-        //        desa.Add(new Desa {
-        //            id = (Int32)reader["id"],
-        //            nama = reader["nama"].ToString()
-        //        });
-        //    }
-
-        //    return desa;
-        //}
     }
 }
