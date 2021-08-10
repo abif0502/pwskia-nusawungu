@@ -59,19 +59,23 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         public int GetJumlahBulanLalu(int idJenis, string namaDesa)
         {
             Tanggal tanggal = new Tanggal();
-
+            int jmlBulanLalu = 0;
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
 
+            int bulanLalu = indexBulanIni;
+
             string namaBulanLalu;
-            int indexBulanLalu = indexBulanIni - 1;
-
-            if(indexBulanLalu < 0)
+            if (bulanLalu > 0)
             {
-                indexBulanLalu = 11;
-            }
+                namaBulanLalu = tanggal.GetDaftarBulan()[bulanLalu - 1];
+                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
 
-            namaBulanLalu = tanggal.GetDaftarBulan()[indexBulanLalu];
-            int jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+            }
+            else if (bulanLalu == 0)
+            {
+                namaBulanLalu = tanggal.GetDaftarBulan()[11];
+                jmlBulanLalu = kunjunganContext.GetJumlahBulanLalu(idJenis, namaDesa, namaBulanLalu);
+            }
 
             return jmlBulanLalu;
             
@@ -176,6 +180,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             if (bulanDanTahun == "")
             {
                 // GET semua data kunjungan
+                btnPrintLaporan.IsEnabled = false;
                 dataPwskia = kunjunganContext.GetAllDataPwskia(idJenis);
             }
             else
@@ -425,7 +430,8 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         // Cari data dengan menekan button cari
         private void btnCariData_Click(object sender, RoutedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(txtKeywordCariData.Text))
+            btnPrintLaporan.IsEnabled = false;
+            if (!string.IsNullOrEmpty(txtKeywordCariData.Text))
             {
                 PwskiaViewModel kunjunganContext = new PwskiaViewModel();
                 titleTableKunjungan.Text = $"Hasil Pencarian Data : \"{txtKeywordCariData.Text}\" ";
@@ -449,6 +455,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         {
             if(e.Key == Key.Return)
             {
+                btnPrintLaporan.IsEnabled = false;
                 if (!string.IsNullOrEmpty(txtKeywordCariData.Text))
                 {
                     PwskiaViewModel kunjunganContext = new PwskiaViewModel();
@@ -480,7 +487,7 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             int jmlBulanLalu = GetJumlahBulanLalu(idJenis, comBoxUbahDesa.Text);
 
 
-            foreach (Desa desa in desaContext.GetSasaranPerBulan(desa: comBoxUbahDesa.Text))
+            foreach (Desa desa in desaContext.GetSasaranPerTahun(tahun: txtTahun.Text ,desa: comBoxUbahDesa.Text))
             {
                 pwskia.id = Idrecord;
                 pwskia.desa = new Desa
@@ -527,8 +534,9 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 _ = GetIDJenis(dataPwskia.jenis);
                 Idrecord = dataPwskia.id;
                 popUpUbahData.IsOpen = true;
-                string[] detailTanggal = dataPwskia.tanggal.Split(' ');
 
+                string[] detailTanggal = dataPwskia.tanggal.Split(' ');
+                txtTahun.Text = detailTanggal[2];
                 indexBulanIni = Array.IndexOf(tanggal.GetDaftarBulan(), detailTanggal[1]);
 
             }

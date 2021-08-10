@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using pwskia_nusawungu.Libs;
+using System;
+using System.Collections.Generic;
 
 namespace pwskia_nusawungu.Models
 {
@@ -80,6 +77,7 @@ namespace pwskia_nusawungu.Models
 
     }
 
+
     public class DesaContext
     {
 
@@ -91,9 +89,56 @@ namespace pwskia_nusawungu.Models
             con = koneksi.GetConnection();
         }
 
+        public List<string> GetTahun()
+        {
+            List<string> tahun = new List<string>();
+            string query = $"SELECT DISTINCT tahun FROM tbsasaran";
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    tahun.Add((string)reader["tahun"]);
+                }
+                con.Close();
+
+                return tahun;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public int GetIdDesa(string nama)
+        {
+            int id = 0;
+            string query = $"SELECT * FROM tbdesa WHERE nama='{nama}'";
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = (Int32) reader["id"];
+                }
+                con.Close();
+
+                return id;
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+    
+
         public string EditSasaran(Desa desa)
         {
-            string query = $"UPDATE tbdesa SET bumil={desa.sasaran.bumil}, bulin={desa.sasaran.bulin}, bumilRisti={desa.sasaran.bumilRisti} WHERE nama='{desa.nama}'";
+            string query = $"UPDATE tbsasaran SET bumil={desa.sasaran.bumil}, bulin={desa.sasaran.bulin}, bumilRisti={desa.sasaran.bumilRisti} WHERE iddesa='{desa.id}' AND tahun='{desa.sasaran.tahun}'";
 
             try
             {
@@ -109,18 +154,28 @@ namespace pwskia_nusawungu.Models
             
         }
 
-        public List<Desa> GetSasaran(string desa="")
+        public string TambahSasaran(Desa desa)
+        {
+            string query = $"INSERT INTO tbsasaran (iddesa,tahun,bumil,bulin,bumilristi) VALUES " +
+                $"('{desa.id}', '{desa.sasaran.tahun}', '{desa.sasaran.bumil}'," +
+                $"'{desa.sasaran.bulin}', '{desa.sasaran.bumilRisti}')";
+
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.ExecuteReader();
+                return "Berhasil menambah data sasaran";
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public List<Desa> GetSasaran()
         {
             int nomor = 1;
-            string query;
-            if (desa == "")
-            {
-                query = "SELECT * FROM tbdesa";
-            }
-            else
-            {
-                query = $"SELECT * FROM tbdesa WHERE nama='{desa}'";
-            }
+            string query = $"SELECT * FROM tbsasaran JOIN tbdesa ON tbsasaran.iddesa = tbdesa.id";
             List<Desa> dataSasaran = new List<Desa>();
             try
             {
@@ -136,6 +191,7 @@ namespace pwskia_nusawungu.Models
                         nama = (string)reader["nama"],
                         sasaran = new Sasaran
                         {
+                            tahun = (string)reader["tahun"],
                             bumil = (Int32)reader["bumil"],
                             bulin = (Int32)reader["bulin"],
                             bumilRisti = (Int32)reader["bumilRisti"]
@@ -154,7 +210,7 @@ namespace pwskia_nusawungu.Models
             return dataSasaran;
         }
 
-        public List<Desa> GetSasaranPerBulan(string bulanDanTahun="", string desa="")
+        public List<Desa> GetSasaranPerTahun(string tahun="", string desa="")
         {
             int nomor = 1;
             string query;
@@ -162,11 +218,11 @@ namespace pwskia_nusawungu.Models
 
             if(desa == "")
             {
-                query = $"SELECT DISTINCT desa,bumil,bulin,bumilRisti FROM datapwskia WHERE tanggal LIKE '%{bulanDanTahun}%'";
+                query = $"SELECT * FROM tbsasaran JOIN tbdesa ON tbsasaran.iddesa = tbdesa.id WHERE tahun = '{tahun}'";
             }
             else
             {
-                query = $"SELECT DISTINCT desa,bumil,bulin,bumilRisti FROM datapwskia WHERE desa = '{desa}'";
+                query = $"SELECT * FROM tbsasaran JOIN tbdesa ON tbsasaran.iddesa = tbdesa.id WHERE tahun='{tahun}' AND nama = '{desa}'";
             }
 
             try
@@ -181,9 +237,10 @@ namespace pwskia_nusawungu.Models
                     {
                         //id = (Int32)reader["id"],
                         id = nomor,
-                        nama = (string)reader["desa"],
+                        nama = (string)reader["nama"],
                         sasaran = new Sasaran
                         {
+                            tahun = (string)reader["tahun"],
                             bumil = (Int32)reader["bumil"],
                             bulin = (Int32)reader["bulin"],
                             bumilRisti = (Int32)reader["bumilRisti"]
@@ -192,6 +249,8 @@ namespace pwskia_nusawungu.Models
 
                     nomor++;
                 }
+
+                con.Close();
             }catch(Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -200,10 +259,20 @@ namespace pwskia_nusawungu.Models
             return dataSasaran;
         }
 
-        
-
-
-
+        public void DeleteSasaran(string tahun, int idDesa)
+        {
+            string query = $"DELETE FROM tbsasaran WHERE iddesa={idDesa} AND tahun='{tahun}'";
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
     }
 }

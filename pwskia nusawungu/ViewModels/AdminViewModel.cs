@@ -42,6 +42,7 @@ namespace pwskia_nusawungu.ViewModels
                     admin.Add(new Admin
                     { 
                         username = (string)reader["username"],
+                        nik = (string)reader["nik"],
                         nama = (string)reader["nama"],
                         nip = (string)reader["nip"],
                         super = (string)reader["super"]
@@ -69,7 +70,7 @@ namespace pwskia_nusawungu.ViewModels
             }
             else
             {
-                query = $"SELECT * FROM admin WHERE username='{username}' AND nip='{nip}'";
+                query = $"SELECT * FROM admin WHERE username='{username}' OR nip='{nip}'";
             }
             
             try
@@ -94,6 +95,8 @@ namespace pwskia_nusawungu.ViewModels
                     nums++;
                 }
 
+                koneksi.Close();
+
             }catch(Exception e)
             {
                 throw new Exception(e.Message);
@@ -111,6 +114,7 @@ namespace pwskia_nusawungu.ViewModels
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand(query, con.GetConnection());
                 cmd.ExecuteReader();
+                con.Close();
 
             }catch(Exception e)
             {
@@ -122,8 +126,8 @@ namespace pwskia_nusawungu.ViewModels
         public void registration(Admin admin)
         {
             string password = EncryptProvider.Sha256(admin.passw);
-            string query = $"INSERT INTO admin (nama, username, nip, password, super) VALUES (" +
-                $" '{admin.nama}', '{admin.username}', '{admin.nip}', '{password}', '{admin.super}' )";
+            string query = $"INSERT INTO admin (nama, nik, username, nip, password, super) VALUES (" +
+                $" '{admin.nama}', '{admin.nik}', '{admin.username}', '{admin.nip}', '{password}', '{admin.super}' )";
 
             try
             {
@@ -131,6 +135,7 @@ namespace pwskia_nusawungu.ViewModels
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand(query, con.GetConnection());
                 cmd.ExecuteReader();
+                con.Close();
 
             }catch(Exception e)
             {
@@ -148,6 +153,7 @@ namespace pwskia_nusawungu.ViewModels
                 con.Open();
                 MySqlCommand cmd = new MySqlCommand(query, con.GetConnection());
                 cmd.ExecuteReader();
+                con.Close();
             }catch(Exception e)
             {
                 throw new Exception(e.Message);
@@ -156,11 +162,11 @@ namespace pwskia_nusawungu.ViewModels
             
         }
 
-        public bool UbahPasswordAdmin(Admin admin, string passLama, string passBaru)
+        public bool UbahPasswordAdmin(Admin admin, string passLama)
         {
             if(loginAdmin(admin.username, passLama).Any())
             {
-                string passEnc = EncryptProvider.Sha256(passBaru);
+                string passEnc = EncryptProvider.Sha256(admin.passw);
                 string query = $"UPDATE admin SET password='{passEnc}' WHERE username='{admin.username}'";
 
                 try
@@ -169,6 +175,7 @@ namespace pwskia_nusawungu.ViewModels
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand(query, con.GetConnection());
                     cmd.ExecuteReader();
+                    con.Close();
                     return true;
                 }
                 catch (Exception e)
@@ -179,6 +186,53 @@ namespace pwskia_nusawungu.ViewModels
             else
             {
                 return false;
+            }
+        }
+
+        public List<Admin> CariAdmin(Admin admin)
+        {
+            List<Admin> data = new List<Admin>();
+            string query = $"SELECT * FROM admin WHERE username='{admin.username}' AND nik='{admin.nik}' ";
+
+            try
+            {
+                Koneksi con = new Koneksi();
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con.GetConnection());
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    data.Add(new Admin
+                    {
+                        nama = (string)reader["nama"]
+                    });
+                }
+
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return data;
+
+        }
+
+        public void LupaPassowrd(Admin admin)
+        {
+            string passEnc = EncryptProvider.Sha256(admin.passw);
+            string query = $"UPDATE admin SET password='{passEnc}' WHERE nik='{admin.nik}' AND username='{admin.username}' ";
+
+            try
+            {
+                Koneksi con = new Koneksi();
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand(query, con.GetConnection());
+                cmd.ExecuteReader();
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
     }

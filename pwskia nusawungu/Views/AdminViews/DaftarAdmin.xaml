@@ -88,7 +88,7 @@
 
         <!-- POPUP Tambah Admin -->
         <Popup x:Name="popTambahAdmin" StaysOpen="False" Placement="Center">
-            <StackPanel Background="White" Height="350" Width="300">
+            <StackPanel Background="White" Height="400" Width="300">
                 <TextBlock FontSize="24" TextAlignment="Center" Text="TAMBAH DATA ADMIN"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -96,24 +96,27 @@
                         <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="16.7*"/>
+                        <RowDefinition Height="16.7*"/>
+                        <RowDefinition Height="16.7*"/>
+                        <RowDefinition Height="16.7*"/>
+                        <RowDefinition Height="16.7*"/>
+                        <RowDefinition Height="16.7*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock VerticalAlignment="Center" FontSize="14" Margin="10" Text="Nama"/>
-                    <TextBlock Grid.Row="1" VerticalAlignment="Center" FontSize="14" Margin="10" Text="NIP"/>
-                    <TextBlock Grid.Row="2" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Username"/>
-                    <TextBlock Grid.Row="3" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Password"/>
-                    <TextBlock Grid.Row="4" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Konfirmasi"/>
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" FontSize="14" Margin="10" Text="NIK"/>
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" FontSize="14" Margin="10" Text="NIP"/>
+                    <TextBlock Grid.Row="3" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Username"/>
+                    <TextBlock Grid.Row="4" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Password"/>
+                    <TextBlock Grid.Row="5" VerticalAlignment="Center" FontSize="14" Margin="10" Text="Konfirmasi"/>
 
                     <TextBox x:Name="txtNama" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Nama Lengkap" />
-                    <TextBox x:Name="txtNIP" Grid.Row="1" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="NIP" />
-                    <TextBox x:Name="txtUsername" Grid.Row="2" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username" />
-                    <PasswordBox x:Name="txtPassword1" Grid.Row="3"  Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Password" />
-                    <PasswordBox x:Name="txtPassword2" Grid.Row="4" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Konfirmasi Password" />
+                    <TextBox x:Name="txtNIK" Grid.Row="1" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="NIK" />
+                    <TextBox x:Name="txtNIP" Grid.Row="2" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="NIP" />
+                    <TextBox x:Name="txtUsername" Grid.Row="3" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Username" />
+                    <PasswordBox x:Name="txtPassword1" Grid.Row="4"  Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Password" />
+                    <PasswordBox x:Name="txtPassword2" Grid.Row="5" Grid.Column="1" FontSize="14" Margin="10" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Konfirmasi Password" />
 
 
 

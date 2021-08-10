@@ -37,6 +37,8 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                     tahun.Add((string)reader.GetString(0));
                 }
 
+                con.Close();
+
             }catch(Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -119,7 +121,6 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
 
                 while (reader.Read())
                 {
-
                     jumlahBulanLalu = (Int32)reader["jmlBulanIni"];
                 }
                 con.Close();
@@ -135,9 +136,9 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
         public List<Pwskia> GetSingleDataPwsKia(int idJenis, string bulanDanTahun, string desa)
         {
             string query = $"SELECT * FROM datapwskia " +
-                    $"JOIN daftarJenis " +
-                    $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis} " +
+                    $"JOIN daftarjenis " +
+                    $"ON datapwskia.idJenis = daftarjenis.id " +
+                    $"WHERE daftarjenis.id={idJenis} " +
                     $"AND tanggal LIKE '%{bulanDanTahun}%' " +
                     $"AND desa='{desa}'";
 
@@ -192,16 +193,16 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             if(bulanDanTahun == "")
             {
                 query = $"SELECT * FROM datapwskia " +
-                    $"JOIN daftarJenis " +
-                    $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis} ";
+                    $"JOIN daftarjenis " +
+                    $"ON datapwskia.idJenis = daftarjenis.id " +
+                    $"WHERE daftarjenis.id={idJenis} ";
             }
             else
             {
                 query = $"SELECT * FROM datapwskia " +
-                    $"JOIN daftarJenis " +
-                    $"ON datapwskia.idJenis = daftarJenis.id " +
-                    $"WHERE daftarJenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%'";
+                    $"JOIN daftarjenis " +
+                    $"ON datapwskia.idJenis = daftarjenis.id " +
+                    $"WHERE daftarjenis.id={idJenis} AND tanggal LIKE '%{bulanDanTahun}%'";
             }
 
             List<Pwskia> dataPwskia = new List<Pwskia>();
@@ -273,6 +274,8 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
 
                 message = "Berhasil memasukkan data!";
 
+                con.Close();
+
             }
             catch (Exception ex)
             {
@@ -303,6 +306,8 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 cmd.ExecuteReader();
                 message = "Berhasil Memperbaharui Data";
 
+                con.Close();
+
             }catch(Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -323,6 +328,7 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
                 cmd.ExecuteReader();
 
                 message = "Berhasil menghapus data";
+                con.Close();
 
             }catch(Exception ex)
             {
@@ -332,115 +338,5 @@ namespace pwskia_nusawungu.ViewModels.PWSKIA
             return message;
             
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        public List<Kunjungan1Model> GetDataKunjunganByArgs(string tanggal = "", string desa = "")
-        {
-            List<Kunjungan1Model> dataKunjungan1 = new List<Kunjungan1Model>();
-            string query;
-
-            if (tanggal == "")
-            {
-                query = $"SELECT * FROM `kunjungan1perdesa` WHERE nama='{desa}'";
-            }else if (desa == "")
-            {
-                query = $"SELECT * FROM tbkunjungan1 WHERE tanggal='{tanggal}'";
-            }else if(desa != "" && tanggal != "")
-            {
-                query = $"SELECT * FROM `kunjungan1perdesa` WHERE tanggal='{tanggal}' AND nama='{desa}'";
-            }
-            else
-            {
-                query = null;
-            }
-
-            try
-            {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                int nom = 1;
-                while (reader.Read())
-                {
-                    dataKunjungan1.Add(new Kunjungan1Model
-                    {
-                        idRecord = nom,
-                        tanggal = (string)reader["tanggal"],
-                        jumlahBulanLalu = (Int32)reader["jmlBulanLalu"],
-                        jumlahBulanIni = (Int32)reader["jmlBulanIni"],
-                        abs = (Int32)reader["abs"],
-                        persentase = (double)reader["persentase"],
-                        R = (Int32)reader["r"],
-                        penanggungJawab = (string)reader["penanggungJawab"]
-                    });
-
-                    nom++;
-                } 
-                con.Close();
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return dataKunjungan1;
-        }
-
-        public string UbahDataPerBulan(Kunjungan1Model kj1)
-        {
-            Int32 idDesa = 0;
-            DesaContext desaContext = new DesaContext();
-
-            foreach(Desa desa in desaContext.GetDesa())
-            {
-                if(kj1.desa.nama == desa.nama)
-                {
-                    idDesa = (Int32)desa.id;
-                }
-            }
-
-            string query = $"INSERT INTO tbkunjungan1(`idDesa`, `tanggal`, `jmlBulanLalu`, `jmlBulanIni`, `abs`, `persentase`, `r`, `penanggungJawab`) VALUES " +
-                $"({idDesa}, " +
-                $"'{kj1.tanggal}', " +
-                $"{kj1.jumlahBulanLalu}, " +
-                $"{kj1.jumlahBulanIni}, " +
-                $"{kj1.abs}, " +
-                $"{kj1.persentase}, " +
-                $"{kj1.R}, " +
-                $"'{kj1.penanggungJawab}')";
-
-            try
-            {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(query, con);
-
-                cmd.ExecuteReader();
-
-                con.Close();
-
-                return "Sukses mengubah data!";
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        */
     }
 }

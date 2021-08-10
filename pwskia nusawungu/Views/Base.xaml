@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pwskia_nusawungu.Views"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Icon="../Resources/Icon/icon.png"
         Background="#CDE4D3"
         WindowStartupLocation="CenterScreen"
@@ -18,7 +19,7 @@
 
         <StackPanel Grid.Column="0" Grid.RowSpan="2" Width="250" MaxWidth="274" Background="#21974C" HorizontalAlignment="Left">
 
-            <StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <materialDesign:Chip
                 Margin="10"
                 x:Name="btnProfile"
@@ -28,7 +29,7 @@
                 IsDeletable="True"
                 DeleteClick="btnLogout_Click"
                 ToolTip="Profil"
-                DeleteToolTip="Logout" Click="btnProfile_Click">
+                DeleteToolTip="Logout">
                     <materialDesign:Chip.Icon>
                         <materialDesign:PackIcon Kind="User"/>
                         <!--<Image
@@ -54,6 +55,12 @@
                         </StackPanel>
                     </Border>
                 </Popup>
+
+                <materialDesign:Chip x:Name="btnTriggerUbahPassword" ToolTip="Ubah Password" materialDesign:ButtonAssist.CornerRadius="20" Height="32" Width="32" Click="btnTriggerUbahPassword_Click">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Password" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    </StackPanel>
+                </materialDesign:Chip>
 
             </StackPanel>
 

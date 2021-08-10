@@ -74,7 +74,7 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
-                <Button x:Name="btnClose" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Keluar" Margin="0,20,0,30" Foreground="#FF3A3AB7"  Click="btnClose_Click" BorderBrush="{x:Null}">
+                <Button x:Name="btnClose" Height="40" materialDesign:ButtonAssist.CornerRadius="10" Content="Keluar" Margin="0,20,0,10" Foreground="#FF3A3AB7"  Click="btnClose_Click" BorderBrush="{x:Null}">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="White" Offset="0"/>
@@ -82,8 +82,109 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
+
+                <Button Foreground="#FF4747F9" FontStyle="Italic" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="11" Click="btnLupaSandi_Click">
+                    Lupa kata sandi?
+                </Button>
+                
             </StackPanel>
         </StackPanel>
+        
+        
+        <!-- POPUP Lupa Sandi -->
+
+        <Popup
+            Width="300"
+            Height="250"
+            x:Name="popUpCekAdmin"
+            StaysOpen="False"
+            Placement="Center">
+            <Popup.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="10"/>
+            </Popup.Effect>
+
+            <materialDesign:Card Background="#FFA7B6AB">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect BlurRadius="10"/>
+                </materialDesign:Card.Effect>
+                <StackPanel>
+                    <Grid Background="White">
+                        <TextBlock Margin="10" Text="Cek Admin" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    </Grid>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="65*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Username" Margin="10,10,10,0" VerticalAlignment="Center" Foreground="Gray" TextAlignment="Left" FontSize="14" FontWeight="Bold"/>
+                            <TextBox Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="txtLupaUsername" materialDesign:HintAssist.Hint="Masukkan username" Margin="0,5,10,0"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="65*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="NIK" Margin="10,10,10,0" VerticalAlignment="Center" Foreground="Gray" TextAlignment="Left" FontSize="14" FontWeight="Bold"/>
+                            <TextBox Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="txtNIK" materialDesign:HintAssist.Hint="Masukkan NIK" Margin="0,5,10,0"/>
+                        </Grid>
+                    </StackPanel>
+                    <Button x:Name="btnCekNIK" materialDesign:ButtonAssist.CornerRadius="10" Margin="10,20,10,0" Content="Cek" BorderBrush="{x:Null}" Click="btnCek_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Popup>
+
+        <!-- POPUP Ganti Sandi -->
+
+        <Popup
+            Width="300"
+            Height="250"
+            x:Name="popUpGantiSandi"
+            StaysOpen="False"
+            Placement="Center">
+            <Popup.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="10"/>
+            </Popup.Effect>
+
+            <materialDesign:Card Background="#FFA7B6AB">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect BlurRadius="10"/>
+                </materialDesign:Card.Effect>
+                <StackPanel>
+                    <Grid Background="White">
+                        <TextBlock Margin="10" Text="Ganti Sandi Baru" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    </Grid>
+                    <StackPanel>
+                        <Grid>
+                            <PasswordBox Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" x:Name="txtSandiBaru" materialDesign:HintAssist.Hint="Masukkan Sandi Baru" Margin="10,5,10,0"/>
+                        </Grid>
+                        <Grid>
+                            <PasswordBox Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" x:Name="txtKonfirmasiSandi" materialDesign:HintAssist.Hint="Konfirmasi Sandi Baru" Margin="10,5,10,0"/>
+                        </Grid>
+                    </StackPanel>
+                    <Button x:Name="btnSimoanSandi" materialDesign:ButtonAssist.CornerRadius="10" Margin="10,20,10,0" Content="Simpan" BorderBrush="{x:Null}" Click="btnSimpanSandi_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Popup>
+
 
         <!--Popup konfirmasi-->
         <Popup   

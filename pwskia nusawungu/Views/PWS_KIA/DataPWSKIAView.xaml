@@ -11,13 +11,6 @@
       MinHeight="600" MinWidth="960" MaxHeight="717" MaxWidth="1137"
       Title="Kunjungan1">
 
-    <Page.Resources>
-        <Style TargetType="Border">
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
@@ -337,7 +330,9 @@
                     <DropShadowEffect BlurRadius="10"/>
                 </materialDesign:Card.Effect>
                 <StackPanel>
+                    <TextBlock Text="mm" x:Name="txtTahun" Visibility="Hidden" />
                     <Grid Background="White">
+                        
                         <TextBlock Margin="10" Text="Ubah Data Sasaran" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18"/>
                     </Grid>
                     <Grid Margin="10">
@@ -350,6 +345,8 @@
                             <RowDefinition Height="25*"/>
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
+
+                        
 
                         <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
                         <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Jumlah Bulan Ini" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
@@ -651,12 +648,12 @@
                                 TextAlignment="Center"
                                 Margin="0,70,0,0"
                                 FontFamily="Times New Roman"
-                                Text="dr. Hj.Lini Nur'aini"
+                                Text="dr. Gilang Adiwignya P"
                                 FontSize="12" TextDecorations="Underline"/>
                             <TextBlock 
                                 TextAlignment="Center"
                                 FontFamily="Times New Roman"
-                                Text="NIP. 19720416200801 2008"
+                                Text="NIP. 19891219 201502 1004"
                                 FontSize="12"/>
                         </StackPanel>
 

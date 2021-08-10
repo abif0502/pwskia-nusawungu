@@ -48,9 +48,10 @@
 
                 <TextBlock Grid.Row="1" Text="Tanggal" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtTanggal" Margin="10,10,5,10" materialDesign:HintAssist.Hint="Tanggal" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
-                    <ComboBox x:Name="comBoxBulan" Width="80" Margin="5,10,5,10" materialDesign:HintAssist.Hint="Bulan"/>
-                    <TextBox x:Name="txtTahun" Margin="5,10,5,10" materialDesign:HintAssist.Hint="Tahun" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                    <TextBox x:Name="txtTahun" Margin="5,10,5,10" materialDesign:HintAssist.Hint="Tahun" PreviewKeyDown="txtNumberFormat_PreviewKeyDown" KeyUp="txtTahun_KeyUp" />
+                    <ComboBox x:Name="comBoxBulan" Width="75" Margin="5,10,5,10" materialDesign:HintAssist.Hint="Bulan" DropDownClosed="comBoxBulan_DropDownClosed" />
+                    <ComboBox x:Name="txtTanggal"  Margin="5,10,0,10" materialDesign:HintAssist.Hint="Tanggal" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+
                 </StackPanel>
 
                 <TextBlock Grid.Row="2" Text="Jumlah Bulan Ini" Margin="10" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF7D8980"/>

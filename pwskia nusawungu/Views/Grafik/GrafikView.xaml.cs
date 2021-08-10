@@ -302,6 +302,7 @@ namespace pwskia_nusawungu.Views.Grafik
         private void comBoxTahun_DropDownClosed(object sender, EventArgs e)
         {
             DrawChart();
+            btnTriggerPrint.IsEnabled = true;
         }
 
         private void btnTriggerPrint_Click(object sender, RoutedEventArgs e)

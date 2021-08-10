@@ -45,9 +45,27 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                 comBoxBulan.Items.Add(tanggal);
             }
             string[] tanggalSplit = tanggalContext.TanggalSekarang().Split(' ');
-            txtTanggal.Text = tanggalSplit[0];
+            
             comBoxBulan.Text = tanggalSplit[1];
             txtTahun.Text = tanggalSplit[2];
+
+            setJumlahTanggal(int.Parse(txtTahun.Text), comBoxBulan.Text);
+            txtTanggal.Text = tanggalSplit[0];
+        }
+
+        private void setJumlahTanggal(int tahun, string bulan)
+        {
+            txtTanggal.Items.Clear();
+            Tanggal tanggal = new Tanggal();
+            int indexBulan = Array.IndexOf(tanggal.GetDaftarBulan(), bulan) + 1;
+            if (!string.IsNullOrEmpty(txtTahun.Text))
+            {
+                int daysInMonth = DateTime.DaysInMonth(tahun, indexBulan);
+                for (int i = 1; i <= daysInMonth; i++)
+                {
+                    txtTanggal.Items.Add(i);
+                }
+            }
         }
 
         private int GetValueFromRadioButton()
@@ -120,9 +138,8 @@ namespace pwskia_nusawungu.Views.PWS_KIA
             Tanggal tanggal = new Tanggal();
             int jmlBulanLalu = 0;
 
-            //int bulanLalu = int.Parse(DateTime.Now.ToString("MM")) - 1;
-            // Hanya bulan sementara di tahun 2017
-            int bulanLalu = 1; //  bulan lalu = Januari
+            
+            int bulanLalu = Array.IndexOf(tanggal.GetDaftarBulan(), comBoxBulan.Text);
             PwskiaViewModel kunjunganContext = new PwskiaViewModel();
 
             string namaBulanLalu;
@@ -177,34 +194,43 @@ namespace pwskia_nusawungu.Views.PWS_KIA
                     Pwskia pwskia = new Pwskia();
 
                     pwskia.tanggal = tanggalSekarang;
-                    foreach (Desa desa in desaContext.GetSasaran(desa: namaDesa))
+                    if(desaContext.GetSasaranPerTahun(txtTahun.Text, namaDesa).Any())
                     {
-                        pwskia.desa = new Desa
+                        foreach (Desa desa in desaContext.GetSasaranPerTahun(txtTahun.Text, namaDesa))
                         {
-                            idJenis = idJenis,
-                            nama = comBoxDesa.Text,
-                            jmlBulanLalu = jumlahBulanLalu,
-                            jmlBulanIni = jumlahBulanIni,
-                            sasaran = new Sasaran
+                            pwskia.desa = new Desa
                             {
-                                bumil = desa.sasaran.bumil,
-                                bulin = desa.sasaran.bulin,
-                                bumilRisti = desa.sasaran.bumilRisti
-                            },
-                        };
-                    }
+                                idJenis = idJenis,
+                                nama = comBoxDesa.Text,
+                                jmlBulanLalu = jumlahBulanLalu,
+                                jmlBulanIni = jumlahBulanIni,
+                                sasaran = new Sasaran
+                                {
+                                    bumil = desa.sasaran.bumil,
+                                    bulin = desa.sasaran.bulin,
+                                    bumilRisti = desa.sasaran.bumilRisti
+                                },
+                            };
+                        }
 
-                    pwskia.penanggungJawab = penanggungJawab;
+                        pwskia.penanggungJawab = penanggungJawab;
 
-                    try
-                    {
-                        string message = kunjunganContext.AddDataPwskia(pwskia);
-                        MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        try
+                        {
+                            string message = kunjunganContext.AddDataPwskia(pwskia);
+                            MessageBox.Show(message, "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message, "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"Data sasaran untuk desa {comBoxDesa.Text} di tahun {txtTahun.Text} tidak ditemukan", "Info!", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                    
+                    
                 }
                 else
                 {
@@ -225,6 +251,22 @@ namespace pwskia_nusawungu.Views.PWS_KIA
         private void btnTutup_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void comBoxBulan_DropDownClosed(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtTahun.Text))
+            {
+                setJumlahTanggal(int.Parse(txtTahun.Text), comBoxBulan.Text);
+            }
+        }
+
+        private void txtTahun_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtTahun.Text))
+            {
+                setJumlahTanggal(int.Parse(txtTahun.Text), comBoxBulan.Text);
+            }
         }
     }
 }

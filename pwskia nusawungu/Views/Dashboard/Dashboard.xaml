@@ -27,7 +27,7 @@
                 BorderBrush="{x:Null}"
                 Foreground="White"
                 Margin="10" 
-                ToolTip="Ubah Data Sasaran" 
+                ToolTip="Tambah Data Sasaran" 
                 materialDesign:ButtonAssist.CornerRadius="10"
                 x:Name="btnTriggerInputSasaran" 
                 Click="btnTriggerInputSasaran_Click">
@@ -38,20 +38,22 @@
                     </LinearGradientBrush>
                 </Button.Background>
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Pen" Width="24" Height="24"/>
+                    <materialDesign:PackIcon Kind="ArchiveAdd" Width="24" Height="24"/>
                     <TextBlock 
                         VerticalAlignment="Center"
                         Margin="10,0,0,0">
-                        Ubah Data Sasaran
+                        Tambah Data Sasaran
                     </TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>
+        
+        <!-- PopUp Tambah Data Sasaran -->
 
         <Popup
             Width="350"
-            Height="250"
-            x:Name="popUpFromSasaran"
+            Height="300"
+            x:Name="popUpTambahSasaran"
             StaysOpen="False"
             Placement="Center">
             <Popup.Effect>
@@ -64,9 +66,17 @@
                 </materialDesign:Card.Effect>
                 <StackPanel>
                     <Grid Background="White">
-                        <TextBlock Margin="10" Text="Ubah Data Sasaran" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Margin="10" Text="Tambah Data Sasaran" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     </Grid>
-                    <Grid Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Tahun" Margin="10,10,10,0" VerticalAlignment="Center" Foreground="Gray" TextAlignment="Left" FontSize="14" FontWeight="Bold"/>
+                        <TextBox Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedTextBox}" x:Name="txtTTahun" materialDesign:HintAssist.Hint="Tahun" Margin="0,5,10,0" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                    </Grid>
+                    <Grid Margin="10" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40*"/>
                             <ColumnDefinition Width="60*"/>
@@ -103,23 +113,179 @@
 
         </Popup>
 
-        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+        <!-- Popup Ubah Data Sasaran -->
+        <Popup
+            Width="350"
+            Height="250"
+            x:Name="popUpUbahSasaran"
+            StaysOpen="False"
+            Placement="Center">
+            <Popup.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="10"/>
+            </Popup.Effect>
+
+            <materialDesign:Card Background="#FFA7B6AB">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect BlurRadius="10"/>
+                </materialDesign:Card.Effect>
+                <StackPanel>
+                    <Grid Background="White">
+                        <TextBlock Margin="10" Text="Ubah Data Sasaran" VerticalAlignment="Center" Foreground="#FFA7B6AB" TextAlignment="Center" FontSize="18" FontWeight="Bold"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="25*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox x:Name="txtUTahun" Visibility="Hidden" />
+
+                        <TextBlock Grid.Row="0" Text="Desa" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
+                        <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Bumil" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
+                        <TextBlock Grid.Row="2" Margin="0,5,0,0" Text="Bulin" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
+                        <TextBlock Grid.Row="3" Margin="0,5,0,0" Text="Bumil Risti" FontSize="14" FontWeight="Bold" Foreground="#FF7D8980"/>
+
+                        <ComboBox x:Name="comBoxUDesaSasaran" materialDesign:HintAssist.Foreground="White" Grid.Column="1" Grid.Row="0" materialDesign:HintAssist.Hint="Pilih Desa" FontSize="14"/>
+                        <TextBox x:Name="txtUBumil" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bumil" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <TextBox x:Name="txtUBulin" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+                        <TextBox x:Name="txtUBumilRisti" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0" materialDesign:HintAssist.Hint="Sasaran bulin risti" FontSize="14" PreviewKeyDown="txtNumberFormat_PreviewKeyDown"/>
+
+                    </Grid>
+                    <Button x:Name="btnSimpanUSasaran" materialDesign:ButtonAssist.CornerRadius="10" Margin="10,20,10,0" Content="SIMPAN" BorderBrush="{x:Null}" Click="btnSimpanUSasaran_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Popup>
+
+        <!--Popup Konfirmasi-->
+        <Popup   
+            x:Name="popUpConfirmHapus"
+            Placement="Center"
+            StaysOpen="False"
+            AllowsTransparency="True">
+            <materialDesign:Card BorderBrush="Black" BorderThickness="10">
+                <Grid Width="250" Height="160" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#21974C">
+                        <TextBlock Foreground="White" Margin="2" FontSize="16" TextAlignment="Center" Text="Konfirmasi!" />
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Foreground="#FFD8840A"
+                            Height="70"
+                            Width="70"
+                            Kind="Warning">
+
+                        </materialDesign:PackIcon>
+
+                        <TextBlock 
+                            Margin="10,0,0,0"
+                            FontSize="16"
+                            VerticalAlignment="Center">
+                            Yakin ingin hapus?
+                        </TextBlock>
+
+                    </StackPanel>
+
+                    <Grid Background="#CDE4D3" Grid.Row="2" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnHapusData"
+                                Margin="2,5,2,10" 
+                                materialDesign:ButtonAssist.CornerRadius="10"
+                                Grid.Column="1" 
+                                Content="Hapus" BorderBrush="{x:Null}" Click="btnHapusData_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF62B6F1" Offset="0"/>
+                                    <GradientStop Color="#FF0051A2" Offset="0.997"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnbatalHapus" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Foreground="Blue" Margin="2,5,2,10" Grid.Column="2" Content="Batal" Click="btnbatalHapus_Click" >
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="#FFA09E9E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </materialDesign:Card>
+
+        </Popup>
+
+
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10,10,30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="85*"/>
             </Grid.RowDefinitions>
             <Separator MinHeight="5" Grid.Row="0" Margin="0,0,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
-            <TextBlock Grid.Row="1" Text="Data Sasaran Terkini" Foreground="#FFA7B6AB" FontSize="14" TextAlignment="Center"/>
+            <TextBlock x:Name="txtJudulTabelSasaran" Grid.Row="1" Text="Data Sasaran Terkini" Foreground="#FFA7B6AB" FontSize="14" TextAlignment="Center"/>
             <DataGrid 
                 x:Name="dgSasaran"
                 Grid.Row="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nomor" IsReadOnly="True" Binding="{Binding Path=id}"/>
+                    <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
                     <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
+                    <DataGridTextColumn Header="Tahun" IsReadOnly="True" Binding="{Binding Path=sasaran.tahun}"/>
                     <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
                     <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>
                     <DataGridTextColumn Header="Bumil Risti" IsReadOnly="True" Binding="{Binding Path=sasaran.bumilRisti}"/>
+                    <DataGridTemplateColumn Header="Aksi">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Button x:Name="btnUbahSasaran" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}" Click="btnUbahSasaran_Click">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF5088FF" Offset="0"/>
+                                                <GradientStop Color="#FF0051FF" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Button.Background> Ubah
+                                    </Button>
+                                    <Button Margin="5,0,0,0" x:Name="btnTriggerHapus" materialDesign:ButtonAssist.CornerRadius="10" BorderBrush="{x:Null}"   Foreground="White" Click="btnTriggerHapus_Click">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FFFF6C6C" Offset="0"/>
+                                                <GradientStop Color="Red" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Button.Background> Hapus
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -131,9 +297,8 @@
             Grid.Column="1" >
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="70*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40*"/>
@@ -148,7 +313,7 @@
                         FontSize="18"
                         Margin="10"
                         TextAlignment="Center"
-                        Text="Lihat Data Sasaran Per Bulan" FontWeight="Bold" />
+                        Text="Lihat Data Sasaran Per Tahun" FontWeight="Bold" />
                 </Grid>
 
                 <TextBlock 
@@ -158,21 +323,11 @@
                     TextAlignment="Center"
                     VerticalAlignment="Center"
                     Grid.Row="1"
-                    Text="Pilih Bulan dan Tahun" />
-                <ComboBox 
-                    Grid.Row="1" 
-                    Margin="5"
-                    VerticalAlignment="Center"
-                    Grid.Column="1"
-                    x:Name="comBoxBulan" 
-                    Style="{StaticResource MaterialDesignFilledComboBox}"
-                    materialDesign:HintAssist.Hint="Pilih Bulan" DropDownClosed="comBoxBulan_DropDownClosed">
-                </ComboBox>
+                    Text="Pilih Tahun" />
                 <ComboBox 
                     Grid.Row="1" 
                     Grid.Column="2"
                     VerticalAlignment="Center"
-                    IsEnabled="False"
                     Style="{StaticResource MaterialDesignFilledComboBox}"
                     Margin="5"
                     x:Name="comBoxTahun" 
@@ -182,26 +337,27 @@
             </Grid>
         </materialDesign:Card>
 
-        <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+        <!--<Grid Grid.Column="1" Grid.Row="1" Margin="10,10,10,30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="85*"/>
             </Grid.RowDefinitions>
             <Separator MinHeight="5" Grid.Row="0" Margin="0,0,0,10" Background="#FFB8B8B8" Foreground="#FF898989" VerticalAlignment="Top"></Separator>
-            <TextBlock Grid.Row="1" x:Name="titleTableBulanDanTahun" Text="Data Sasaran " Foreground="#FFA7B6AB" FontSize="14" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" x:Name="titleTableSasaranTahun" Text="Data Sasaran " Foreground="#FFA7B6AB" FontSize="14" TextAlignment="Center"/>
             <DataGrid 
-                x:Name="dgSasaranPerbulan"
+                x:Name="dgSasaranPerTahun"
                 Grid.Row="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nomor" IsReadOnly="True" Binding="{Binding Path=id}"/>
+                    <DataGridTextColumn Header="No" IsReadOnly="True" Binding="{Binding Path=id}"/>
                     <DataGridTextColumn Header="Desa" IsReadOnly="True" Binding="{Binding Path=nama}"/>
+                    <DataGridTextColumn Header="Tahun" IsReadOnly="True" Binding="{Binding Path=sasaran.tahun}"/>
                     <DataGridTextColumn Header="Bumil" IsReadOnly="True" Binding="{Binding Path=sasaran.bumil}"/>
                     <DataGridTextColumn Header="Bulin" IsReadOnly="True" Binding="{Binding Path=sasaran.bulin}"/>
                     <DataGridTextColumn Header="Bumil Risti" IsReadOnly="True" Binding="{Binding Path=sasaran.bumilRisti}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </Grid>
+        </Grid>-->
 
     </Grid>
 </Page>

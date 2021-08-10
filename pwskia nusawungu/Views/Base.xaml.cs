@@ -15,6 +15,7 @@ using pwskia_nusawungu.Views;
 using pwskia_nusawungu.Models;
 
 using pwskia_nusawungu.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace pwskia_nusawungu.Views
 {
@@ -36,6 +37,7 @@ namespace pwskia_nusawungu.Views
             {
                 btnDaftarAdmin.Visibility = Visibility.Visible;
             }
+
         }
 
 
@@ -82,7 +84,7 @@ namespace pwskia_nusawungu.Views
             Title = "Daftar Admin";
         }
 
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        private void btnTriggerUbahPassword_Click(object sender, RoutedEventArgs e)
         {
             popUpUbahPassword.IsOpen = true;
         }
@@ -100,17 +102,45 @@ namespace pwskia_nusawungu.Views
                 {
                     if(profilPasswordBaru.Password == profilKonfirmasiPassword.Password)
                     {
-                        if(adminContext.UbahPasswordAdmin(dataAdmin, profilPasswordLama.Password, profilPasswordBaru.Password) == true)
+                        dataAdmin.passw = profilKonfirmasiPassword.Password;
+
+                        ValidationContext context = new ValidationContext(dataAdmin);
+                        var errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+                        string messageValidator = "";
+
+                        if (!Validator.TryValidateObject(dataAdmin, context, errors, true))
                         {
-                            MessageBox.Show("Berhasil Mengubah Sandi, Harap keluar dan login kembali", "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            foreach (System.ComponentModel.DataAnnotations.ValidationResult res in errors)
+                            {
+                                messageValidator += $"{res.ErrorMessage} \n";
+                            }
+
+                            MessageBox.Show(messageValidator, "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                         else
                         {
-                            MessageBox.Show("Sandi Anda Salah", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            if (adminContext.UbahPasswordAdmin(dataAdmin, profilPasswordLama.Password) == true)
+                            {
+                                MessageBox.Show("Berhasil Mengubah Sandi, Harap keluar dan login kembali", "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MainWindow login = new MainWindow();
+                                this.Close();
+                                login.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Sandi Anda Salah", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            }
                         }
-                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konfirmasi password tidak sama", "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
+
+                profilPasswordLama.Clear();
+                profilPasswordBaru.Clear();
+                profilKonfirmasiPassword.Clear();
                 
             }catch(Exception ex)
             {

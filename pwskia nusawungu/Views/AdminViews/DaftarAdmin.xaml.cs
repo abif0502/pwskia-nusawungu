@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,7 @@ namespace pwskia_nusawungu.Views.AdminView
                 {
 
                     admin.nama = txtNama.Text;
+                    admin.nik = txtNIK.Text;
                     admin.nip = txtNIP.Text;
                     admin.username = txtUsername.Text;
                     admin.passw = txtPassword2.Password;
@@ -89,10 +91,28 @@ namespace pwskia_nusawungu.Views.AdminView
                         }
                         else
                         {
-                            adminContext.registration(admin);
-                            MessageBox.Show("Berhasil mendaftarkan admin baru", "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            ValidationContext context = new ValidationContext(admin);
+                            var errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+                            string messageValidator = "";
 
-                            GetAllAdmin();
+                            if(!Validator.TryValidateObject(admin, context, errors, true))
+                            {
+                                foreach(System.ComponentModel.DataAnnotations.ValidationResult res in errors)
+                                {
+                                    messageValidator += $"{res.ErrorMessage} \n";
+                                }
+
+                                MessageBox.Show(messageValidator, "Info!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            }
+                            else
+                            {
+                                adminContext.registration(admin);
+                                MessageBox.Show("Berhasil mendaftarkan admin baru", "Info!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                                GetAllAdmin();
+
+                            }
+
                         }
                     }
                     catch(Exception ex)
